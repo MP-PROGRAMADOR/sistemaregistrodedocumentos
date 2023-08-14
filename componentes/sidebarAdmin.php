@@ -29,7 +29,7 @@
             </a>
             <div class="collapse" id="charts">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Nuevo</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="../admin/miembros.php">Miembros</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Listar</a></li>
                 </ul>
             </div>

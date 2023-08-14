@@ -184,7 +184,7 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formulario_departamentos.php"; ?>  
+                <?php require "../componentes/formulario_miembros.php"; ?>  
                 </div>
             </div>
             <!-- content-wrapper ends -->
