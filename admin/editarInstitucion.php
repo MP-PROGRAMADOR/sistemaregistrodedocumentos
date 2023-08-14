@@ -1,3 +1,8 @@
+
+
+
+
+
 <?php require "../componentes/head.php"; ?>
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
@@ -184,7 +189,7 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formulario_instituciones.php"; ?>  
+                <?php require "../componentes/formulario_instituciones_editar.php"; ?>  
                 </div>
             </div>
             <!-- content-wrapper ends -->
