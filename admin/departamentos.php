@@ -1,3 +1,18 @@
+<?php
+
+require '../conexion/conexion.php';
+
+$sqlDepartamentos= " SELECT * FROM departementos";
+
+$departamentos= $conn->query($sqlDepartamentos);
+
+
+?>
+
+
+
+
+
 <?php require "../componentes/head.php"; ?>
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->

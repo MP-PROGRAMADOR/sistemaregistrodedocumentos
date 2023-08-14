@@ -1,13 +1,7 @@
-<?php
-
-require '../conexion/conexion.php';
-
-  $sqlInstituciones = "SELECT * FROM instituciones";
-
-  $instituciones = $conn->query($sqlInstituciones);
 
 
-?>
+
+
 
 <?php require "../componentes/head.php"; ?>
 <div class="container-scroller">
@@ -195,7 +189,7 @@ require '../conexion/conexion.php';
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formulario_departamentos.php"; ?>  
+                <?php require "../componentes/formulario_departamentos_editar.php"; ?>  
                 </div>
             </div>
             <!-- content-wrapper ends -->

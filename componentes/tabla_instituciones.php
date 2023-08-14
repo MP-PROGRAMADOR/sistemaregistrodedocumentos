@@ -60,6 +60,27 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
 
 ?>
 
+
+<!-- alerta -->
+
+<?php
+if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
+?>
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <i class="fas fa-info-circle"></i>
+        <strong> Hola!</strong> Su Registro se ha Eliminado.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+<?php
+
+}
+
+?>
+
+
+
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -78,6 +99,11 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
 
                         <?php while ($row_pacientes = $pacientes->fetch_assoc()) {  ?>
 
+                            <?php 
+                            $datos = $row_pacientes['Id'];
+
+                            ?>
+
                             <tr>
                                 <td> <?= $row_pacientes['Id']; ?></td>
                                 <td> <?= $row_pacientes['Nombre']; ?></td>
@@ -85,7 +111,8 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
                                     <a href="../admin/editarInstitucion.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-sm btn-warning" ">EDITAR</a>
                                 </td>
                                 <td>
-                                <a href=" #" onclick="alertarEliminar('<?php echo $row_pacientes['Id']; ?>');" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModalusuario" data-bs-id_usuario="<?= $row_pacientes['Id'];   ?>">ELIMINAR</a>
+                               
+                                <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion">ELIMINAR</a>
                                 </td>
                             </tr>
 
@@ -98,6 +125,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
     </div>
 </div>
 
+<?php  include '../admin/ModaleliminarInstitucion.php'    ?>
 
 
 
@@ -117,50 +145,15 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'error') {
     });
 
 
-    //aqui empieza la funcion eliminar
-    function EliminarSala(id) {
-        // alert("el id recibido es: "+id);  
-        parametro = {
-            "id": id
-        }
-        $.ajax({
-            data: parametro,
-            url: '../php/eliminarInstitucion.php',
-            type: 'POST',
-            beforeSend: function() {},
-            success: function() {
-                Swal.fire(
-                    '¡Eliminado!',
-                    'La carrera ha sido eliminado exitosamente',
-                    'success'
+        // boton eliminar codigo del modal..
 
-                )
-                // location.reload();            
-            }
-
-        })
+    // agregar datos al formulario
+    function agregarForm(datos) {
+        var d = datos.split('||');
+        // alert("los datos son: "+d);
+        // return false;
+        $('#Id').val(d[0]);
 
     }
-
-
-    // *********************
-    function alertarEliminar(id) {
-        // e.preventDefault();
-        // alert("Estas seguro que quieres eliminar");
-        var codigo = id;
-        Swal.fire({
-            title: '¿Realmente quieres eliminar esa Facultad?',
-            text: "¡Esa Facultad será eliminada permanentemente!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, Eliminar',
-            cancelButtonText: 'No'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                EliminarSala(id);
-            }
-        })
-    }
+   
 </script>
