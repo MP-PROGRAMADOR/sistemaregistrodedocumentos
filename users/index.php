@@ -185,7 +185,7 @@
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      <?php require "../componentes/sidebarAdmin.php"; ?>     
+      <?php require "../componentes/sidebarUser.php"; ?>     
       <!-- partial fin del sidebar-->
       <div class="main-panel">
         <div class="content-wrapper">

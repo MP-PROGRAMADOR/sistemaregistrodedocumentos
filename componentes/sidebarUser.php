@@ -3,14 +3,14 @@
         <li class="nav-item">
             <a class="nav-link" href="index.html">
                 <i class="mdi mdi-grid-large menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
+                <span class="menu-title">Inicio</span>
             </a>
         </li>
-        <li class="nav-item nav-category">UI Elements</li>
+        
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-floor-plan"></i>
-                <span class="menu-title">UI Elements</span>
+                <i class="menu-icon mdi mdi-folder-arrow-right"></i>
+                <span class="menu-title">Entradas</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
@@ -66,7 +66,7 @@
             </a>
             <div class="collapse" id="icons">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li> 
                 </ul>
             </div>
         </li>
