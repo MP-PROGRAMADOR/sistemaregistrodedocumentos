@@ -46,7 +46,7 @@ $fila = mysqli_fetch_assoc($miembros);
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
-                <button type="button" class="btn btn-light">CANCELAR</button>
+                <a href="../admin/miembros.php" class="btn btn-danger me-2">CANCELAR</a>
             </form>
         </div>
     </div>

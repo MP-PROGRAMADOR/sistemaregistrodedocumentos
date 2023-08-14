@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-6 mb-2">
-        <a href="../admin/nuevoMiembro.php" class="btn btn-primary">AÑADIR</a>
+        <a href="../admin/nuevoMiembro.php" class="btn btn-primary"> <i class="mdi mdi-account-plus"></i></a>
     </div>
 </div>
 
@@ -86,7 +86,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         <div class="card-body">
 
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="myTable" class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -131,7 +131,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 </td>
                                 <td>
                                
-                                <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminaModal">ELIMINAR</a>
+                                <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminaModal"><i class="mdi mdi-archive"></i></a>
                                 </td>
                             </tr>
 
@@ -148,23 +148,17 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
 
 
 
-<script>
-    $('#example').DataTable();
-</script>
 
 
 <script>
-    $(document).ready(function() {
-        $("#buscador").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#tablita tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
+  
 
 
-        // boton eliminar codigo del modal..
+
+
+
+
+
 
     // agregar datos al formulario
     function agregarForm(datos) {

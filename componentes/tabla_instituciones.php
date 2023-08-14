@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-6 mb-2">
-        <a href="../admin/nuevaInstitucion.php" class="btn btn-primary">AÑADIR</a>
+        <a href="../admin/nuevaInstitucion.php" class="btn btn-primary"><i class="mdi mdi-account-plus"></i></a>
     </div>
 </div>
 
@@ -86,7 +86,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         <div class="card-body">
 
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="myTable" class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -135,14 +135,8 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
 
 
 <script>
-    $(document).ready(function() {
-        $("#buscador").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#tablita tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
+  
+
 
 
         // boton eliminar codigo del modal..

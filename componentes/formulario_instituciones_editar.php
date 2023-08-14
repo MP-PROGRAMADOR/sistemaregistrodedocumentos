@@ -30,7 +30,7 @@ $fila=mysqli_fetch_assoc($pacientes);
                     <input type="text" value="<?php  echo $fila['Nombre'];      ?>" class="form-control" id="nombre" name="nombre" placeholder="NOMBRE" required>
                 </div>
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
-                <button type="button" class="btn btn-light">CANCELAR</button>
+                <a href="../admin/instituciones.php" class="btn btn-danger me-2">CANCELAR</a>
             </form>
         </div>
     </div>

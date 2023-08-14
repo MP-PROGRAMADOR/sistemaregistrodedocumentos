@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-6 mb-2">
-        <a href="../admin/nuevoDepartamento.php" class="btn btn-primary">AÑADIR</a>
+        <a href="../admin/nuevoDepartamento.php" class="btn btn-primary"><i class="mdi mdi-account-plus"></i></a>
     </div>
 </div>
 
@@ -89,15 +89,13 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                 <div class="col-lg-6">
                     <h4 class="card-title">Todos los Departamentos</h4>
                 </div>
-                <div class="col-lg-6">
-                    <input type="text" class="form-control" id="buscador" name="buscador" placeholder="BUSCAR">
-                </div>
+
 
             </div>
 
 
             <div class="table-responsive">
-                <table id="example" class="display" style="width:100%">
+                <table id="myTable" class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -111,7 +109,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                     <tbody>
                         <?php while ($row_departamentos = $departamentos->fetch_assoc()) {  ?>
 
-                            <?php 
+                            <?php
                             $datos = $row_departamentos['Id'];
 
                             ?>
@@ -122,18 +120,18 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td> <?= $row_departamentos['Email']; ?></td>
 
 
-                                <?php  
-                                
-                                $id_institucion=$row_departamentos['Institucion'];
-                                
-                                $sql1="SELECT * FROM instituciones WHERE Id=$id_institucion";
-                                
-                                $resultado=mysqli_query($conn, $sql1);
+                                <?php
 
-                                $fila1=mysqli_fetch_assoc($resultado);
-                                 
-                                $institucion= $fila1['Nombre'];
-                                
+                                $id_institucion = $row_departamentos['Institucion'];
+
+                                $sql1 = "SELECT * FROM instituciones WHERE Id=$id_institucion";
+
+                                $resultado = mysqli_query($conn, $sql1);
+
+                                $fila1 = mysqli_fetch_assoc($resultado);
+
+                                $institucion = $fila1['Nombre'];
+
                                 ?>
 
 
@@ -141,10 +139,10 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td>
                                     <a href="../admin/editarDepartamentos.php?id=<?php echo $row_departamentos['Id'];  ?>" class="btn btn-sm btn-warning" ">EDITAR</a>
                               
-                                    <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminaModal">ELIMINAR</a>
-                                 <td>
-                                   
-                              
+                                    <a href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModal">ELIMINAR</a>
+                                </td>
+
+
                             </tr>
 
 
@@ -157,30 +155,13 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
     </div>
 </div>
 
-<?php    include '../admin/ModaleliminarDepartamento.php';         ?>
+<?php include '../admin/ModaleliminarDepartamento.php';         ?>
 
 
 
 
 <script>
-    $('#example').DataTable();
-</script>
-
-
-<script>
-    $(document).ready(function() {
-        $("#buscador").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#tablita tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-
-
-
-       
-     // boton eliminar codigo del modal..
+    // boton eliminar codigo del modal..
 
     // agregar datos al formulario
     function agregarForm(datos) {
@@ -190,6 +171,4 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         $('#Id').val(d[0]);
 
     }
-   
-    
 </script>

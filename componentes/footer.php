@@ -24,11 +24,24 @@
 <script src="../js/settings.js"></script>
 <script src="../js/todolist.js"></script>
 
+
+<!-- Page specific script -->
+<script>
+$(document).ready( function () {
+$('#myTable').DataTable();
+} );
+</script>
+
+
+
+
+<!-- datatables -->
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<!-- endinject -->
-<!-- Custom js for this page-->
-<!-- End custom js for this page-->
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+
 </body>
 
 </html>
