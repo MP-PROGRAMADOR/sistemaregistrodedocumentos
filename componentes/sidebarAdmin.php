@@ -30,7 +30,6 @@
             <div class="collapse" id="charts">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="../admin/miembros.php">Miembros</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Listar</a></li>
                 </ul>
             </div>
         </li>
@@ -42,7 +41,7 @@
             </a>
             <div class="collapse" id="tables">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Nuevo</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="../admin/usuarios.php">Usuarios</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Listar</a></li>
                 </ul>
             </div>
