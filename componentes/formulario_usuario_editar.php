@@ -34,7 +34,7 @@ $id=$fila2['Id'];
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">FORMULARIO DE REGISTRO</h4>
-            <form class="forms-sample" method="POST" action="../php/guardar_usuarios.php" enctype="multipart/form-data">
+            <form class="forms-sample" method="POST" action="" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="hidden" value="<?php echo $fila2['Id']; ?>" name="id" id="id">
                     <label for="nombre">NOMBRE DE USUARIO</label>
@@ -55,7 +55,7 @@ $id=$fila2['Id'];
                 </div>
                 <div class="form-group">
                     <label for="archivo">FOTO</label>
-                    <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*" required>
+                    <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*">
 
                     <?php
                     $path = "files/".$id;
@@ -68,7 +68,7 @@ $id=$fila2['Id'];
                                 "'><a href='".$path."/".$archivo."'
                                 title='Ver Archivo Adjunto'><span 
                                 class='glyphicon
-                                glyphicon-picture'></span></a>;
+                                glyphicon-picture'></span></a>";
                                 echo "$archivo <a href='#' class='delete'
                                 title='Ver Archivo Adjunto' ><span 
                                 class='glyphicon glyphicon-trash'
