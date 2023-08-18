@@ -7,6 +7,7 @@ $sqlDepartamentos = " SELECT * FROM departementos";
 $departamentos1 = $conn->query($sqlDepartamentos);
 
 
+
 ?>
 
 <?php
@@ -24,7 +25,7 @@ $sqlusuarios = " SELECT * FROM usuarios WHERE Id=$id";
 
 $usuarios = $conn->query($sqlusuarios);
 $fila2 = mysqli_fetch_assoc($usuarios);
-$id=$fila2['Id'];
+$id_insert= $id;
 
 ?>
 
@@ -34,7 +35,7 @@ $id=$fila2['Id'];
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">FORMULARIO DE REGISTRO</h4>
-            <form class="forms-sample" method="POST" action="../php/guardar_usuarios.php" enctype="multipart/form-data">
+            <form class="forms-sample" method="POST" action="../php/actualizar_usuarios.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="hidden" value="<?php echo $fila2['Id']; ?>" name="id" id="id">
                     <label for="nombre">NOMBRE DE USUARIO</label>
@@ -43,6 +44,12 @@ $id=$fila2['Id'];
                 <div class="form-group">
                     <label for="password">PASSWORD</label>
                     <input type="password" class="form-control" value="<?php echo $fila2['Pass']; ?>" id="password" name="password" placeholder="PASSWORD" required>
+                </div>
+                <div class="form-group">
+                    <label for="Tipo_Usuario">TIPO DE USUARIO</label>
+                    <select name="Tipo_Usuario" id="Tipo_Usuario" class="form-control" aria-label=".form-select-lg example">
+                    <option selected value="<?php echo $fila2['Tipo_Usuario']; ?>"><?php echo $fila2['Tipo_Usuario']; ?></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="institucion"> DEPARTAMENTO</label>
@@ -55,33 +62,18 @@ $id=$fila2['Id'];
                 </div>
                 <div class="form-group">
                     <label for="archivo">FOTO</label>
-                    <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*" required>
+                    <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*">
 
                     <?php
-                    $path = "files/".$id;
-                    if(file_exists($path)){
-                        $directorio = opendir($path);
-                        while ($archivo = readdir($directorio))
-                        {
-                            if(!is_dir($archivo)){
-                                echo "<div data='".$path."/".$archivo.
-                                "'><a href='".$path."/".$archivo."'
-                                title='Ver Archivo Adjunto'><span 
-                                class='glyphicon
-                                glyphicon-picture'></span></a>;
-                                echo "$archivo <a href='#' class='delete'
-                                title='Ver Archivo Adjunto' ><span 
-                                class='glyphicon glyphicon-trash'
-                                aria-hidden='true'></span></a></div>";
-                                echo "<img src='files/$id/$archivo'
-                                width='300' />";
-                            }
-                        }
-                    }
+
+                  
 
 
 
                     ?>
+
+<img src="data:image/jpg;base64,<?php echo base64_encode($fila2['Foto']); ?> " alt=""  height="60px" class="mt-2">
+
 
 
 
@@ -90,7 +82,7 @@ $id=$fila2['Id'];
 
                 </div>
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
-                <a href="../admin/miembros.php" class="btn btn-danger me-2">CANCELAR</a>
+                <a href="../admin/usuarios.php" class="btn btn-danger me-2">CANCELAR</a>
             </form>
         </div>
     </div>

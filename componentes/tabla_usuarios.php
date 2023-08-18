@@ -92,6 +92,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>ID</th>
                             <th>NOMBRE</th>
                             <th>DEPARTAMENTOS</th>
+                            <th>TIPO USUARIO</th>
                             <th>FOTO</th>
                             <th>EDITAR</th>
                             <th>ELIMINAR</th>
@@ -122,12 +123,26 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 $fila1=mysqli_fetch_assoc($resultado);
                                  
                                 $departamento= $fila1['Nombre'];
+
+                                // ruta de la imagen 
+                                $id_insert= $conn->insert_id;
+                                $dir = '../php/files/';
                                 
                                 ?>
 
 
                                 <td> <?= $departamento; ?></td>
-                                <td>hola</td>
+                                <?php  
+                                $usuario= $row_pacientes['Tipo_Usuario'];
+
+                                if($usuario=="ADMINISTRADOR"){
+                                    $tipo_usuario=$usuario;
+                                }
+                                
+                                
+                                ?>
+                                <td><span class="badge bg-primary"><?= $tipo_usuario;  ?></span></td>
+                                <td><img src="data:image/*;base64,<?php echo base64_encode($row_pacientes['Foto']); ?> " alt=""  height="50px"></td>
                                 <td>
                                     <a href="../admin/editarUsuarios.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-sm btn-warning" ">EDITAR</a>
                                 </td>

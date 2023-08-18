@@ -112,7 +112,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 </td>
                                 <td>
                                
-                                <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion">ELIMINAR</a>
+                                <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion"><i class="mdi mdi-archive"></i></a>
                                 </td>
                             </tr>
 
