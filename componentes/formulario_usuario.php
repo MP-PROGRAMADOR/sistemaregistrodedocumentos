@@ -38,7 +38,7 @@ $departamentos1= $conn->query($sqlDepartamentos);
                     <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*" required>
                 </div>
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
-               <a href="../admin/miembros.php" class="btn btn-danger me-2">CANCELAR</a>
+               <a href="../admin/usuarios.php" class="btn btn-danger me-2">CANCELAR</a>
             </form>
         </div>
     </div>

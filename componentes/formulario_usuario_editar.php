@@ -7,6 +7,7 @@ $sqlDepartamentos = " SELECT * FROM departementos";
 $departamentos1 = $conn->query($sqlDepartamentos);
 
 
+
 ?>
 
 <?php
@@ -24,7 +25,7 @@ $sqlusuarios = " SELECT * FROM usuarios WHERE Id=$id";
 
 $usuarios = $conn->query($sqlusuarios);
 $fila2 = mysqli_fetch_assoc($usuarios);
-$id=$fila2['Id'];
+$id_insert= $id;
 
 ?>
 
@@ -34,7 +35,7 @@ $id=$fila2['Id'];
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">FORMULARIO DE REGISTRO</h4>
-            <form class="forms-sample" method="POST" action="" enctype="multipart/form-data">
+            <form class="forms-sample" method="POST" action="../php/actualizar_usuarios.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="hidden" value="<?php echo $fila2['Id']; ?>" name="id" id="id">
                     <label for="nombre">NOMBRE DE USUARIO</label>
@@ -58,6 +59,8 @@ $id=$fila2['Id'];
                     <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*">
 
                     <?php
+
+                    // leyendo la foto
                     $path = "files/".$id;
                     if(file_exists($path)){
                         $directorio = opendir($path);
@@ -90,7 +93,7 @@ $id=$fila2['Id'];
 
                 </div>
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
-                <a href="../admin/miembros.php" class="btn btn-danger me-2">CANCELAR</a>
+                <a href="../admin/usuarios.php" class="btn btn-danger me-2">CANCELAR</a>
             </form>
         </div>
     </div>

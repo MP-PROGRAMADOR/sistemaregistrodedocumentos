@@ -122,12 +122,16 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 $fila1=mysqli_fetch_assoc($resultado);
                                  
                                 $departamento= $fila1['Nombre'];
+
+                                // ruta de la imagen 
+                                $id_insert= $conn->insert_id;
+                                $dir = '../php/files/';
                                 
                                 ?>
 
 
                                 <td> <?= $departamento; ?></td>
-                                <td>hola</td>
+                                <td><img src="<?= $dir . $row_pacientes['Id'] . '.jpg?n='. Time(); ?>" alt="" width="100"></td>
                                 <td>
                                     <a href="../admin/editarUsuarios.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-sm btn-warning" ">EDITAR</a>
                                 </td>
