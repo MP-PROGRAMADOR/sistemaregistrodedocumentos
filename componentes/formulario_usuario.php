@@ -25,6 +25,14 @@ $departamentos1= $conn->query($sqlDepartamentos);
                     <input type="password" class="form-control" id="password" name="password" placeholder="PASSWORD" required>
                 </div>
                 <div class="form-group">
+                    <label for="Tipo_Usuario">TIPO DE USUARIO</label>
+                    <select name="Tipo_Usuario" id="Tipo_Usuario" class="form-control" aria-label=".form-select-lg example">
+                    <option selected value="">Selecciona....</option>
+                    <option selected value="ADMINISTRADOR">ADMINISTRADOR</option>
+                    <option selected value="USUARIO">USUARIO</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="institucion"> DEPARTAMENTO</label>
                     <select class="form-control" aria-label=".form-select-lg example" id="departamento" name="departamento" required>
                         <option selected value="">seleccione una Institucion.....</option>

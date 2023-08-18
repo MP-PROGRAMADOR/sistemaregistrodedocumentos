@@ -46,6 +46,12 @@ $id_insert= $id;
                     <input type="password" class="form-control" value="<?php echo $fila2['Pass']; ?>" id="password" name="password" placeholder="PASSWORD" required>
                 </div>
                 <div class="form-group">
+                    <label for="Tipo_Usuario">TIPO DE USUARIO</label>
+                    <select name="Tipo_Usuario" id="Tipo_Usuario" class="form-control" aria-label=".form-select-lg example">
+                    <option selected value="<?php echo $fila2['Tipo_Usuario']; ?>"><?php echo $fila2['Tipo_Usuario']; ?></option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="institucion"> DEPARTAMENTO</label>
                     <select class="form-control" aria-label=".form-select-lg example" id="departamento" name="departamento" required>
                         <option selected value="">seleccione una Institucion.....</option>
@@ -60,31 +66,14 @@ $id_insert= $id;
 
                     <?php
 
-                    // leyendo la foto
-                    $path = "files/".$id;
-                    if(file_exists($path)){
-                        $directorio = opendir($path);
-                        while ($archivo = readdir($directorio))
-                        {
-                            if(!is_dir($archivo)){
-                                echo "<div data='".$path."/".$archivo.
-                                "'><a href='".$path."/".$archivo."'
-                                title='Ver Archivo Adjunto'><span 
-                                class='glyphicon
-                                glyphicon-picture'></span></a>";
-                                echo "$archivo <a href='#' class='delete'
-                                title='Ver Archivo Adjunto' ><span 
-                                class='glyphicon glyphicon-trash'
-                                aria-hidden='true'></span></a></div>";
-                                echo "<img src='files/$id/$archivo'
-                                width='300' />";
-                            }
-                        }
-                    }
+                  
 
 
 
                     ?>
+
+<img src="data:image/jpg;base64,<?php echo base64_encode($fila2['Foto']); ?> " alt=""  height="60px" class="mt-2">
+
 
 
 

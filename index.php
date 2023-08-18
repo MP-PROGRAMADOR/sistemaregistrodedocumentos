@@ -34,9 +34,9 @@
               </div>
               <h4>Hola! Bienvenid@</h4>
               <h6 class="fw-light">Pon tus datos para continuar.</h6>
-              <form class="pt-3">
+              <form class="pt-3" method="POST" action="php/verificando.php" autocomplete="off">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre De Usuario" required>
+                  <input type="text" class="form-control form-control-lg" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre De Usuario" required>
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Tu Contraseña" required>
