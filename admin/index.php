@@ -1,3 +1,5 @@
+
+
 <?php require "../componentes/head.php"; ?>
   <!-- fin del header -->
   <div class="container-scroller">
