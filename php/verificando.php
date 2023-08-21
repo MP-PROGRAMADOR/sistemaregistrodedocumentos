@@ -23,12 +23,15 @@ if($contador >0){
 
         if($tipo_user="ADMINISTRADOR"){
 
-            session_start();
         
             header('Location: ../admin/index.php');
 
         }
         elseif($tipo_user="USUARIO"){
+
+            session_start();
+
+            $_SESSION['Nombre']=$_POST['Nombre'];
             header('Location:users/index.php');
 
         }

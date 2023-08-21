@@ -1,3 +1,120 @@
+<?php
+
+
+require 'conexion/conexion.php';
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+   session_reset();
+
+    $usuario=mysqli_real_escape_string($conn, $_POST['nombre_usuario'] ) ;
+    
+    $password=mysqli_real_escape_string($conn, $_POST['password'] )  ;
+
+
+
+    if(!$usuario){
+        echo 'porfavor el usuario es necesario';
+    }
+
+
+
+    if(!$password){
+        echo 'porfavor el password es obligatorio';
+    }
+
+    if($usuario!=""){
+        $sql="SELECT * FROM usuarios where Nombre='${usuario}'";
+        $resultado= mysqli_query($conn,$sql);
+
+       
+
+     
+
+      if($resultado->num_rows){
+
+
+        // verificar si el password es corecto
+
+        $usuario= mysqli_fetch_assoc($resultado);
+
+        $auth= password_verify($password, $usuario['Pass'] );
+
+        var_dump($auth);
+
+        echo 'usuario verificado';
+
+        if($auth){
+            // cuando existe el usuario y la contrasena
+
+        
+
+        $tipo_user=$usuario['Tipo_Usuario'];
+
+        // cuando el nombre de usuario existe
+
+        if($tipo_user=="ADMINISTRADOR"){
+
+            session_start();
+
+            $_SESSION['usuario']=$_POST['nombre_usuario'];
+           
+           
+
+            header('Location: admin/index.php');
+
+        }
+
+
+        if($tipo_user=="USUARIO"){
+            
+            session_start();
+
+           $_SESSION['usuario']=$_POST['usuario'];
+
+            header('Location: users/index.php');
+
+        }
+      
+
+        }else{
+
+            echo 'la contrasena es incorecta';
+        }
+
+
+
+       
+
+      }else{
+        echo 'este usuario no existe';
+      }
+
+
+
+
+       
+        
+        }
+
+
+
+
+    }
+    
+
+
+
+
+
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +151,7 @@
               </div>
               <h4>Hola! Bienvenid@</h4>
               <h6 class="fw-light">Pon tus datos para continuar.</h6>
-              <form class="pt-3" method="POST" action="php/verificando.php" autocomplete="off">
+              <form class="pt-3" method="POST" action="" autocomplete="off">
                 <div class="form-group">
                   <input type="text" class="form-control form-control-lg" id="nombre_usuario" name="nombre_usuario" placeholder="Nombre De Usuario" required>
                 </div>

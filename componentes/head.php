@@ -1,3 +1,18 @@
+
+<?php
+
+// require '../conexion/conexion.php';
+// session_start();
+//  if (!isset($_SESSION['usuario'])) {
+
+//   header('Location:../index.php');
+//  }
+
+// $usuario=$_SESSION['usuario'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
