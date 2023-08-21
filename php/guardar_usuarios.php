@@ -13,6 +13,7 @@ $imagen=addslashes(file_get_contents($_FILES['archivo']['tmp_name']));
 
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
+
 $sql= "INSERT INTO usuarios (Nombre,Pass,Foto,Dpto,Tipo_Usuario)
     VALUES ('$nombre','$passwordHash','$imagen',$departamento,'$Tipo_Usuario')";
    
