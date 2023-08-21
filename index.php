@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
            $_SESSION['usuario']=$_POST['usuario'];
 
-            header('Location: ENFERMERA/index.php');
+            header('Location: users/index.php');
 
         }
       
