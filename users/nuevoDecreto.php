@@ -9,7 +9,7 @@ require '../conexion/conexion.php';
 
 ?>
 
-<?php require "../componentes/head.php"; ?>
+<?php require "../componentes/head.php"; ?> 
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <?php require "../componentes/topMenu.php"; ?>
@@ -195,7 +195,7 @@ require '../conexion/conexion.php';
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formularioDecreto.php"; ?>  
+                <?php require "../componentes/formularioDecreto.php"; ?>   
                 </div>
             </div>
             <!-- content-wrapper ends -->

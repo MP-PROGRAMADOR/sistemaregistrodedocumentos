@@ -51,7 +51,7 @@
             </a>
             <div class="collapse" id="tables">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="./informes.php">Nuevo Informe</a></li>
                 </ul>
             </div>
         </li>      

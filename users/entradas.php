@@ -8,11 +8,6 @@ $entradas= $conn->query($sqlEntradas);
 
 
 ?>
-
-
-
-
-
 <?php require "../componentes/head.php"; ?>
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->

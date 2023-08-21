@@ -101,7 +101,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                         <?php while ($row_entradas = $entradas->fetch_assoc()) {  ?>
 
                             <?php
-                            $datos = $row_entradas['Id'];
+                            $datos = $row_entradas['Id']; 
 
                             ?>
 

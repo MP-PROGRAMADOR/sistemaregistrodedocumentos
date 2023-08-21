@@ -199,7 +199,7 @@ $entradas= $conn->query($sqlEntradas);
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/tabla_decretos.php"; ?>    
+                <?php require "../componentes/tabla_decretos.php"; ?>   
                 </div>
             </div>
             <!-- content-wrapper ends -->
