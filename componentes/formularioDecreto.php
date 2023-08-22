@@ -22,7 +22,7 @@
                     
                 <div class="form-group">
                     <label for="archivo">Selecciona el Documento</label>
-                    <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Ejemplo solicitud de...">
+                    <input type="file" class="form-control" id="archivo" name="archivo">
                 </div>
                 <div class="form-group">
                     <label for="entradaDoc"> Entrada...</label>

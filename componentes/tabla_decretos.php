@@ -90,9 +90,9 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                     <thead>
                         <tr>
                             <th>Entrada</th>
-                            <th>Archivo</th>
                             <th>Descripcion del Decreto</th>
-                            <th>Fecha</th>                           
+                            <th>Fecha</th>
+                            <th>Archivo</th>                           
                             <td>ACCIONES</td>
                         </tr>
                     </thead>
@@ -118,15 +118,20 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td> <?= $filasEntradas['NumRegistro']."/".$filasEntradas['TipoDoc']; ?></td>
                                 <?php  }?>
 
-                                <td> <?= $row_entradas['Archivo']; ?></td>
+                               
                                 <td> <?= $row_entradas['Descripcion']; ?></td>
                                 <td> <?= $row_entradas['Fecha']; ?></td>
+                               
+                                <td> <a class="btn btn-primary me-2" href="../entradas/<?= $row_entradas['Archivo']; ?>" download="Entrada-<?= $row_entradas['DocEntrada']; ?>"><i class="mdi mdi-download"></i></a></td>
                                 <td>
-                                    <a href="../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id'];  ?>" class="btn btn-sm btn-warning" ">EDITAR</a>
+                                    <a class="btn btn-success me-2" href="../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning me-2" href="../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id'];  ?>"><i class="mdi mdi-pencil"></i></a>
                                 </td>
                                 <td>
                                
-                                <a href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion">ELIMINAR</a>
+                                <a class="btn btn-danger me-2" href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion"><i class="mdi mdi-delete"></i></a>
                                 </td>
                             </tr>
 
