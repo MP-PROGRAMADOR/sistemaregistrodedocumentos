@@ -194,7 +194,7 @@ $entradas= $conn->query($sqlEntradas);
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/tabla_entrada.php"; ?>  
+                <?php require "../componentes/tabla_entrada.php"; ?>   
                 </div>
             </div>
             <!-- content-wrapper ends -->
