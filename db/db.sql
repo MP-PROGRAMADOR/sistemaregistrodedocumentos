@@ -8,7 +8,7 @@ CREATE TABLE Instituciones(
     Nombre_Corto varchar(10),
     PRIMARY KEY (Id)
 );
-INSERT INTO Instituciones (Nombre, Nombre_Corto) VALUES ('Tesoreria General del Estado', 'TGE');
+
 
 CREATE TABLE Departementos(
     Id int(4) not null auto_increment,
@@ -19,7 +19,7 @@ CREATE TABLE Departementos(
     PRIMARY KEY (Id),
     FOREIGN KEY (Institucion) REFERENCES Instituciones (Id)
 );
-INSERT INTO Departementos (Nombre, Telefono,Email,Institucion) VALUES ('Informática', '333000000','informatica@tge.com',1);
+
 
 CREATE TABLE Miembros(
     Id int(4) not null auto_increment,
@@ -40,7 +40,7 @@ CREATE TABLE Usuarios(
     FOREIGN KEY (Dpto) REFERENCES Departementos (Id)
 );
 
-INSERT INTO Usuarios (Nombre, Pass,Foto,Dpto,Tipo_Usuario) VALUES ('Admin', '','',1,'ADMINISTRADOR');
+
 
 
 CREATE TABLE Salidas(
