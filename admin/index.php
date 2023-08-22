@@ -9,7 +9,7 @@ $numero_entradas = mysqli_num_rows($resultado_entradas);
 // cogiendo el numero de Salidas
 $sql_salidas = "SELECT * FROM salidas";
 $resultado_salidas = mysqli_query($conn, $sql_salidas);
-$numero_salidas = mysqli_num_rows($resultado_entradas);
+$numero_salidas = mysqli_num_rows($resultado_salidas);
 
 // cogiendo el numero de INFORMES
 $sql_informe = "SELECT * FROM informe";
@@ -294,8 +294,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                               <div class="d-sm-flex justify-content-between align-items-start">
                                 <div>
                                   <h4 class="card-title card-title-dash">Estadisticas</h4>
-                                  <p class="card-subtitle card-subtitle-dash">Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit</p>
+                                  <p class="card-subtitle card-subtitle-dash">estadistica del registro de entrada y salidas</p>
                                 </div>
 
                               </div>
@@ -308,12 +307,18 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                                 </div>
                               </div>
                               <div class="chartjs-bar-wrapper mt-3">
-                                <canvas id="marketingOverview"></canvas>
+                                <!-- <canvas id="marketingOverview"></canvas> -->
+
+                                <div id="columnchart_material" style="width: 900px; height: 300px;"></div>
+
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
+
+
+
                       <div class="row flex-grow">
                         <div class="col-12 grid-margin stretch-card">
                           <div class="card card-rounded">
@@ -323,9 +328,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                                   <h4 class="card-title card-title-dash">Pending Requests</h4>
                                   <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
                                 </div>
-                                <div>
-                                  <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new member</button>
-                                </div>
+
                               </div>
                               <div class="table-responsive  mt-1">
                                 <table class="table select-table">
@@ -337,13 +340,26 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                                             <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
                                         </div>
                                       </th>
-                                      <th>Customer</th>
-                                      <th>Company</th>
-                                      <th>Progress</th>
-                                      <th>Status</th>
+                                      <th>USUARIO</th>
+                                      <th>DEPARTAMENTO</th>
+                                      <th>PROGRESO</th>
+                                      <th>ESTADO</th>
                                     </tr>
                                   </thead>
                                   <tbody>
+
+
+
+                                    <?php
+
+                                    include '../conexion/conexion.php';
+
+                                    $sql_usuario = "SELECT * FROM usuarios LIMIT 4";
+                                    $resultado_usuario = mysqli_query($conn, $sql_usuario);
+                                    $fila_usuario = mysqli_fetch_assoc($resultado_usuario);
+
+                                    ?>
+
                                     <tr>
                                       <td>
                                         <div class="form-check form-check-flat mt-0">
@@ -351,8 +367,9 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                                             <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
                                         </div>
                                       </td>
+
                                       <td>
-                                        <div class="d-flex ">
+                                        <div class="d-flex">
                                           <img src="images/faces/face1.jpg" alt="">
                                           <div>
                                             <h6>Brandon Washington</h6>
@@ -360,6 +377,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                                           </div>
                                         </div>
                                       </td>
+
                                       <td>
                                         <h6>Company name 1</h6>
                                         <p>company type</p>
@@ -560,18 +578,18 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
 
                                         <div class="form-check w-100">
                                           <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"><?php  echo $fila['Descripcion'];  ?><i class="input-helper rounded"></i>
+                                            <input class="checkbox" type="checkbox"><?php echo $fila['Descripcion'];  ?><i class="input-helper rounded"></i>
                                           </label>
                                           <div class="d-flex mt-2">
-                                            <div class="ps-4 text-small me-3"><?php  echo $fila['FechaRegistro'];  ?></div>
-                                            <div class="badge badge-opacity-warning me-3">Numero: <?php  echo $fila['NumRegistro'];  ?></div>
+                                            <div class="ps-4 text-small me-3"><?php echo $fila['FechaRegistro'];  ?></div>
+                                            <div class="badge badge-opacity-warning me-3">Numero: <?php echo $fila['NumRegistro'];  ?></div>
                                             <i class="mdi mdi-flag ms-2 flag-color"></i>
                                           </div>
 
 
                                         </div>
                                       </li>
-                                      
+
                                     </ul>
                                   </div>
                                 </div>
@@ -593,66 +611,34 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                                     </div>
                                   </div>
                                   <div class="mt-3">
-                                    <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                      <div class="d-flex">
-                                        <img class="img-sm rounded-10" src="../images/faces/face1.jpg" alt="profile">
-                                        <div class="wrapper ms-3">
-                                          <p class="ms-1 mb-1 fw-bold">Brandon Washington</p>
-                                          <small class="text-muted mb-0">162543</small>
-                                        </div>
+
+
+                                    <!-- cogiendo todos los registros de entrada -->
+                                    <?php
+
+                                    $sql_salida23 = "SELECT * FROM salidas ORDER BY Id DESC LIMIT 4";
+                                    $resultado_salida23 = mysqli_query($conn, $sql_salida23);
+                                    $fila2 = mysqli_fetch_assoc($resultado_salida23);
+
+                                    $numero = mysqli_num_rows($resultado_salida23);
+
+                                    ?>
+
+
+                                    <div class="form-check w-100">
+                                      <label class="form-check-label">
+                                        <input class="checkbox" type="checkbox"><?php echo $fila2['Descripcion'];  ?><i class="input-helper rounded"></i>
+                                      </label>
+                                      <div class="d-flex mt-2">
+                                        <div class="ps-4 text-small me-3"><?php echo $fila2['FechaRegistro'];  ?></div>
+                                        <div class="badge badge-opacity-warning me-3">Numero: <?php echo $fila2['NumRegistro'];  ?></div>
+                                        <i class="mdi mdi-flag ms-2 flag-color"></i>
                                       </div>
-                                      <div class="text-muted text-small">
-                                        1h ago
-                                      </div>
+
+
                                     </div>
-                                    <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                      <div class="d-flex">
-                                        <img class="img-sm rounded-10" src="../images/faces/face2.jpg" alt="profile">
-                                        <div class="wrapper ms-3">
-                                          <p class="ms-1 mb-1 fw-bold">Wayne Murphy</p>
-                                          <small class="text-muted mb-0">162543</small>
-                                        </div>
-                                      </div>
-                                      <div class="text-muted text-small">
-                                        1h ago
-                                      </div>
-                                    </div>
-                                    <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                      <div class="d-flex">
-                                        <img class="img-sm rounded-10" src="../images/faces/face3.jpg" alt="profile">
-                                        <div class="wrapper ms-3">
-                                          <p class="ms-1 mb-1 fw-bold">Katherine Butler</p>
-                                          <small class="text-muted mb-0">162543</small>
-                                        </div>
-                                      </div>
-                                      <div class="text-muted text-small">
-                                        1h ago
-                                      </div>
-                                    </div>
-                                    <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                      <div class="d-flex">
-                                        <img class="img-sm rounded-10" src="../images/faces/face4.jpg" alt="profile">
-                                        <div class="wrapper ms-3">
-                                          <p class="ms-1 mb-1 fw-bold">Matthew Bailey</p>
-                                          <small class="text-muted mb-0">162543</small>
-                                        </div>
-                                      </div>
-                                      <div class="text-muted text-small">
-                                        1h ago
-                                      </div>
-                                    </div>
-                                    <div class="wrapper d-flex align-items-center justify-content-between pt-2">
-                                      <div class="d-flex">
-                                        <img class="img-sm rounded-10" src="../images/faces/face5.jpg" alt="profile">
-                                        <div class="wrapper ms-3">
-                                          <p class="ms-1 mb-1 fw-bold">Rafell John</p>
-                                          <small class="text-muted mb-0">Alaska, USA</small>
-                                        </div>
-                                      </div>
-                                      <div class="text-muted text-small">
-                                        1h ago
-                                      </div>
-                                    </div>
+
+
                                   </div>
                                 </div>
                               </div>
