@@ -30,8 +30,9 @@ CREATE TABLE Usuarios(
     Id int(5) not null auto_increment,
     Nombre varchar(50),
     Pass varchar(100),
-    Foto varchar (15),
+    Foto BLOB,
     Dpto int(4),
+    Tipo_Usuario varchar(15),
     PRIMARY KEY (Id),
     FOREIGN KEY (Dpto) REFERENCES Departementos (Id)
 );

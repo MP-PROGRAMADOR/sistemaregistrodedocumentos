@@ -369,10 +369,10 @@
     if ($("#marketingOverview").length) {
       var marketingOverviewChart = document.getElementById("marketingOverview").getContext('2d');
       var marketingOverviewData = {
-          labels: ["JAN","FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+          labels: ["ENERO","FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DECIEMBRE"],
           datasets: [{
-              label: 'Last week',
-              data: [110, 220, 200, 190, 220, 110, 210, 110, 205, 202, 201, 150],
+              label: 'La semana Pasada',
+              data: [100, 120, 200, 190, 220, 110, 210, 110, 205, 202, 201, 150],
               backgroundColor: "#52CDFF",
               borderColor: [
                   '#52CDFF',
@@ -381,7 +381,7 @@
               fill: true, // 3: no fill
               
           },{
-            label: 'This week',
+            label: 'Esta Semana',
             data: [215, 290, 210, 250, 290, 230, 290, 210, 280, 220, 190, 300],
             backgroundColor: "#1F3BB3",
             borderColor: [
@@ -461,10 +461,10 @@
     if ($("#marketingOverview-dark").length) {
       var marketingOverviewChartDark = document.getElementById("marketingOverview-dark").getContext('2d');
       var marketingOverviewDataDark = {
-          labels: ["JAN","FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+          labels: ["ENERO","FEBRERO", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
           datasets: [{
               label: 'Last week',
-              data: [110, 220, 200, 190, 220, 110, 210, 110, 205, 202, 201, 150],
+              data: [130, 220, 200, 190, 220, 110, 210, 110, 205, 202, 201, 150],
               backgroundColor: "#52CDFF",
               borderColor: [
                   '#52CDFF',

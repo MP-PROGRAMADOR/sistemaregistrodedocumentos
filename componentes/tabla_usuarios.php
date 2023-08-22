@@ -144,11 +144,11 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td><span class="badge bg-primary"><?= $tipo_usuario;  ?></span></td>
                                 <td><img src="data:image/*;base64,<?php echo base64_encode($row_pacientes['Foto']); ?> " alt=""  height="50px"></td>
                                 <td>
-                                    <a href="../admin/editarUsuarios.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-sm btn-warning" ">EDITAR</a>
+                                    <a href="../admin/editarUsuarios.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-warning me-2" ">EDITAR</a>
                                 </td>
                                 <td>
                                
-                                <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminaModal"><i class="mdi mdi-archive"></i></a>
+                                <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-danger me-2"  data-bs-toggle="modal" data-bs-target="#eliminaModal"><i class="mdi mdi-delete"></i></a>
                                 </td>
                             </tr>
 
