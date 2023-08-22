@@ -58,6 +58,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             session_start();
 
             $_SESSION['usuario']=$_POST['nombre_usuario'];
+            $_SESSION['codigo']=$usuario['Id'];
            
            
 
@@ -71,6 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             session_start();
 
             $_SESSION['usuario']=$_POST['nombre_usuario'];
+            $_SESSION['codigo']=$usuario['Id'];
 
             header('Location: users/index.php');
 

@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group">
                     <label for="fechaFirma">¿Cuando de Firmo el documento?</label>
-                    <input type="date" class="form-control" id="fechaFirma" name="fechaFirma" placeholder="Ejemplo solicitud de...">
+                    <input type="date" class="form-control" id="fechaFirma" name="fechaFirma" placeholder="Ejemplo solicitud de..."> 
                 </div>
                 <div class="form-group">
                     <label for="importe">Importe</label>
@@ -32,7 +32,7 @@
                     <select class="form-control" aria-label=".form-select-lg example" id="institucion" name="institucion" required>
                         <option selected value="">seleccione una Institucion.....</option>
                         <?php while ($institucion = mysqli_fetch_array($instituciones)) { ?>
-                            <option value="<?php echo $institucion['Id']; ?>"><?php echo $institucion['Nombre']; ?></option>
+                            <option value="<?php echo $institucion['Id']; ?>"><?php echo $institucion['Nombre_Corto']; ?></option>
                         <?php } ?>
                     </select>
                 </div>

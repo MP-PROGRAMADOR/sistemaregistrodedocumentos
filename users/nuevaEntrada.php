@@ -12,7 +12,7 @@ require '../conexion/conexion.php';
 <?php require "../componentes/head.php"; ?>
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
-    <?php require "../componentes/topMenu.php"; ?>
+    <?php require "../componentes/topMenu.php"; ?> 
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:../../partials/_settings-panel.html -->
@@ -190,7 +190,7 @@ require '../conexion/conexion.php';
         </div>
         <!-- partial -->
         <!-- partial:../../partials/_sidebar.html -->
-         <?php require "../componentes/sidebarUser.php"; ?>        
+         <?php require "../componentes/sidebarUser.php"; ?>         
         <!-- partial sidebar final -->
         <div class="main-panel">
             <div class="content-wrapper">
