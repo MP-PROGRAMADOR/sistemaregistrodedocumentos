@@ -5,7 +5,7 @@ date_default_timezone_set('Africa/Malabo');
  
 $hora_actual = date("h");
 
-$hora_temprana=date("13");
+$hora_temprana=date("12");
 
 if($hora_actual<$hora_temprana){
     $saludo= "Buenos Dias,";
