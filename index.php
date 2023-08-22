@@ -70,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             
             session_start();
 
-           $_SESSION['usuario']=$_POST['usuario'];
+            $_SESSION['usuario']=$_POST['nombre_usuario'];
 
             header('Location: users/index.php');
 
