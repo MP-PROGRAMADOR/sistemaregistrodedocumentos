@@ -2,18 +2,16 @@
 
 require '../conexion/conexion.php';
 
-$sqlEntradas= " SELECT * FROM decretos";
+  $sqlDecretos = "SELECT * FROM decretos";
+  $ResultDecretos = $conn->query($sqlDecretos);
 
-$entradas= $conn->query($sqlEntradas);
+  $sqlDpto = "SELECT * FROM departementos";
+  $ResultDpto = $conn->query($sqlDpto);
 
 
 ?>
 
-
-
-
-
-<?php require "../componentes/head.php"; ?>
+<?php require "../componentes/head.php"; ?> 
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <?php require "../componentes/topMenu.php"; ?>
@@ -199,7 +197,7 @@ $entradas= $conn->query($sqlEntradas);
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/tabla_informes.php"; ?>    
+                <?php require "../componentes/formularioInforme.php"; ?>   
                 </div>
             </div>
             <!-- content-wrapper ends -->

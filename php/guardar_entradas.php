@@ -3,22 +3,22 @@
 
 require '../conexion/conexion.php';
 
-$directorio = "../entradas/";
+$directorio = "../documentos/entradas/";
 $archivo = $directorio . basename($_FILES["archivo"]["name"]);
 $tipoArchivo = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
+
 //Validar que es imagen
-$checarSiImagen = getimagesize($_FILES["archivo"]["tmp_name"]); 
-if ($checarSiImagen != false) {
+
     //validar tamaño imagen
     $size = $_FILES["archivo"]["size"];
-    if ($size > 500000) {
-        echo "El Documento pesa mas de 5000KB";
+    if ($size > 1000000) {
+        echo "El Documento pesa mas de 1000000KB";
     } else {
         //validar tipo de imagen
         if ($tipoArchivo == "pdf" || $tipoArchivo == "docx") {
             // se validó el archivo correctamente
             if (move_uploaded_file($_FILES["archivo"]["tmp_name"], $archivo)) {
-                echo "El archivo se subio correctamente";
+                echo " El archivo se subio correctamente";
             } else {
                 echo "Hubo un error al subir el archivo";
             }
@@ -26,9 +26,7 @@ if ($checarSiImagen != false) {
             echo "Solo se admiten archivos pdf/docx";
         }
     }
-} else {
-    echo "El archivo no es un documento";
-}
+
 
 $qLastID = "SELECT MAX(entradas.Id) AS Codigo FROM entradas";
 $ResultId = mysqli_query($conn, $qLastID);
@@ -46,7 +44,7 @@ $archivo= $conn->real_escape_string($_FILES["archivo"]["name"]);
 $institucion=$conn->real_escape_string($_POST['institucion']);
 $numRegistro = $idLast."-".$YearActual;
 $usuario = 1;
-$fechaRegistro = date("d-m-Y");
+$fechaRegistro = date("Y-m-d");
 
     $sql= "INSERT INTO entradas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Procedencia, Usuario)
     VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$institucion','$usuario')";
