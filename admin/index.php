@@ -370,7 +370,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
 
                                       <td>
                                         <div class="d-flex">
-                                          <img src="images/faces/face1.jpg" alt="">
+                                          <img src="data:image/*;base64,<?php echo base64_encode($fila_usuario['Foto']); ?>" alt=""  height="50px">
                                           <div>
                                             <h6>Brandon Washington</h6>
                                             <p>Head admin</p>
