@@ -14,6 +14,8 @@ $usuario_id = $_SESSION['codigo'];
 
 
 
+
+
 // cogiendo los datos por meses
 $sql_enero = "SELECT * FROM entradas WHERE FechaRegistro BETWEEN '2023-01-01' AND '2023-01-31'";
 $resultado_enero = mysqli_query($conn, $sql_enero);
