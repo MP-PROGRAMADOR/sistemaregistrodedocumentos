@@ -268,29 +268,31 @@ $numero_salidas_total = mysqli_num_rows($resultado_salidas_total);
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin2 </title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="../vendors/feather/feather.css">
-    <link rel="stylesheet" href="../vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="../vendors/typicons/typicons.css">
-    <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
-    <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="../vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="../js/select.dataTables.min.css">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="../css/vertical-layout-light/style.css">
-    <!-- endinject -->
-    <link rel="shortcut icon" href="../images/favicon.png" />
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Star Admin2 </title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../vendors/feather/feather.css">
+  <link rel="stylesheet" href="../vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="../vendors/typicons/typicons.css">
+  <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="../js/select.dataTables.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../css/vertical-layout-light/style.css">
+  <!-- estilos personalizados -->
+  <link rel="stylesheet" href="../css/estilosPersonalizados.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../images/favicon.png" />
 
-    <!-- datatables -->
-    <!-- <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+  <!-- datatables -->
+  <!-- <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
 
     css de datatables 
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
@@ -303,8 +305,8 @@ $numero_salidas_total = mysqli_num_rows($resultado_salidas_total);
 
 
 
-    <!-- graficas  -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <!-- graficas  -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script type="text/javascript">
         google.charts.load('current', {

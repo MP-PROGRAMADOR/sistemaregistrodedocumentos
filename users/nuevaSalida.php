@@ -195,7 +195,7 @@ require '../conexion/conexion.php';
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formularioEntradas.php"; ?>  
+                <?php require "../componentes/formularioSalidas.php"; ?>  
                 </div>
             </div>
             <!-- content-wrapper ends -->

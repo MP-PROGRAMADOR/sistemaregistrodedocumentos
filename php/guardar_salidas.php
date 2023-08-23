@@ -6,7 +6,7 @@ session_start();
 
 $usuario = $_SESSION['codigo'];
 
-$directorio = "../documentos/entradas/";
+$directorio = "../documentos/salidas/";
 $archivo = $directorio . basename($_FILES["archivo"]["name"]);
 $tipoArchivo = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
 
@@ -48,13 +48,13 @@ $institucion = $conn->real_escape_string($_POST['institucion']);
 $numRegistro = $idLast . "-" . $YearActual;
 $fechaRegistro = date("Y-m-d");
 
-$sql = "INSERT INTO entradas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Procedencia, Usuario)
+$sql = "INSERT INTO salidas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Destino, Usuario)
     VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$institucion','$usuario')";
 
 if ($conn->query($sql)) {
     $id = $conn->insert_id;
 
-    header('Location: ../users/entradas.php?mensaje=insertado');
+    header('Location: ../users/salidas.php?mensaje=insertado');
 } else {
-    header('Location: ../users/entradas.php?mensaje=error');
+    header('Location: ../users/salidas.php?mensaje=error');
 }

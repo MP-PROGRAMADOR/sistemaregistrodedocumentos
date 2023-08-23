@@ -1,8 +1,8 @@
 <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">FORMULARIO DE REGISTRO DE ENTRADAS</h4>
-            <form class="forms-sample" method="POST" action="../php/guardar_entradas.php" enctype="multipart/form-data">
+            <h4 class="card-title">FORMULARIO DE REGISTRO DE SALIDAS</h4>
+            <form class="forms-sample" method="POST" action="../php/guardar_salidas.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="TipoDoc">Tipo de Documento</label>
                     <input type="text" class="form-control" id="TipoDoc" name="TipoDoc" placeholder="Ejemplo carta...">

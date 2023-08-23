@@ -191,7 +191,7 @@ $codEntrada = $_GET['id'];
           <div class="col-sm-12">
             <div class="home-tab">
               <?php
-              $qEntrada = "SELECT * FROM entradas WHERE entradas.Id = '$codEntrada'";
+              $qEntrada = "SELECT * FROM salidas WHERE salidas.Id = '$codEntrada'";
               $resulEntrada = mysqli_query($conn, $qEntrada);
               $Entrada = mysqli_fetch_array($resulEntrada);
               ?>
