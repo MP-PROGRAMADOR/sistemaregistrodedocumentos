@@ -8,11 +8,6 @@ $entradas= $conn->query($sqlEntradas);
 
 
 ?>
-
-
-
-
-
 <?php require "../componentes/head.php"; ?>
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
@@ -204,4 +199,4 @@ $entradas= $conn->query($sqlEntradas);
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:../../partials/_footer.html -->
-            <?php require "../componentes/footer.php"; ?>
+            <?php require "../componentes/footer.php"; ?> 

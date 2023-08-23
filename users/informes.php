@@ -2,7 +2,7 @@
 
 require '../conexion/conexion.php';
 
-$sqlEntradas= " SELECT * FROM decretos";
+$sqlEntradas= " SELECT * FROM informe";
 
 $entradas= $conn->query($sqlEntradas);
 
@@ -199,7 +199,7 @@ $entradas= $conn->query($sqlEntradas);
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/tabla_informes.php"; ?>    
+                <?php require "../componentes/tabla_informes.php"; ?>     
                 </div>
             </div>
             <!-- content-wrapper ends -->

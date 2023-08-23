@@ -69,10 +69,10 @@ $fecha_actual=date("d-m-y");
         </div>
         <div>
             <a class="navbar-brand brand-logo" href="index.php">
-                <img src="../images/logo.svg" alt="logo" />
+                <img src="../images/TESORERIA.png" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" href="index.php">
-                <img src="../images/logo-mini.svg" alt="logo" />
+                <img src="../images/TESORERIA.png" alt="logo" />
             </a>
         </div>
     </div>

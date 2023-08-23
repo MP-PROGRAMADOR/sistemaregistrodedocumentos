@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-lg-6 mb-2">
         <a href="../users/nuevoDecreto.php" class="btn btn-primary"><i class="mdi mdi-account-plus"></i></a>
+        <a href="#../users/nuevoDecreto.php" class="btn btn-success"><i class="mdi mdi-printer"></i></a>
     </div>
 </div>
 
@@ -92,7 +93,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>Entrada</th>
                             <th>Descripcion del Decreto</th>
                             <th>Fecha</th>
-                            <th>Archivo</th>                           
+                            <th>Archivo</th>
                             <td>ACCIONES</td>
                         </tr>
                     </thead>
@@ -101,38 +102,37 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                         <?php while ($row_entradas = $entradas->fetch_assoc()) {  ?>
 
                             <?php
-                            $datos = $row_entradas['Id']; 
+                            $datos = $row_entradas['Id'];
 
                             ?>
 
                             <tr>
-                                
-                                    <?php 
-                                            $procedencia = $row_entradas['DocEntrada'];
-                                            $buscarProcedencia = "SELECT * FROM entradas WHERE Id = '$procedencia'";
-                                            $Resultprocedencia= $conn->query($buscarProcedencia);   
-                                            
-                                            while($filasEntradas = $Resultprocedencia->fetch_assoc() ){
-                                           
-                                    ?>
-                                <td> <?= $filasEntradas['NumRegistro']."/".$filasEntradas['TipoDoc']; ?></td>
-                                <?php  }?>
 
-                               
+                                <?php
+                                $procedencia = $row_entradas['DocEntrada'];
+                                $buscarProcedencia = "SELECT * FROM entradas WHERE Id = '$procedencia'";
+                                $Resultprocedencia = $conn->query($buscarProcedencia);
+
+                                while ($filasEntradas = $Resultprocedencia->fetch_assoc()) {
+
+                                ?>
+                                    <td> <?= $filasEntradas['NumRegistro'] . "/" . $filasEntradas['TipoDoc']; ?></td>
+                                <?php  } ?>
+
+
                                 <td> <?= $row_entradas['Descripcion']; ?></td>
                                 <td> <?= $row_entradas['Fecha']; ?></td>
-                               
-                                <td> <a class="btn btn-primary me-2" href="../entradas/<?= $row_entradas['Archivo']; ?>" download="Entrada-<?= $row_entradas['DocEntrada']; ?>"><i class="mdi mdi-download"></i></a></td>
-                                <td>
+
+                                <td> <a class="btn btn-primary me-2" href="../documentos/decretos/<?= $row_entradas['Archivo']; ?>" download="Decreto-<?= $row_entradas['DocEntrada']; ?>"><i class="mdi mdi-download"></i></a></td>
+                                <!-- <td>
                                     <a class="btn btn-success me-2" href="../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
-                                </td>
+                                </td> -->
                                 <td>
                                     <a class="btn btn-warning me-2" href="../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id'];  ?>"><i class="mdi mdi-pencil"></i></a>
                                 </td>
-                                <td>
-                               
-                                <a class="btn btn-danger me-2" href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion"><i class="mdi mdi-delete"></i></a>
-                                </td>
+                                <!-- <td>
+                                    <a class="btn btn-danger me-2" href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion"><i class="mdi mdi-delete"></i></a>
+                                </td> -->
                             </tr>
 
 

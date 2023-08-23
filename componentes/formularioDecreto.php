@@ -1,7 +1,7 @@
 <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">FORMULARIO DE REGISTRO</h4>
+            <h4 class="card-title">FORMULARIO DE REGISTRO DE DECRETOS</h4>
             <form class="forms-sample" method="POST" action="../php/guardar_decreto.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="ckeditor">Descripción del Decreto</label>
@@ -34,7 +34,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button> 
-                <a href="./entradas.php" class="btn btn-light">CANCELAR</a>
+                <a href="./decretos.php" class="btn btn-light">CANCELAR</a>
             </form>
         </div>
     </div>

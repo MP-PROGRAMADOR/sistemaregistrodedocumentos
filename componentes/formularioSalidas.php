@@ -38,7 +38,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button> 
-                <a href="./entradas.php" class="btn btn-light">CANCELAR</a>
+                <a href="./salidas.php" class="btn btn-light">CANCELAR</a>
             </form>
         </div>
     </div>

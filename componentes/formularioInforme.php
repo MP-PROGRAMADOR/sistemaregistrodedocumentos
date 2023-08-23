@@ -1,7 +1,7 @@
 <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">FORMULARIO DE REGISTRO</h4>
+            <h4 class="card-title">FORMULARIO DE REGISTRO DE INFORMES</h4>
             <form class="forms-sample" method="POST" action="../php/guardar_decreto.php">
 
                 <div class="form-group">
