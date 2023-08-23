@@ -3,22 +3,55 @@
 // obteniendo la hora acyaual
 date_default_timezone_set('Africa/Malabo');
  
-$hora_actual = date("h:i:s");
+$hora_actual = date("h");
 
-$hora_temprana=date("13:00:00");
+$hora_ahora=(int)$hora_actual;
+ $hora_temprana=13;
 
-if($hora_actual<$hora_temprana){
-    $saludo= "Buenos Dias,";
+if($hora_ahora>$hora_temprana){
+    $saludo= "Buenos Tardes,";
 }else{
-    $saludo= "Buenas Tardes,";
+    $saludo= "Buenos Dias,";
 }
 
 // obteniendo los dias del mes
-$fecha_actual=date("d");
-$dia_temprano=date("10");
-if($fecha_actual<$dia_temprano){
-    $texto="<b>JHON</B>, Es inicio del mes alegrate un";
-}
+$fecha_actual=date("d-m-y");
+
+
+    $vector = array(
+        1 => $fecha_actual . " Nada nuevo hay bajo el sol, pero cuántas cosas viejas hay que no conocemos.",
+        2 => $fecha_actual . " El verdadero amigo es aquel que está a tu lado cuando preferiría estar en otra parte.",
+        3 => $fecha_actual . " La sabiduría es la hija de la experiencia.",
+        4 => $fecha_actual . " Nunca hay viento favorable para el que no sabe hacia dónde va.",
+        6 => $fecha_actual . " El único modo de hacer un gran trabajo es amar lo que haces - Steve Jobs",
+        5 => $fecha_actual . " La felicidad es el verdadero sentimiento de plenitud que se consigue con el trabajo duro",
+        7 => $fecha_actual . " Sé un punto de referencia de calidad. Algunas personas no están acostumbradas a un ambiente donde la excelencia es aceptada",
+        8 => $fecha_actual . " La felicidad es el verdadero sentimiento de plenitud que se consigue con el trabajo duro",
+        9 => $fecha_actual . " Si no haces que ocurran  cosas, las cosas te ocurrirán a ti",
+        10 => $fecha_actual . " Trabajar en lo correcto es mucho más importante que trabajar duro",
+        11 => $fecha_actual . " Los líderes son encantadores, generan mucha empatía, se ponen en el lugar del resto para saber cómo piensa y que le deben decir, utilizan bastante su inteligencia emocional",
+        12 => $fecha_actual . " El trabajo obsesivo produce la locura, tanto como la pereza completa, pero con esta combinación se puede vivir",
+        13 => $fecha_actual . " En medio de la dificultad yace la oportunidad",
+        14 => $fecha_actual . " Los obstáculos son esas cosas espantosas que ves cuando quitas la mirada de tus metas",
+        15 => $fecha_actual . " El hombre que mueve montañas comienza cargando pequeñas piedras",
+        16 => $fecha_actual . " El fracaso no es lo opuesto al éxito: es parte del éxito",
+        17 => $fecha_actual . " La habilidad es lo que eres capaz de hacer. La motivación determina lo que haces. La actitud determina qué tan bien lo haces",
+        18 => $fecha_actual . " Somos lo que hacemos repetidamente. La excelencia, entonces, no es un acto, sino un hábito",
+        19 => $fecha_actual . " No tienes que mirar toda la escalera. Para empezar, solo concéntrate en dar el primer paso",
+        20 => $fecha_actual . " La felicidad no está en la mera posesión del dinero; radica en la alegría del logro, en la emoción del esfuerzo creativo",
+        21 => $fecha_actual . " Haz lo único que crees que no puedes hacer. Falla en eso. Intenta otra vez. Hazlo mejor la segunda vez. Las únicas personas que nunca se caen son aquellas que nunca se suben a la cuerda floja",
+        22 => $fecha_actual . " Nunca hay tiempo suficiente para hacerlo bien, pero siempre hay tiempo suficiente para hacerlo de nuevo",
+        23 => $fecha_actual . " Enfócate en ser productivo en vez de enfocarte en estar ocupado",
+        24 => $fecha_actual . " Trabajar en lo correcto es probablemente más importante que trabajar duro",
+        25 => $fecha_actual . " El hombre no puede descubrir nuevos océanos a menos que tenga el coraje de perder de vista la costa",
+        26 => $fecha_actual . " No aprendes a caminar siguiendo reglas. Aprendes haciendo y cayéndote",
+        27 => $fecha_actual . " Los obstáculos no tienen por qué detenerte. Si te topas con una pared, no te des la vuelta y te rindas. Descubre cómo escalarla, atravesarla o sortearla",
+        28 => $fecha_actual . " Nadie puede descubrirte hasta que tú lo hagas. Explota tus talentos, habilidades y fortalezas y haz que el mundo se siente y se dé cuenta",
+        29 => $fecha_actual . " Si hay algo que te asusta, entonces podría significar que vale la pena intentarlo",
+        30 => $fecha_actual . " El trabajo en equipo es el secreto que hace que gente común consiga resultados poco comunes",
+        );
+        $numero= rand(1,30);
+
 
 
 
@@ -46,135 +79,15 @@ if($fecha_actual<$dia_temprano){
     <div class="navbar-menu-wrapper d-flex align-items-top">
         <ul class="navbar-nav">
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                <h1 class="welcome-text"><?php echo $saludo;    ?> <span class="text-black fw-bold">John Doe</span></h1>
-                <h3 class="welcome-sub-text"><?php echo $fecha_actual;    ?>Your performance summary this week</h3>
+                <h1 class="welcome-text"><?php echo $saludo;    ?> <span class="text-black fw-bold"> <?php  $usuario;   ?></span></h1>
+                <h3 class="welcome-sub-text"><?php echo $fecha_actual;    ?> <?php echo "$vector[$numero] "; ?></h3>
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
-                    <a class="dropdown-item py-3">
-                        <p class="mb-0 font-weight-medium float-left">Select category</p>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Bootstrap Bundle </p>
-                            <p class="fw-light small-text mb-0">This is a Bundle featuring 16 unique dashboards</p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Angular Bundle</p>
-                            <p class="fw-light small-text mb-0">Everything you’ll ever need for your Angular projects</p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">VUE Bundle</p>
-                            <p class="fw-light small-text mb-0">Bundle of 6 Premium Vue Admin Dashboard</p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">React Bundle</p>
-                            <p class="fw-light small-text mb-0">Bundle of 8 Premium React Admin Dashboard</p>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item d-none d-lg-block">
-                <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
-                    <span class="input-group-addon input-group-prepend border-right">
-                        <span class="icon-calendar input-group-text calendar-icon"></span>
-                    </span>
-                    <input type="text" class="form-control">
-                </div>
-            </li>
-            <li class="nav-item">
-                <form class="search-form" action="#">
-                    <i class="icon-search"></i>
-                    <input type="search" class="form-control" placeholder="Search Here" title="Search here">
-                </form>
-            </li>
+           
+          
             <li class="nav-item dropdown">
-                <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-                    <i class="icon-mail icon-lg"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
-                    <a class="dropdown-item py-3 border-bottom">
-                        <p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
-                        <span class="badge badge-pill badge-primary float-right">View all</span>
-                    </a>
-                    <a class="dropdown-item preview-item py-3">
-                        <div class="preview-thumbnail">
-                            <i class="mdi mdi-alert m-auto text-primary"></i>
-                        </div>
-                        <div class="preview-item-content">
-                            <h6 class="preview-subject fw-normal text-dark mb-1">Application Error</h6>
-                            <p class="fw-light small-text mb-0"> Just now </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item py-3">
-                        <div class="preview-thumbnail">
-                            <i class="mdi mdi-settings m-auto text-primary"></i>
-                        </div>
-                        <div class="preview-item-content">
-                            <h6 class="preview-subject fw-normal text-dark mb-1">Settings</h6>
-                            <p class="fw-light small-text mb-0"> Private message </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item py-3">
-                        <div class="preview-thumbnail">
-                            <i class="mdi mdi-airballoon m-auto text-primary"></i>
-                        </div>
-                        <div class="preview-item-content">
-                            <h6 class="preview-subject fw-normal text-dark mb-1">New user registration</h6>
-                            <p class="fw-light small-text mb-0"> 2 days ago </p>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="icon-bell"></i>
-                    <span class="count"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown">
-                    <a class="dropdown-item py-3">
-                        <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
-                        <span class="badge badge-pill badge-primary float-right">View all</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
-                            <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
-                            <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../images/faces/face1.jpg" alt="image" class="img-sm profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
-                            <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
-                        </div>
-                    </a>
-                </div>
+               
             </li>
             <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                 <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
