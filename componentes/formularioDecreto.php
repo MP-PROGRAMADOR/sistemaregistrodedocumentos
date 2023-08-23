@@ -2,8 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">FORMULARIO DE REGISTRO</h4>
-            <form class="forms-sample" method="POST" action="../php/guardar_decreto.php">
-
+            <form class="forms-sample" method="POST" action="../php/guardar_decreto.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="ckeditor">Descripción del Decreto</label>
                     <textarea name="descripcion" id="ckeditor" class="form-control ckeditor" id="" cols="30" rows="15" placeholder="Descripcion del documento"></textarea>
@@ -34,7 +33,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
+                <button type="submit" class="btn btn-primary me-2">GUARDAR</button> 
                 <a href="./entradas.php" class="btn btn-light">CANCELAR</a>
             </form>
         </div>

@@ -1,7 +1,7 @@
 <?php
 
 
-require '../conexion/conexion.php';
+require '../conexion/conexion.php'; 
 session_start();
 
 $usuario = $_SESSION['codigo'];
