@@ -2,17 +2,27 @@
 
 // obteniendo la hora acyaual
 date_default_timezone_set('Africa/Malabo');
+
  
-$hora_actual = date("h");
+$hora_actual = date("H");
 
-$hora_ahora=(int)$hora_actual;
- $hora_temprana=13;
 
-if($hora_ahora>$hora_temprana){
-    $saludo= "Buenos Tardes,";
-}else{
-    $saludo= "Buenos Dias,";
+
+$hora = date("H:i:s");
+$hora2 = 13;
+$hora3 = 20;
+ 
+if($hora_actual < $hora2){
+    $saludo= "Buenos días";
 }
+else if($hora_actual > $hora2 AND $hora_actual < $hora3){
+    $saludo ="Buenas Tardes";
+}
+else{
+    $saludo= "Buenas Noches";
+}
+
+
 
 // obteniendo los dias del mes
 $fecha_actual=date("d-m-y");
@@ -79,7 +89,7 @@ $fecha_actual=date("d-m-y");
     <div class="navbar-menu-wrapper d-flex align-items-top">
         <ul class="navbar-nav">
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                <h1 class="welcome-text"><?php echo $saludo;    ?> <span class="text-black fw-bold"> <?php  $usuario;   ?></span></h1>
+                <h1 class="welcome-text"><?php echo $saludo;    ?> <span class="text-black fw-bold"> <?=  $usuario;   ?></span></h1>
                 <h3 class="welcome-sub-text"><?php echo $fecha_actual;    ?> <?php echo "$vector[$numero] "; ?></h3>
             </li>
         </ul>

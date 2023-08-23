@@ -281,13 +281,13 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                           <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
                         </div>
                         <div class="d-none d-md-block">
-                          <p class="statistics-title">New Sessions</p>
-                          <h3 class="rate-percentage">68.8</h3>
+                          <p class="statistics-title">Fecha</p>
+                          <h3 class="rate-percentage"><?php echo $fecha_actual;    ?></h3>
                           <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
                         </div>
                         <div class="d-none d-md-block">
-                          <p class="statistics-title">Avg. Time on Site</p>
-                          <h3 class="rate-percentage">2m:35s</h3>
+                          <p class="statistics-title">Hora</p>
+                          <h3 class="rate-percentage"><?php echo $hora;    ?></h3>
                           <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
                         </div>
                       </div>
@@ -349,12 +349,11 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                             <div class="card-body">
                               <div class="d-sm-flex justify-content-between align-items-start">
                                 <div>
-                                  <h4 class="card-title card-title-dash">Pending Requests</h4>
+                                  <h4 class="card-title card-title-dash">Progreso de Usuario</h4>
                                   <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
                                 </div>
-                                <div>
-                                  <button class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Add new member</button>
-                                </div>
+
+
                               </div>
                               <div class="table-responsive  mt-1">
                                 <table class="table select-table">
@@ -366,188 +365,72 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                             <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
                                         </div>
                                       </th>
-                                      <th>Customer</th>
-                                      <th>Company</th>
-                                      <th>Progress</th>
-                                      <th>Status</th>
+                                      <th>USUARIO</th>
+                                      <th>DEPARTAMENTO</th>
+                                      <th>PROGRESO</th>
+                                      <th>ESTADO</th>
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>
-                                        <div class="form-check form-check-flat mt-0">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="d-flex ">
-                                          <img src="images/faces/face1.jpg" alt="">
+
+
+
+                                    <?php
+
+                                    include '../conexion/conexion.php';
+
+                                    $sql_usuario = "SELECT * FROM usuarios WHERE Id=$usuario_id";
+                                    $resultado_usuario = mysqli_query($conn, $sql_usuario);
+
+
+                                    while ($row_usuarios = $resultado_usuario->fetch_assoc()) {
+
+                                    ?>
+
+                                      <tr>
+
+                                        <td>
+                                          <div class="form-check form-check-flat mt-0">
+                                            <label class="form-check-label">
+                                              <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
+                                          </div>
+                                        </td>
+
+                                        <td>
+                                          <div class="d-flex">
+                                            <img src="data:image/*;base64,<?php echo base64_encode($row_usuarios['Foto']); ?>" alt="" height="50px">
+                                            <div>
+                                              <h6><?= $row_usuarios['Nombre'];   ?></h6>
+                                              <p><?= $row_usuarios['Tipo_Usuario'];   ?></p>
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <h6></h6>
+                                          <p><?= $row_usuarios['Dpto'];  ?></p>
+                                        </td>
+                                        <td>
                                           <div>
-                                            <h6>Brandon Washington</h6>
-                                            <p>Head admin</p>
+                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
+                                              <p class="text-success">79%</p>
+                                              <p>85/162</p>
+                                            </div>
+                                            <div class="progress progress-md">
+                                              <div class="progress-bar bg-success" role="progressbar" style="width: 85%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                           </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <h6>Company name 1</h6>
-                                        <p>company type</p>
-                                      </td>
-                                      <td>
-                                        <div>
-                                          <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                            <p class="text-success">79%</p>
-                                            <p>85/162</p>
-                                          </div>
-                                          <div class="progress progress-md">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="badge badge-opacity-warning">In progress</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="form-check form-check-flat mt-0">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="d-flex">
-                                          <img src="images/faces/face2.jpg" alt="">
-                                          <div>
-                                            <h6>Laura Brooks</h6>
-                                            <p>Head admin</p>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <h6>Company name 1</h6>
-                                        <p>company type</p>
-                                      </td>
-                                      <td>
-                                        <div>
-                                          <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                            <p class="text-success">65%</p>
-                                            <p>85/162</p>
-                                          </div>
-                                          <div class="progress progress-md">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="badge badge-opacity-warning">In progress</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="form-check form-check-flat mt-0">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="d-flex">
-                                          <img src="images/faces/face3.jpg" alt="">
-                                          <div>
-                                            <h6>Wayne Murphy</h6>
-                                            <p>Head admin</p>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <h6>Company name 1</h6>
-                                        <p>company type</p>
-                                      </td>
-                                      <td>
-                                        <div>
-                                          <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                            <p class="text-success">65%</p>
-                                            <p>85/162</p>
-                                          </div>
-                                          <div class="progress progress-md">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 38%" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="badge badge-opacity-warning">In progress</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="form-check form-check-flat mt-0">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="d-flex">
-                                          <img src="images/faces/face4.jpg" alt="">
-                                          <div>
-                                            <h6>Matthew Bailey</h6>
-                                            <p>Head admin</p>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <h6>Company name 1</h6>
-                                        <p>company type</p>
-                                      </td>
-                                      <td>
-                                        <div>
-                                          <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                            <p class="text-success">65%</p>
-                                            <p>85/162</p>
-                                          </div>
-                                          <div class="progress progress-md">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="badge badge-opacity-danger">Pending</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="form-check form-check-flat mt-0">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="d-flex">
-                                          <img src="images/faces/face5.jpg" alt="">
-                                          <div>
-                                            <h6>Katherine Butler</h6>
-                                            <p>Head admin</p>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <h6>Company name 1</h6>
-                                        <p>company type</p>
-                                      </td>
-                                      <td>
-                                        <div>
-                                          <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                            <p class="text-success">65%</p>
-                                            <p>85/162</p>
-                                          </div>
-                                          <div class="progress progress-md">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="badge badge-opacity-success">Completed</div>
-                                      </td>
-                                    </tr>
+                                        </td>
+                                        <td>
+                                          <div class="badge badge-opacity-warning">In progress</div>
+                                        </td>
+                                      </tr>
+
+
+                                    <?php } ?>
+
+
+
+
                                   </tbody>
                                 </table>
                               </div>
@@ -589,8 +472,8 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                       ?>
 
                                       <li class="d-block">
-                                        
-                                      <div class="form-check w-100">
+
+                                        <div class="form-check w-100">
                                           <label class="form-check-label">
                                             <input class="checkbox" type="checkbox"><?php echo $fila['Descripcion'];  ?><i class="input-helper rounded"></i>
                                           </label>
@@ -626,7 +509,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                     <h4 class="card-title card-title-dash">Entradas VS Salidas</h4>
                                   </div>
 
-                                  <div id="piechart" style="width: 500px; height: 300px;"></div>
+                                  <div id="piechart" style="width: 100%; height: 300px;"></div>
 
                                   <div id="doughnut-chart-legend" class="mt-5 text-center"></div>
                                 </div>
@@ -637,7 +520,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                       </div>
 
 
-                     
+
                       <div class="row flex-grow">
                         <div class="col-12 grid-margin stretch-card">
                           <div class="card card-rounded">
@@ -651,8 +534,8 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                   </div>
                                   <div class="mt-3">
                                     <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                     
-                                    
+
+
                                       <!-- cogiendo todos los registros de salida -->
                                       <?php
 
@@ -666,19 +549,19 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
 
 
-                                    
-                                    <div class="form-check w-100">
-                                          <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"><?php echo $fila23['Descripcion'];  ?><i class="input-helper rounded"></i>
-                                          </label>
-                                          <div class="d-flex mt-2">
-                                            <div class="ps-4 text-small me-3"><?php echo $fila23['FechaRegistro'];  ?></div>
-                                            <div class="badge badge-opacity-warning me-3">Numero: <?php echo $fila23['NumRegistro'];  ?></div>
-                                            <i class="mdi mdi-flag ms-2 flag-color"></i>
-                                          </div>
 
-
+                                      <div class="form-check w-100">
+                                        <label class="form-check-label">
+                                          <input class="checkbox" type="checkbox"><?php echo $fila23['Descripcion'];  ?><i class="input-helper rounded"></i>
+                                        </label>
+                                        <div class="d-flex mt-2">
+                                          <div class="ps-4 text-small me-3"><?php echo $fila23['FechaRegistro'];  ?></div>
+                                          <div class="badge badge-opacity-warning me-3">Numero: <?php echo $fila23['NumRegistro'];  ?></div>
+                                          <i class="mdi mdi-flag ms-2 flag-color"></i>
                                         </div>
+
+
+                                      </div>
 
 
 
@@ -686,9 +569,9 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                     </div>
 
 
-                                    
-                                   
-                                    
+
+
+
                                   </div>
                                 </div>
                               </div>
