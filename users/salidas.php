@@ -2,9 +2,9 @@
 
 require '../conexion/conexion.php';
 
-$sqlDepartamentos= " SELECT * FROM departementos";
+$sqlSalidas = " SELECT * FROM salidas";
 
-$departamentos= $conn->query($sqlDepartamentos);
+$salidas = $conn->query($sqlSalidas);
 
 
 ?>
@@ -199,7 +199,7 @@ $departamentos= $conn->query($sqlDepartamentos);
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/tabla_salidas.php"; ?>  
+                <?php require "../componentes/tabla_salidas.php"; ?>   
                 </div>
             </div>
             <!-- content-wrapper ends -->
