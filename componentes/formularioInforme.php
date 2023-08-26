@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">FORMULARIO DE REGISTRO DE INFORMES</h4>
-            <form class="forms-sample" method="POST" action="../php/guardar_decreto.php">
+            <form class="forms-sample" method="POST" action="../php/guardar_informe.php" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="ckeditor">Descripción del Informe</label>
@@ -33,17 +33,16 @@
                     <label for="archivo">Selecciona el Documento</label>
                     <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Ejemplo solicitud de...">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="estado">¿?</label>
                     <select class="form-control" aria-label=".form-select-lg example" id="estado" name="estado" required>
                         <option selected value="si">Sí</option>
-                        <option value="no">No</option>
-                        
+                        <option value="no">No</option>                        
                     </select>
-                </div>
+                </div> -->
 
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
-                <a href="./entradas.php" class="btn btn-light">CANCELAR</a>
+                <a href="./informes.php" class="btn btn-light">CANCELAR</a>
             </form>
         </div>
     </div>

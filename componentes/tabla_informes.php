@@ -108,24 +108,33 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             ?>
 
                             <tr>
+                                <td> <?= $row_entradas['Descripcion']; ?></td>
 
                                 <?php
-                                $procedencia = $row_entradas['DocEntrada'];
-                                $buscarProcedencia = "SELECT * FROM entradas WHERE Id = '$procedencia'";
+                                $dpto = $row_entradas['Dpto'];
+                                $buscarDpto = "SELECT * FROM departementos WHERE Id = '$dpto'";
+                                $ResultDpto = $conn->query($buscarDpto);
+
+                                while ($filasEntradas = $ResultDpto->fetch_assoc()) {
+
+                                ?>
+                                    <td> <?= $filasEntradas['Nombre']; ?></td>
+                                <?php  } ?>
+
+                                <?php
+                                $procedencia = $row_entradas['Decreto'];
+                                $buscarProcedencia = "SELECT * FROM decretos WHERE Id = '$procedencia'";
                                 $Resultprocedencia = $conn->query($buscarProcedencia);
 
                                 while ($filasEntradas = $Resultprocedencia->fetch_assoc()) {
 
                                 ?>
-                                    <td> <?= $filasEntradas['NumRegistro'] . "/" . $filasEntradas['TipoDoc']; ?></td>
+                                    <td> <?= $filasEntradas['Descripcion']; ?></td>
                                 <?php  } ?>
 
+                                <td> <?= $row_entradas['Estado']; ?></td>
 
-                                <td> <?= $row_entradas['Descripcion']; ?></td>
-                                <td> <?= $row_entradas['Fecha']; ?></td>
-                                <td> <?= $row_entradas['Fecha']; ?></td>
-
-                                <td> <a class="btn btn-primary me-2" href="../entradas/<?= $row_entradas['Archivo']; ?>" download="Entrada-<?= $row_entradas['DocEntrada']; ?>"><i class="mdi mdi-download"></i></a></td>
+                                <td> <a class="btn btn-primary me-2" href="../entradas/<?= $row_entradas['Archivo']; ?>" download="Entrada-<?= $row_entradas['Archivo']; ?>"><i class="mdi mdi-download"></i></a></td>
                                 <!-- <td>
                                     <a class="btn btn-success me-2" href="../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
                                 </td> -->
