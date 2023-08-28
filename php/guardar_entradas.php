@@ -1,7 +1,7 @@
 <?php
 
 
-require '../conexion/conexion.php'; 
+require '../conexion/conexion.php';
 session_start();
 
 $usuario = $_SESSION['codigo'];
@@ -45,16 +45,52 @@ $fechaFirma = $conn->real_escape_string($_POST['fechaFirma']);
 $importe = $conn->real_escape_string($_POST['importe']);
 $archivo = $conn->real_escape_string($_FILES["archivo"]["name"]);
 $institucion = $conn->real_escape_string($_POST['institucion']);
+$ref = $conn->real_escape_string($_POST['ref']);
+$persFisic = $conn->real_escape_string($_POST['persFisic']);
 $numRegistro = $idLast . "-" . $YearActual;
 $fechaRegistro = date("Y-m-d");
 
-$sql = "INSERT INTO entradas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Procedencia, Usuario)
-    VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$institucion','$usuario')";
+if ($persFisic != "") {
+    $sqlEntrda = "INSERT INTO entradas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Referencia, Usuario)
+   VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$ref','$usuario')";
+    $resultado = mysqli_query($conn, $sqlEntrda);
 
-if ($conn->query($sql)) {
-    $id = $conn->insert_id;
+    $idEntrada = mysqli_insert_id($conn);
 
-    header('Location: ../users/entradas.php?mensaje=insertado');
+    $queryPF = "INSERT INTO personafisica SET NombreCompleto='$persFisic', Entrada='$idEntrada'";
+    $resultPF = mysqli_query($conn, $queryPF);
+
+    if ($resultPF) {
+        header('Location: ../users/entradas.php?mensaje=insertado');
+    } else {
+        header('Location: ../users/entradas.php?mensaje=error');
+    }
+} else if ($institucion != "") {
+    $sqlEntrda = "INSERT INTO entradas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Referencia, Usuario)
+    VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$ref','$usuario')";
+    $resultado = mysqli_query($conn, $sqlEntrda);
+
+    $idEntrada = mysqli_insert_id($conn);
+
+    $queryPJ = "INSERT INTO proviene SET Entrada='$idEntrada', Seccion='$institucion'";
+    $resultPJ = mysqli_query($conn, $queryPJ);
+
+    if ($resultPJ) {
+        header('Location: ../users/entradas.php?mensaje=insertado');
+    } else {
+        header('Location: ../users/entradas.php?mensaje=error');
+    }
 } else {
-    header('Location: ../users/entradas.php?mensaje=error');
+    echo "No he recibido nada";
 }
+
+// $sql = "INSERT INTO entradas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Procedencia, Usuario)
+//     VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$institucion','$usuario')";
+
+// if ($conn->query($sql)) {
+//     $id = $conn->insert_id;
+
+//     header('Location: ../users/entradas.php?mensaje=insertado');
+// } else {
+//     header('Location: ../users/entradas.php?mensaje=error');
+// }

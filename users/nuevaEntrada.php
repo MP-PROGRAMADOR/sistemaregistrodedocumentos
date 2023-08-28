@@ -6,6 +6,10 @@ require '../conexion/conexion.php';
 
   $instituciones = $conn->query($sqlInstituciones);
 
+  $sqlreferencias = "SELECT * FROM referencias";
+
+  $referencias = $conn->query($sqlreferencias);
+
 
 ?>
 
@@ -195,7 +199,7 @@ require '../conexion/conexion.php';
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formularioEntradas.php"; ?>  
+                <?php require "../componentes/formularioEntradas.php"; ?>   
                 </div>
             </div>
             <!-- content-wrapper ends -->

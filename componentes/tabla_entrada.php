@@ -93,7 +93,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>Fecha Registro</th>
                             <th>Tipo de Documento</th>
                             <th>Descripción</th>
-                            <th>Procedencia</th>
+                            <th>Referencia</th>
                             <th>Fecha Firma</th>
                             <th>Importe</th>
                             <th>Archivo</th>
@@ -115,14 +115,14 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td> <?= $row_entradas['TipoDoc']; ?></td>
                                 <td> <?= $row_entradas['Descripcion']; ?></td>
                                 <?php
-                                $procedencia = $row_entradas['Procedencia']; 
-                                $buscarProcedencia = "SELECT * FROM instituciones WHERE Id = '$procedencia'";
+                                $procedencia = $row_entradas['Referencia']; 
+                                $buscarProcedencia = "SELECT * FROM referencias WHERE Id = '$procedencia'";
                                 $Resultprocedencia = $conn->query($buscarProcedencia);
 
                                 while ($filasEntradas = $Resultprocedencia->fetch_assoc()) {
 
                                 ?>
-                                    <td> <?= $filasEntradas['Nombre']; ?></td>
+                                    <td> <?= $filasEntradas['Codigo']; ?></td>
                                 <?php  } ?>
 
                                 <td> <?= $row_entradas['FechaFirma']; ?></td>
