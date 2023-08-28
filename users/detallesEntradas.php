@@ -1,4 +1,5 @@
 <?php
+// trabajar aqui ahora
 require "../componentes/head.php";
 $codEntrada = $_GET['id'];
 ?>
