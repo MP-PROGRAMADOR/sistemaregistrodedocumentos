@@ -40,8 +40,12 @@ CREATE TABLE Usuarios(
     FOREIGN KEY (Dpto) REFERENCES Departementos (Id)
 );
 
-
-
+CREATE TABLE Referencias(
+    Id int(5) not null auto_increment,
+    Nombre varchar (100),
+    Codigo varchar(10),
+    PRIMARY KEY (Id)
+);
 
 CREATE TABLE Salidas(
     Id int(10) not null auto_increment,
@@ -53,11 +57,20 @@ CREATE TABLE Salidas(
     PalabrasClaves text,
     FechaFirma date,
     Importe varchar(20),
-    Destino int(3),
+    Referencia int(5),
     Usuario int(3),
     PRIMARY KEY (Id),
-    FOREIGN KEY (Destino) REFERENCES Departementos (Id),
+    FOREIGN KEY (Referencia) REFERENCES Referencias (Id),
     FOREIGN KEY (Usuario) REFERENCES Usuarios (Id)
+);
+
+CREATE TABLE Ir(
+    Id int(10) not null auto_increment,
+    Salida int(10),
+    Seccion int(4),
+    PRIMARY KEY (Id),
+    FOREIGN KEY (Salida) REFERENCES Salidas (Id),
+    FOREIGN KEY (Seccion) REFERENCES Departementos (Id)
 );
 CREATE TABLE Entradas(
     Id int(10) not null auto_increment,
@@ -69,11 +82,20 @@ CREATE TABLE Entradas(
     PalabrasClaves text,
     FechaFirma date,
     Importe varchar(20),
-    Procedencia int(3),
+    Referencia int(5),
     Usuario int(3),
     PRIMARY KEY (Id),
-    FOREIGN KEY (Procedencia) REFERENCES Departementos (Id),
+    FOREIGN KEY (Referencia) REFERENCES Referencias (Id),
     FOREIGN KEY (Usuario) REFERENCES Usuarios (Id)
+);
+
+CREATE TABLE Proviene(
+    Id int(10) not null auto_increment,
+    Entrada int(10),
+    Seccion int(4),
+    PRIMARY KEY (Id),
+    FOREIGN KEY (Entrada) REFERENCES Entradas (Id),
+    FOREIGN KEY (Seccion) REFERENCES Departementos (Id)
 );
 
 CREATE TABLE Decretos(
@@ -95,14 +117,14 @@ CREATE TABLE Destino(
     FOREIGN KEY (Decreto) REFERENCES Decretos (Id)
 );
 
-CREATE TABLE Informe(
+CREATE TABLE PersonaFisica(
     Id int(20) not null auto_increment,
-    Estado varchar(3),
-    Descripcion text,
-    Archivo varchar(15),
-    Dpto int(4),
+    NombreCompleto varchar(200),
+    Entrada int(10),
+    Salida int(10),
     Decreto int(20),
     PRIMARY KEY (Id),
-    FOREIGN KEY (Dpto) REFERENCES Departementos (Id),
+    FOREIGN KEY (Entrada) REFERENCES Entradas (Id),
+    FOREIGN KEY (Salida) REFERENCES Salidas (Id),
     FOREIGN KEY (Decreto) REFERENCES Decretos (Id)
 );
