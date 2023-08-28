@@ -2,13 +2,14 @@
 
 require '../conexion/conexion.php';
 
-  $sqlInstituciones = "SELECT * FROM instituciones WHERE Nombre_Corto !='TGE'";
+  $sqlInstituciones = "SELECT departementos.Id AS Codigo, departementos.Nombre AS Departamento, instituciones.Nombre_Corto AS Institucion 
+    FROM departementos INNER JOIN instituciones ON departementos.Institucion = instituciones.Id WHERE instituciones.Nombre_Corto != 'TGE';";
 
   $instituciones = $conn->query($sqlInstituciones);
 
   $sqlreferencias = "SELECT * FROM referencias";
 
-  $referencias = $conn->query($sqlreferencias);
+  $referencias = $conn->query($sqlreferencias); 
 
 
 ?>
@@ -18,7 +19,7 @@ require '../conexion/conexion.php';
     <!-- partial:../../partials/_navbar.html -->
     <?php require "../componentes/topMenu.php"; ?> 
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper"> 
         <!-- partial:../../partials/_settings-panel.html -->
         <!-- <div class="theme-setting-wrapper">
             <div id="settings-trigger"><i class="ti-settings"></i></div>
@@ -199,7 +200,7 @@ require '../conexion/conexion.php';
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formularioEntradas.php"; ?>   
+                <?php require "../componentes/formularioEntradas.php"; ?>    
                 </div>
             </div>
             <!-- content-wrapper ends -->

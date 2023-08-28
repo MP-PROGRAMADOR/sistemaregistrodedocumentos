@@ -238,9 +238,14 @@ $codEntrada = $_GET['id'];
                           <h3 class="rate-percentage"><?php echo  $numDest; ?></h3>
                         </div>
                         <div class="d-none d-md-block">
-                          <p class="statistics-title">Nº Informes</p>
-                          <h3 class="rate-percentage">2m:35s</h3>
-                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+                          <p class="statistics-title">Referencia</p>
+                          <?php
+                            $codeRefe = $Entrada['Referencia'];
+                            $qRef = "SELECT * FROM referencias WHERE Id = '$codeRefe'";
+                            $resulRef = mysqli_query($conn, $qRef);
+                            $ref = mysqli_fetch_array($resulRef);
+                          ?>
+                          <h3 class="rate-percentage"><?php echo  $ref['Codigo']; ?></h3>
                         </div>
                       </div>
                     </div>
@@ -256,10 +261,8 @@ $codEntrada = $_GET['id'];
                               $resulUsuario = mysqli_query($conn, $qUsuario);
                               $Usuario = mysqli_fetch_array($resulUsuario);
 
-                              $qInstitucion = "SELECT `instituciones`.`Nombre`
-                              FROM `instituciones` 
-                                LEFT JOIN `departementos` ON `departementos`.`Institucion` = `instituciones`.`Id` 
-                                LEFT JOIN `entradas` ON `entradas`.`Procedencia` = `departementos`.`Id` WHERE entradas.Id = '$codEntrada'";
+                              $qInstitucion = "SELECT departementos.Nombre, departementos.Institucion, proviene.Seccion 
+                                FROM departementos INNER JOIN proviene ON departementos.Id = proviene.Seccion WHERE proviene.Entrada ='$codEntrada'";
                               $resulInsti = mysqli_query($conn, $qInstitucion);
                               $datoInst = mysqli_fetch_array($resulInsti);
                               ?>
@@ -282,7 +285,23 @@ $codEntrada = $_GET['id'];
                                 <p class="card-subtitle card-subtitle-dash"><?php echo  $Entrada['Descripcion']; ?></p>
                               </div>
                               <div class="TopDetallEntrada">
-                                <h4 class="card-title card-title-dash">Procedencia: <?php echo  $datoInst['Nombre']; ?></h4>
+                                <?php
+                                  if ($datoInst['Nombre'] == "") {    ?>                             
+                                
+                                <h4 class="card-title card-title-dash">Su Procedencia no está definido</h4>
+                                <?php   }else{  
+
+                                    $codeInst = $datoInst['Institucion'];
+                                    $qInt = "SELECT * FROM instituciones WHERE Id = '$codeInst'";
+                                    $resulInst = mysqli_query($conn, $qInt);
+                                    $instiNom = mysqli_fetch_array($resulInst);
+                                  
+                                  ?>
+                                  
+                                  <h4 class="card-title card-title-dash">Procedencia: <?php echo  $datoInst['Nombre']."/".$instiNom['Nombre_Corto']; ?></h4>
+
+                                  <?php }  ?>
+                               
                                 <h4 class="card-title card-title-dash">F. Firma: <?php echo  $Entrada['FechaFirma']; ?></h4>
                               </div>
                             </div>
@@ -365,7 +384,7 @@ $codEntrada = $_GET['id'];
                                   </div>
                                   <div class="list-wrapper">
                                     <?php
-                                    $qMiembro = "SELECT `entradas`.*, `decretos`.`Fecha`, `miembros`.`Nombre` FROM `entradas` LEFT JOIN `decretos` ON `decretos`.`DocEntrada` = `entradas`.`Id` , `miembros` WHERE entradas.Id='$codEntrada' GROUP BY(miembros.Nombre)";
+                                    $qMiembro = "SELECT `entradas`.*, `decretos`.`Fecha`, `miembros`.`Nombre` FROM `entradas` INNER JOIN `decretos` ON `decretos`.`DocEntrada` = `entradas`.`Id` , `miembros` WHERE entradas.Id='$codEntrada' GROUP BY(miembros.Nombre)";
                                     $resulMiem = mysqli_query($conn, $qMiembro);
                                     $numDecre = mysqli_num_rows($resulMiem);
                                     ?>

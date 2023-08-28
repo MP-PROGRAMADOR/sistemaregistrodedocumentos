@@ -57,7 +57,7 @@
                     <select class="form-control" aria-label=".form-select-lg example" id="institucion" name="institucion">
                         <option selected value="">seleccione una Institucion.....</option>
                         <?php while ($institucion = mysqli_fetch_array($instituciones)) { ?>
-                            <option value="<?php echo $institucion['Id']; ?>"><?php echo $institucion['Nombre_Corto']; ?></option>
+                            <option value="<?php echo $institucion['Codigo']; ?>"><?php echo $institucion['Institucion']."/".$institucion['Departamento']; ?></option>
                         <?php } ?>
                     </select>
                 </div>

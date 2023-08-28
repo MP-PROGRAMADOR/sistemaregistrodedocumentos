@@ -72,7 +72,7 @@ if ($persFisic != "") {
 
     $idEntrada = mysqli_insert_id($conn);
 
-    $queryPJ = "INSERT INTO proviene SET Entrada='$idEntrada', Seccion='$institucion'";
+    $queryPJ = "INSERT INTO proviene SET Entrada='$idEntrada', Seccion='$institucion'"; 
     $resultPJ = mysqli_query($conn, $queryPJ);
 
     if ($resultPJ) {

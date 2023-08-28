@@ -16,9 +16,9 @@ $resultado_salidas = mysqli_query($conn, $sql_salidas);
 $numero_salidas = mysqli_num_rows($resultado_salidas);
 
 // cogiendo el numero de INFORMES
-$sql_informe = "SELECT `usuarios`.*, `departementos`.*, `informe`.* FROM `usuarios` LEFT JOIN `departementos` ON `usuarios`.`Dpto` = `departementos`.`Id` LEFT JOIN `informe` ON `informe`.`Dpto` = `departementos`.`Id` where usuarios.Id=$usuario_id";
-$resultado_informe = mysqli_query($conn, $sql_informe);
-$numero_informe = mysqli_num_rows($resultado_informe);
+// $sql_informe = "SELECT `usuarios`.*, `departementos`.*, `informe`.* FROM `usuarios` LEFT JOIN `departementos` ON `usuarios`.`Dpto` = `departementos`.`Id` LEFT JOIN `informe` ON `informe`.`Dpto` = `departementos`.`Id` where usuarios.Id=$usuario_id";
+// $resultado_informe = mysqli_query($conn, $sql_informe);
+// $numero_informe = mysqli_num_rows($resultado_informe);
 
 // cogiendo el numero de DECRETOS
 $sql_decreto = "SELECT `usuarios`.`Id`, `entradas`.`NumRegistro`, `decretos`.`Id` FROM `usuarios` LEFT JOIN `entradas` ON `entradas`.`Usuario` = `usuarios`.`Id` LEFT JOIN `decretos` ON `decretos`.`DocEntrada` = `entradas`.`Id` where usuarios.Id=$usuario_id";
