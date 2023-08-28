@@ -12,9 +12,9 @@ $resultado_salidas = mysqli_query($conn, $sql_salidas);
 $numero_salidas = mysqli_num_rows($resultado_salidas);
 
 // cogiendo el numero de INFORMES
-$sql_informe = "SELECT * FROM informe";
-$resultado_informe = mysqli_query($conn, $sql_informe);
-$numero_informe = mysqli_num_rows($resultado_informe);
+// $sql_informe = "SELECT * FROM informe";
+// $resultado_informe = mysqli_query($conn, $sql_informe);
+// $numero_informe = mysqli_num_rows($resultado_informe);
 
 // cogiendo el numero de DECRETOS
 $sql_decreto = "SELECT * FROM decretos";
@@ -270,7 +270,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                         </div>
                         <div>
                           <p class="statistics-title">INFORMES</p>
-                          <h3 class="rate-percentage"><?php echo $numero_informe;    ?></h3>
+                          <h3 class="rate-percentage"> <?php // echo $numero_informe;    ?></h3>
                           <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
                         </div>
                         <div class="d-none d-md-block">
