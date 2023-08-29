@@ -240,10 +240,10 @@ $codEntrada = $_GET['id'];
                         <div class="d-none d-md-block">
                           <p class="statistics-title">Referencia</p>
                           <?php
-                            $codeRefe = $Entrada['Referencia'];
-                            $qRef = "SELECT * FROM referencias WHERE Id = '$codeRefe'";
-                            $resulRef = mysqli_query($conn, $qRef);
-                            $ref = mysqli_fetch_array($resulRef);
+                          $codeRefe = $Entrada['Referencia'];
+                          $qRef = "SELECT * FROM referencias WHERE Id = '$codeRefe'";
+                          $resulRef = mysqli_query($conn, $qRef);
+                          $ref = mysqli_fetch_array($resulRef);
                           ?>
                           <h3 class="rate-percentage"><?php echo  $ref['Codigo']; ?></h3>
                         </div>
@@ -265,6 +265,7 @@ $codEntrada = $_GET['id'];
                                 FROM departementos INNER JOIN proviene ON departementos.Id = proviene.Seccion WHERE proviene.Entrada ='$codEntrada'";
                               $resulInsti = mysqli_query($conn, $qInstitucion);
                               $datoInst = mysqli_fetch_array($resulInsti);
+                              $filas = mysqli_num_rows($resulInsti);
                               ?>
                               <div class="d-sm-flex justify-content-between align-items-start">
                                 <div class="TopDetallEntradaP">
@@ -273,7 +274,7 @@ $codEntrada = $_GET['id'];
                                     <p class="card-subtitle card-subtitle-dash">Tipo de Documento: <strong><?php echo  $Entrada['TipoDoc']; ?></strong> </p>
                                     <a title="Descargar archivo" class="btn btn-primary me-2" href="../documentos/entradas/<?= $Entrada['Archivo']; ?>" download="Entrada-<?= $Entrada['NumRegistro']; ?>"><i class="mdi mdi-download"></i></a>
                                   </div>
-                                  
+
                                 </div>
                                 <div>
 
@@ -286,22 +287,27 @@ $codEntrada = $_GET['id'];
                               </div>
                               <div class="TopDetallEntrada">
                                 <?php
-                                  if ($datoInst['Nombre'] == "") {    ?>                             
-                                
-                                <h4 class="card-title card-title-dash">Su Procedencia no está definido</h4>
-                                <?php   }else{  
+                                if ($filas == 0) {
+                                  $qPF = "SELECT personafisica.NombreCompleto FROM personafisica INNER JOIN entradas ON personafisica.Entrada = entradas.Id WHERE entradas.Id = '$codEntrada'";
+                                  $resulPF = mysqli_query($conn, $qPF);
+                                  $DatoPF = mysqli_fetch_array($resulPF);
 
-                                    $codeInst = $datoInst['Institucion'];
-                                    $qInt = "SELECT * FROM instituciones WHERE Id = '$codeInst'";
-                                    $resulInst = mysqli_query($conn, $qInt);
-                                    $instiNom = mysqli_fetch_array($resulInst);
-                                  
-                                  ?>
-                                  
-                                  <h4 class="card-title card-title-dash">Procedencia: <?php echo  $datoInst['Nombre']."/".$instiNom['Nombre_Corto']; ?></h4>
+                                ?>
 
-                                  <?php }  ?>
-                               
+                                  <h4 class="card-title card-title-dash">Procedencia: <?php echo  $DatoPF['NombreCompleto']; ?></h4>
+                                <?php   } else {
+
+                                  $codeInst = $datoInst['Institucion'];
+                                  $qInt = "SELECT * FROM instituciones WHERE Id = '$codeInst'";
+                                  $resulInst = mysqli_query($conn, $qInt);
+                                  $instiNom = mysqli_fetch_array($resulInst);
+
+                                ?>
+
+                                  <h4 class="card-title card-title-dash">Procedencia: <?php echo  $instiNom['Nombre'] . "/" . $instiNom['Nombre_Corto']; ?></h4>
+
+                                <?php }  ?>
+
                                 <h4 class="card-title card-title-dash">F. Firma: <?php echo  $Entrada['FechaFirma']; ?></h4>
                               </div>
                             </div>

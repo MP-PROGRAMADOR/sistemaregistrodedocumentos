@@ -43,7 +43,7 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
                 <i class="menu-icon mdi mdi-folder-multiple"></i>
                 <span class="menu-title">Informes</span>
@@ -54,6 +54,6 @@
                     <li class="nav-item"> <a class="nav-link" href="./informes.php">Nuevo Informe</a></li>
                 </ul>
             </div>
-        </li>      
+        </li>       -->
     </ul>
 </nav>

@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group" id="">
                     <label for="institucion"> Seleccione la Referencia</label>
-                    <select class="form-control" aria-label=".form-select-lg example" id="ref" name="ref">
+                    <select class="form-control" id="ref" name="ref">
                         <option selected value="">seleccione una referencia.....</option>
                         <?php while ($referencia = mysqli_fetch_array($referencias)) { ?>
                             <option value="<?php echo $referencia['Id']; ?>"><?php echo $referencia['Codigo']." / ".$referencia['Nombre']; ?></option>
@@ -73,6 +73,8 @@
     $(document).ready(function(){
        $("#pf").hide();
        $("#pj").hide();
+
+       $("#ref").select2();
 
        $(function (){
         $("#perF").change(function(){

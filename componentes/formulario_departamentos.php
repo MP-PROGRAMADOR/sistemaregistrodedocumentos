@@ -16,7 +16,7 @@
                     <input type="email" class="form-control" id="correo" name="correo" placeholder="EMAIL">
                 </div>
                 <div class="form-group">
-                    <label for="institucion"> INTITUCION</label>
+                    <label for="institucion"> INTITUCIÓN</label>
                     <select class="form-control" aria-label=".form-select-lg example" id="institucion" name="institucion" required>
                         <option selected value="">seleccione una Institucion.....</option>
                         <?php while ($institucion = mysqli_fetch_array($instituciones)) { ?>
@@ -31,3 +31,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("#institucion").select2();
+    });
+</script>
