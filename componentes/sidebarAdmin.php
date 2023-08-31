@@ -33,6 +33,13 @@
                 </ul>
             </div>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="referencias.php">
+                <i class="mdi mdi-tag menu-icon"></i>
+                <span class="menu-title">Referencias</span>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
                 <i class="menu-icon mdi mdi-account-multiple"></i>

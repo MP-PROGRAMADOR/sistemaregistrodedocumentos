@@ -86,6 +86,7 @@ $fecha_actual=date("d-m-y");
             </a>
         </div>
     </div>
+    
     <div class="navbar-menu-wrapper d-flex align-items-top">
         <ul class="navbar-nav">
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
@@ -93,8 +94,10 @@ $fecha_actual=date("d-m-y");
                 <h3 class="welcome-sub-text"><?php echo $fecha_actual;    ?> <?php echo "$vector[$numero] "; ?></h3>
             </li>
         </ul>
+        
         <ul class="navbar-nav ms-auto">
-           
+        <a href="../php/cerrar_sesion.php" class="btn btn-success">Cerrar Sesión</i></a>
+               
           
             <li class="nav-item dropdown">
                

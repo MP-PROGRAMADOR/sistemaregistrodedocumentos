@@ -10,10 +10,20 @@ $sql_entradas = "SELECT * FROM entradas where Usuario=$usuario_id";
 $resultado_entradas = mysqli_query($conn, $sql_entradas);
 $numero_entradas = mysqli_num_rows($resultado_entradas);
 
+$sql_entradasT = "SELECT * FROM entradas";
+$resultado_entradasT = mysqli_query($conn, $sql_entradasT);
+$numero_entradasT = mysqli_num_rows($resultado_entradasT);
+
+
+
 // cogiendo el numero de Salidas
 $sql_salidas = "SELECT * FROM salidas where Usuario=$usuario_id";
 $resultado_salidas = mysqli_query($conn, $sql_salidas);
 $numero_salidas = mysqli_num_rows($resultado_salidas);
+
+$sql_salidasT = "SELECT * FROM salidas";
+$resultado_salidasT = mysqli_query($conn, $sql_salidasT);
+$numero_salidasT = mysqli_num_rows($resultado_salidasT);
 
 // cogiendo el numero de INFORMES
 // $sql_informe = "SELECT `usuarios`.*, `departementos`.*, `informe`.* FROM `usuarios` LEFT JOIN `departementos` ON `usuarios`.`Dpto` = `departementos`.`Id` LEFT JOIN `informe` ON `informe`.`Dpto` = `departementos`.`Id` where usuarios.Id=$usuario_id";
@@ -237,23 +247,8 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
           <div class="col-sm-12">
             <div class="home-tab">
               <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="index.php" role="tab" aria-controls="overview" aria-selected="true">Inicio</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="entradas.php" role="tab" aria-selected="false">Entradas</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="salidas.php" role="tab" aria-selected="false">Salidas</a>
-                  </li>
 
-                </ul>
-                <div>
-                  <div class="btn-wrapper">
-                    <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Imprimir</a>
-                  </div>
-                </div>
+
               </div>
               <div class="tab-content tab-content-basic">
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
@@ -263,32 +258,27 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                         <div>
                           <p class="statistics-title">Entradas</p>
                           <h3 class="rate-percentage"><?php echo $numero_entradas;    ?></h3>
-                          <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
                         </div>
                         <div>
                           <p class="statistics-title">Salidas</p>
                           <h3 class="rate-percentage"><?php echo $numero_salidas;    ?></h3>
-                          <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
+
                         </div>
-                        <div>
-                          <p class="statistics-title">Informes</p>
-                          <h3 class="rate-percentage"><?php echo $numero_informe;    ?></h3>
-                          <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                        </div>
+
                         <div class="d-none d-md-block">
                           <p class="statistics-title">Decretos</p>
                           <h3 class="rate-percentage"><?php echo $numero_decretos;    ?></h3>
-                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+
                         </div>
                         <div class="d-none d-md-block">
                           <p class="statistics-title">Fecha</p>
                           <h3 class="rate-percentage"><?php echo $fecha_actual;    ?></h3>
-                          <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+
                         </div>
                         <div class="d-none d-md-block">
                           <p class="statistics-title">Hora</p>
                           <h3 class="rate-percentage"><?php echo $hora;    ?></h3>
-                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+
                         </div>
                       </div>
                     </div>
@@ -308,7 +298,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                 </div>
                                 <div>
                                   <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle toggle-dark btn-lg mb-0 me-0" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> This month </button>
+                                    <button class="btn btn-secondary dropdown-toggle toggle-dark btn-lg mb-0 me-0" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Años </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                       <h6 class="dropdown-header">Settings</h6>
                                       <a class="dropdown-item" href="#">Action</a>
@@ -321,9 +311,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                 </div>
                               </div>
                               <div class="d-sm-flex align-items-center mt-1 justify-content-between">
-                                <div class="d-sm-flex align-items-center mt-4 justify-content-between">
-                                  <h4 class="text-success">(+1.37%)</h4>
-                                </div>
+
                                 <div class="me-3">
 
                                   <div id="marketing-overview-legend"></div>
@@ -350,25 +338,17 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                               <div class="d-sm-flex justify-content-between align-items-start">
                                 <div>
                                   <h4 class="card-title card-title-dash">Progreso de Usuario</h4>
-                                  <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
                                 </div>
-
-
                               </div>
                               <div class="table-responsive  mt-1">
                                 <table class="table select-table">
                                   <thead>
                                     <tr>
-                                      <th>
-                                        <div class="form-check form-check-flat mt-0">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                        </div>
-                                      </th>
+
                                       <th>USUARIO</th>
                                       <th>DEPARTAMENTO</th>
-                                      <th>PROGRESO</th>
-                                      <th>ESTADO</th>
+                                      <th>PROGRECIÓN DE ENTRADAS</th>
+                                      <th>PROGRECIÓN DE SALIDAS</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -389,39 +369,54 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
                                       <tr>
 
-                                        <td>
-                                          <div class="form-check form-check-flat mt-0">
-                                            <label class="form-check-label">
-                                              <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                          </div>
-                                        </td>
+
 
                                         <td>
                                           <div class="d-flex">
                                             <img src="data:image/*;base64,<?php echo base64_encode($row_usuarios['Foto']); ?>" alt="" height="50px">
                                             <div>
-                                              <h6><?= $row_usuarios['Nombre'];   ?></h6>
-                                              <p><?= $row_usuarios['Tipo_Usuario'];   ?></p>
+                                              <h6><?= $row_usuarios['Tipo_Usuario'];   ?></h6>
+                                              <p><?= $row_usuarios['Nombre'];   ?></p>
                                             </div>
                                           </div>
                                         </td>
                                         <td>
                                           <h6></h6>
-                                          <p><?= $row_usuarios['Dpto'];  ?></p>
+                                          <?php
+                                          $codeDep = $row_usuarios['Dpto'];
+                                          $depart = "SELECT * FROM departementos WHERE Id = '$codeDep'";
+                                          $resulDep = mysqli_query($conn, $depart);
+                                          $nomDep = mysqli_fetch_array($resulDep);
+                                          ?>
+                                          <p><?= $nomDep['Nombre'];  ?></p>
                                         </td>
                                         <td>
                                           <div>
+                                              <?php 
+                                                $resulDiv = ($numero_entradas/$numero_entradasT)*100;
+                                              ?>
                                             <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                              <p class="text-success">79%</p>
-                                              <p>85/162</p>
+                                              <p class="text-success"><?php echo $resulDiv; ?>%</p>
+                                              <p><?php echo $numero_entradas."/".$numero_entradasT;?></p>
                                             </div>
                                             <div class="progress progress-md">
-                                              <div class="progress-bar bg-success" role="progressbar" style="width: 85%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                              <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $resulDiv; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                           </div>
                                         </td>
                                         <td>
-                                          <div class="badge badge-opacity-warning">In progress</div>
+                                          <div>
+                                              <?php 
+                                                $resulDivS = ($numero_salidas/$numero_salidasT)*100;
+                                              ?>
+                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
+                                              <p class="text-danger"><?php echo $resulDivS; ?>%</p>
+                                              <p><?php echo $numero_salidas."/".$numero_salidasT;?></p>
+                                            </div>
+                                            <div class="progress progress-md">
+                                              <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $resulDivS; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                          </div>
                                         </td>
                                       </tr>
 

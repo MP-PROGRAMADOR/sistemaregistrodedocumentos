@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-lg-6 mb-2">
-        <a href="../users/nuevaSalida.php" class="btn btn-primary"><i class="mdi mdi-account-plus"></i></a>
+        <a href="../users/nuevaSalida.php" class="btn btn-primary"><i class="mdi mdi-folder-plus"></i></a>
+        <a href="#../users/nuevoDecreto.php" class="btn btn-success"><i class="mdi mdi-printer"></i></a>
     </div>
 </div>
 
@@ -86,7 +87,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         <div class="card-body">
 
             <div class="table-responsive">
-                <table id="tablaEntrada" class="table table-hover">
+                <table id="myTable" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Nº Registro</th>
@@ -97,7 +98,9 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>Fecha Firma</th>
                             <th>Importe</th>
                             <th>Archivo</th>
-                            <td>ACCIONES</td>
+                            <th>Ver</th>
+                            <th>Editar</th>
+                          
                         </tr>
                     </thead>
                     <tbody>
@@ -132,7 +135,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                     <a class="btn btn-success me-2" href="../users/detallesSalidas.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-warning me-2" href="../users/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-pencil"></i></a>
+                                    <a class="btn btn-warning me-2" href="#../users/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-pencil"></i></a>
                                 </td>
                                
                             </tr>

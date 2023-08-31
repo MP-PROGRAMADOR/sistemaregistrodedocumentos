@@ -1,7 +1,7 @@
 <?php
 // trabajar aqui ahora
 require "../componentes/head.php";
-$codEntrada = $_GET['id'];
+$codSalida = $_GET['id'];
 ?>
 <div class="container-scroller">
 
@@ -192,9 +192,9 @@ $codEntrada = $_GET['id'];
           <div class="col-sm-12">
             <div class="home-tab">
               <?php
-              $qEntrada = "SELECT * FROM salidas WHERE salidas.Id = '$codEntrada'";
-              $resulEntrada = mysqli_query($conn, $qEntrada);
-              $Entrada = mysqli_fetch_array($resulEntrada);
+              $qSalida = "SELECT * FROM salidas WHERE salidas.Id = '$codSalida'";
+              $resulSalida = mysqli_query($conn, $qSalida);
+              $Salida = mysqli_fetch_array($resulSalida);
               ?>
               <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                 <div>
@@ -204,11 +204,11 @@ $codEntrada = $_GET['id'];
                 </div>
               </div>
               <?php
-              $qDecreto = "SELECT decretos.Descripcion, decretos.Fecha, decretos.Archivo FROM decretos INNER JOIN entradas ON decretos.DocEntrada = entradas.Id WHERE entradas.Id = '$codEntrada'";
-              $resul = mysqli_query($conn, $qDecreto);
-              $numDecre = mysqli_num_rows($resul);
+              $qCantDesIns = "SELECT ir.Seccion FROM ir INNER JOIN salidas ON ir.Salida = salidas.Id WHERE salidas.Id  = '$codSalida'";
+              $resulCan = mysqli_query($conn, $qCantDesIns);
+              $CantInsti = mysqli_num_rows($resulCan);
 
-              $qDestino = "SELECT `entradas`.*, `decretos`.`Fecha`, `miembros`.`Nombre` FROM `entradas` LEFT JOIN `decretos` ON `decretos`.`DocEntrada` = `entradas`.`Id` , `miembros` WHERE entradas.Id='$codEntrada' GROUP BY(miembros.Nombre)";
+              $qDestino = "SELECT personafisica.NombreCompleto FROM personafisica INNER JOIN salidas ON personafisica.Salida = salidas.Id WHERE salidas.Id = '$codSalida'";
               $resulDes = mysqli_query($conn, $qDestino);
               $numDest = mysqli_num_rows($resulDes);
               ?>
@@ -219,28 +219,28 @@ $codEntrada = $_GET['id'];
                       <div class="statistics-details d-flex align-items-center justify-content-between">
                         <div>
                           <p class="statistics-title">Nº de Registro:</p>
-                          <h3 class="rate-percentage"><?php echo  $Entrada['NumRegistro'];; ?></h3>
+                          <h3 class="rate-percentage"><?php echo  $Salida['NumRegistro'];; ?></h3>
                         </div>
                         <div>
                           <p class="statistics-title">Fecha de Registro</p>
-                          <h3 class="rate-percentage"><?php echo  $Entrada['FechaRegistro']; ?></h3>
+                          <h3 class="rate-percentage"><?php echo  $Salida['FechaRegistro']; ?></h3>
                         </div>
                         <div>
                           <p class="statistics-title">Importe</p>
-                          <h3 class="rate-percentage"><?php echo  $Entrada['Importe']; ?> XAF</h3>
+                          <h3 class="rate-percentage"><?php echo  $Salida['Importe']; ?> XAF</h3>
                         </div>
                         <div class="d-none d-md-block">
-                          <p class="statistics-title">Nº Decretos</p>
-                          <h3 class="rate-percentage"><?php echo  $numDecre; ?></h3>
+                          <p class="statistics-title">Nº Destinos instituciones</p>
+                          <h3 class="rate-percentage"><?php echo  $CantInsti; ?></h3>
                         </div>
                         <div class="d-none d-md-block">
-                          <p class="statistics-title">Nº Destinos</p>
+                          <p class="statistics-title">Nº Destinos Personas Físicas</p>
                           <h3 class="rate-percentage"><?php echo  $numDest; ?></h3>
                         </div>
                         <div class="d-none d-md-block">
                           <p class="statistics-title">Referencia</p>
                           <?php
-                          $codeRefe = $Entrada['Referencia'];
+                          $codeRefe = $Salida['Referencia'];
                           $qRef = "SELECT * FROM referencias WHERE Id = '$codeRefe'";
                           $resulRef = mysqli_query($conn, $qRef);
                           $ref = mysqli_fetch_array($resulRef);
@@ -257,12 +257,12 @@ $codEntrada = $_GET['id'];
                           <div class="card card-rounded">
                             <div class="card-body">
                               <?php
-                              $qUsuario = "SELECT usuarios.Nombre FROM usuarios INNER JOIN salidas ON salidas.Usuario = usuarios.Id WHERE salidas.Id = '$codEntrada'";
+                              $qUsuario = "SELECT usuarios.Nombre FROM usuarios INNER JOIN salidas ON salidas.Usuario = usuarios.Id WHERE salidas.Id = '$codSalida'";
                               $resulUsuario = mysqli_query($conn, $qUsuario);
                               $Usuario = mysqli_fetch_array($resulUsuario);
 
                               $qInstitucion = "SELECT departementos.Nombre, departementos.Institucion, ir.Seccion 
-                                FROM departementos INNER JOIN ir ON departementos.Id = ir.Seccion WHERE ir.Salida ='$codEntrada'";
+                                FROM departementos INNER JOIN ir ON departementos.Id = ir.Seccion WHERE ir.Salida ='$codSalida'";
                               $resulInsti = mysqli_query($conn, $qInstitucion);
                               $filas = mysqli_num_rows($resulInsti);
                               $datoInst = mysqli_fetch_array($resulInsti);
@@ -271,8 +271,8 @@ $codEntrada = $_GET['id'];
                                 <div class="TopDetallEntradaP">
                                   <div class="TopDetallEntrada">
                                     <h4 class="card-title card-title-dash">Entrada realizado por: <?php echo  $Usuario['Nombre']; ?></h4>
-                                    <p class="card-subtitle card-subtitle-dash">Tipo de Documento: <strong><?php echo  $Entrada['TipoDoc']; ?></strong> </p>
-                                    <a title="Descargar archivo" class="btn btn-primary me-2" href="../documentos/salidas/<?= $Entrada['Archivo']; ?>" download="Salida-<?= $Entrada['NumRegistro']; ?>"><i class="mdi mdi-download"></i></a>
+                                    <p class="card-subtitle card-subtitle-dash">Tipo de Documento: <strong><?php echo  $Salida['TipoDoc']; ?></strong> </p>
+                                    <a title="Descargar archivo" class="btn btn-primary me-2" href="../documentos/salidas/<?= $Salida['Archivo']; ?>" download="Salida-<?= $Salida['NumRegistro']; ?>"><i class="mdi mdi-download"></i></a>
                                   </div>
 
                                 </div>
@@ -283,31 +283,12 @@ $codEntrada = $_GET['id'];
 
                               <div class="chartjs-bar-wrapper mt-3">
                                 <h5><strong>Descripción del documento</strong></h5>
-                                <p class="card-subtitle card-subtitle-dash"><?php echo  $Entrada['Descripcion']; ?></p>
+                                <p class="card-subtitle card-subtitle-dash"><?php echo  $Salida['Descripcion']; ?></p>
                               </div>
                               <div class="TopDetallEntrada">
-                                <?php
-                                if ($filas==0) {
-                                  $qPF = "SELECT personafisica.NombreCompleto FROM personafisica INNER JOIN salidas ON personafisica.Salida = salidas.Id WHERE salidas.Id ='$codEntrada'";
-                                  $resulPF = mysqli_query($conn, $qPF);
-                                  $DatoPF = mysqli_fetch_array($resulPF);
+                               
 
-                                ?>
-                                  <h4 class="card-title card-title-dash">Destino: <?php echo  $DatoPF['NombreCompleto']; ?></h4>
-                                <?php   } else {
-
-                                  $codeInst = $datoInst['Institucion'];
-                                  $qInt = "SELECT * FROM instituciones WHERE Id = '$codeInst'";
-                                  $resulInst = mysqli_query($conn, $qInt);
-                                  $instiNom = mysqli_fetch_array($resulInst);
-
-                                ?>
-
-                                  <h4 class="card-title card-title-dash">Destino: <?php echo  $datoInst['Nombre'] . "/" . $instiNom['Nombre_Corto']; ?></h4>
-
-                                <?php }  ?>
-
-                                <h4 class="card-title card-title-dash">F. Firma: <?php echo  $Entrada['FechaFirma']; ?></h4>
+                                <h4 class="card-title card-title-dash">Fecha Firma: <?php echo  $Salida['FechaFirma']; ?></h4>
                               </div>
                             </div>
                           </div>
@@ -319,14 +300,16 @@ $codEntrada = $_GET['id'];
                           <div class="card card-rounded">
                             <div class="card-body">
                               <?php
-                              $qDecreto = "SELECT decretos.Descripcion, decretos.Fecha, decretos.Archivo FROM decretos INNER JOIN entradas ON decretos.DocEntrada = entradas.Id WHERE entradas.Id = '$codEntrada'";
+                              #*******************************************aqui debo poner el codigo
+                              $qDecreto = "SELECT  departementos.Nombre AS NomDpto, departementos.Institucion AS CodInst
+                              FROM departementos INNER JOIN ir ON departementos.Id = ir.Seccion WHERE ir.Salida = '$codSalida'";
                               $resul = mysqli_query($conn, $qDecreto);
                               $numDecre = mysqli_num_rows($resul);
                               ?>
                               <div class="d-sm-flex justify-content-between align-items-start">
                                 <div>
-                                  <h4 class="card-title card-title-dash">Decretos de la entrada</h4>
-                                  <p class="card-subtitle card-subtitle-dash">Esta entrada tiene <?php echo  $numDecre; ?> decretos</p>
+                                  <h4 class="card-title card-title-dash">Destino Institucionales</h4>
+                                  <p class="card-subtitle card-subtitle-dash">Esta Salida tiene <?php echo  $numDecre; ?> Destinos</p>
                                 </div>
 
                               </div>
@@ -334,32 +317,26 @@ $codEntrada = $_GET['id'];
                                 <table class="table select-table">
                                   <thead>
                                     <tr>
-                                      <th>Archivo</th>
-                                      <th>Descripcion</th>
-                                      <th>Fecha</th>
-
+                                      <th>Institución</th>
+                                      <th>Sección</th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <?php
-                                    while ($FilasDecretos = mysqli_fetch_array($resul)) {
+                                    while ($FilasDestino = mysqli_fetch_array($resul)) {
+                                      $codI = $FilasDestino['CodInst'];
+                                      $qinst = "SELECT * FROM instituciones WHERE Id = '$codI'";
+                                      $resulIns = mysqli_query($conn, $qinst);
                                     ?>
                                       <tr>
+                                        <?php while ($NomInst = mysqli_fetch_array($resulIns)) { ?>
                                         <td>
-                                          <div class="d-flex ">
-                                            <a class="btn btn-primary me-2" href="../documentos/decretos/<?= $FilasDecretos['Archivo']; ?>" download="Decreto-Entrada-<?= $FilasDecretos['Archivo']; ?>"><i class="mdi mdi-file"></i></a>
-                                            <div>
-                                              <h6><?php echo $FilasDecretos['Archivo']; ?></h6>
-                                            </div>
-                                          </div>
+                                          <p><?php echo $NomInst['Nombre']; ?></p>
                                         </td>
+                                        <?php } ?>
                                         <td>
-                                          <p><?php echo $FilasDecretos['Descripcion']; ?></p>
+                                          <p><?php echo $FilasDestino['NomDpto']; ?></p>
                                         </td>
-                                        <td>
-                                          <p><?php echo $FilasDecretos['Fecha']; ?></p>
-                                        </td>
-
                                       </tr>
                                     <?php } ?>
                                   </tbody>
@@ -380,7 +357,7 @@ $codEntrada = $_GET['id'];
                               <div class="row">
                                 <div class="col-lg-12">
                                   <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title card-title-dash">Miembros intervenidos</h4>
+                                    <h4 class="card-title card-title-dash">Destinos Personas Físicas</h4>
                                     <div class="add-items d-flex mb-0">
                                       <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
                                       <!-- <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button> -->
@@ -389,7 +366,7 @@ $codEntrada = $_GET['id'];
                                   </div>
                                   <div class="list-wrapper">
                                     <?php
-                                    $qMiembro = "SELECT `entradas`.*, `decretos`.`Fecha`, `miembros`.`Nombre` FROM `entradas` INNER JOIN `decretos` ON `decretos`.`DocEntrada` = `entradas`.`Id` , `miembros` WHERE entradas.Id='$codEntrada' GROUP BY(miembros.Nombre)";
+                                    $qMiembro = "SELECT personafisica.NombreCompleto FROM personafisica INNER JOIN salidas ON personafisica.Salida = salidas.Id WHERE salidas.Id ='$codSalida'";
                                     $resulMiem = mysqli_query($conn, $qMiembro);
                                     $numDecre = mysqli_num_rows($resulMiem);
                                     ?>
@@ -402,7 +379,7 @@ $codEntrada = $_GET['id'];
                                           <div class="form-check w-100">
 
                                             <div class="d-flex mt-2">
-                                              <div class="ps-4 text-small me-3"><?php echo $FilasMiembros['Nombre']; ?></div>
+                                              <div class="ps-4 text-small me-3"><?php echo $FilasMiembros['NombreCompleto']; ?></div>
 
                                             </div>
                                           </div>

@@ -1,23 +1,20 @@
+
 <?php
 
 require '../conexion/conexion.php';
 
-$sqlInstituciones = "SELECT departementos.Id AS Codigo, departementos.Nombre AS Departamento, instituciones.Nombre_Corto AS Institucion 
-FROM departementos INNER JOIN instituciones ON departementos.Institucion = instituciones.Id WHERE instituciones.Nombre_Corto != 'TGE';";
+$sqlPacientes= " SELECT * FROM referencias";
 
-$instituciones = $conn->query($sqlInstituciones);
-
-$sqlreferencias = "SELECT * FROM referencias";
-
-$referencias = $conn->query($sqlreferencias);  
+$pacientes= $conn->query($sqlPacientes);
 
 
 ?>
 
+
 <?php require "../componentes/head.php"; ?>
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
-    <?php require "../componentes/topMenu.php"; ?> 
+    <?php require "../componentes/topMenu.php"; ?>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:../../partials/_settings-panel.html -->
@@ -195,12 +192,12 @@ $referencias = $conn->query($sqlreferencias);
         </div>
         <!-- partial -->
         <!-- partial:../../partials/_sidebar.html -->
-         <?php require "../componentes/sidebarUser.php"; ?>         
+         <?php require "../componentes/sidebarAdmin.php"; ?>        
         <!-- partial sidebar final -->
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formularioSalidas.php"; ?>   
+                <?php require "../componentes/tabla_referencias.php"; ?>  
                 </div>
             </div>
             <!-- content-wrapper ends -->

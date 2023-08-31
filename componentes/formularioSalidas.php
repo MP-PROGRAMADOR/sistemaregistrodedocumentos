@@ -28,7 +28,7 @@
                     <select class="form-control" id="ref" name="ref">
                         <option selected value="">seleccione una referencia.....</option>
                         <?php while ($referencia = mysqli_fetch_array($referencias)) { ?>
-                            <option value="<?php echo $referencia['Id']; ?>"><?php echo $referencia['Codigo']." / ".$referencia['Nombre']; ?></option>
+                            <option value="<?php echo $referencia['Id']; ?>"><?php echo $referencia['Codigo'] . " / " . $referencia['Nombre']; ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -36,15 +36,20 @@
                     <label for="archivo">Selecciona el Documento</label>
                     <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Ejemplo solicitud de...">
                 </div>
-                <label for="institucion">Se envia a una...</label>
+                <label for="institucion">Se envia a...</label>
                 <div class="form-group">
                     <label class="form-check-label">
-                        <input class="checkbox" name="procede" type="radio" id="perFS" value="pf"> Persona Física<i class="input-helper rounded"></i>
+                        <input class="checkbox" name="procede" type="radio" id="perFS" value="pf"> Una Persona Física<i class="input-helper rounded"></i>
                     </label>
                 </div>
                 <div class="form-group">
                     <label class="form-check-label">
-                        <input class="checkbox" name="procede" type="radio"  id="perJS" value="pj"> Persona Jurídica<i class="input-helper rounded"></i>
+                        <input class="checkbox" name="procede" type="radio" id="perJS" value="pj"> Una Persona Jurídica<i class="input-helper rounded"></i>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label">
+                        <input class="checkbox" name="procede" type="radio" id="vperJS" value="pj"> Varias Persona Jurídica<i class="input-helper rounded"></i>
                     </label>
                 </div>
 
@@ -57,9 +62,23 @@
                     <select class="form-control" aria-label=".form-select-lg example" id="institucion" name="institucion">
                         <option selected value="">seleccione una Institucion.....</option>
                         <?php while ($institucion = mysqli_fetch_array($instituciones)) { ?>
-                            <option value="<?php echo $institucion['Codigo']; ?>"><?php echo $institucion['Institucion']."/".$institucion['Departamento']; ?></option>
+                            <option value="<?php echo $institucion['Codigo']; ?>"><?php echo $institucion['Institucion'] . "/" . $institucion['Departamento']; ?></option>
                         <?php } ?>
                     </select>
+                </div>
+                <div class="form-group" id="vpjs">
+                    <?php
+                    $queryDpto = "SELECT departementos.id AS CodDpto, departementos.Nombre AS NomDpto, instituciones.Nombre_Corto AS NomInsti 
+                    FROM departementos INNER JOIN instituciones ON departementos.Institucion = instituciones.Id WHERE departementos.Institucion != 1 ORDER BY instituciones.Nombre ASC;";
+                    $ResultDpto = $conn->query($queryDpto);
+                    ?>
+                    <label for="instiDepart">Institución y Sección</label>
+                    <?php while ($DptoInst = mysqli_fetch_array($ResultDpto)) { ?>
+                        <div class="form-group">
+                            <input type="checkbox" id="instiDepart<?php echo $DptoInst['CodDpto']; ?>" name="instiDepart[]" value="<?php echo $DptoInst['CodDpto']; ?>">
+                            <label for="instiDepart<?php echo $DptoInst['CodDpto']; ?>"><?php echo $DptoInst['NomInsti']."/".$DptoInst['NomDpto']; ?></label>
+                        </div>
+                    <?php } ?>
                 </div>
 
                 <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
@@ -70,34 +89,49 @@
 </div>
 
 <script>
-    $(document).ready(function(){
-       $("#pfs").hide();
-       $("#pjs").hide();
+    $(document).ready(function() {
+        $("#pfs").hide();
+        $("#pjs").hide();
+        $("#vpjs").hide();
 
-    //    $("#ref").select2();
+        //    $("#ref").select2();
 
-       $(function (){
-        $("#perFS").change(function(){
-            if (!$(this).prop('checked')) {
-                $("#pfs").hide();
-            }else{
-                $("#pfs").show();
-                $("#pjs").hide();
-            }
+        $(function() {
+            $("#perFS").change(function() {
+                if (!$(this).prop('checked')) {
+                    $("#pfs").hide();
+                } else {
+                    $("#pfs").show();
+                    $("#pjs").hide();
+                    $("#vpjs").hide();
+                }
+            });
         });
-       });
 
-       $(function (){
-        $("#perJS").change(function(){
-            if (!$(this).prop('checked')) {
-                $("#pjs").hide();
-            }else{
-                $("#pjs").show();
-                $("#pfs").hide();
-            }
+        $(function() {
+            $("#perJS").change(function() {
+                if (!$(this).prop('checked')) {
+                    $("#pjs").hide();
+                } else {
+                    $("#pjs").show();
+                    $("#pfs").hide();
+                    $("#vpjs").hide();
+                }
+            });
         });
-       });
-     
+
+        $(function() {
+            $("#vperJS").change(function() {
+                if (!$(this).prop('checked')) {
+                    $("#vpjs").hide();
+                } else {
+                    $("#vpjs").show();
+                    $("#pfs").hide();
+                    $("#pjs").hide();
+                }
+            });
+        });
+
 
     });
 </script>

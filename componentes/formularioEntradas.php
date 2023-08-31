@@ -74,8 +74,6 @@
        $("#pf").hide();
        $("#pj").hide();
 
-       $("#ref").select2();
-
        $(function (){
         $("#perF").change(function(){
             if (!$(this).prop('checked')) {

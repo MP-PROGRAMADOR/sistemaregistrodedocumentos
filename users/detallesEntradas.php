@@ -208,7 +208,7 @@ $codEntrada = $_GET['id'];
               $resul = mysqli_query($conn, $qDecreto);
               $numDecre = mysqli_num_rows($resul);
 
-              $qDestino = "SELECT `entradas`.*, `decretos`.`Fecha`, `miembros`.`Nombre` FROM `entradas` LEFT JOIN `decretos` ON `decretos`.`DocEntrada` = `entradas`.`Id` , `miembros` WHERE entradas.Id='$codEntrada' GROUP BY(miembros.Nombre)";
+              $qDestino = "SELECT destino.Miembro FROM destino INNER JOIN decretos ON destino.Decreto = decretos.Id WHERE decretos.DocEntrada ='$codEntrada' GROUP BY(destino.Miembro)";
               $resulDes = mysqli_query($conn, $qDestino);
               $numDest = mysqli_num_rows($resulDes);
               ?>
@@ -334,10 +334,10 @@ $codEntrada = $_GET['id'];
                               <div class="table-responsive  mt-1">
                                 <table class="table select-table">
                                   <thead>
-                                    <tr>
-                                      <th>Archivo</th>
+                                    <tr>                                      
                                       <th>Descripcion</th>
                                       <th>Fecha</th>
+                                      <th>Archivo</th>
 
                                     </tr>
                                   </thead>
@@ -346,6 +346,13 @@ $codEntrada = $_GET['id'];
                                     while ($FilasDecretos = mysqli_fetch_array($resul)) {
                                     ?>
                                       <tr>
+                                        
+                                        <td>
+                                          <p><?php echo $FilasDecretos['Descripcion']; ?></p>
+                                        </td>
+                                        <td>
+                                          <p><?php echo $FilasDecretos['Fecha']; ?></p>
+                                        </td>
                                         <td>
                                           <div class="d-flex ">
                                             <a class="btn btn-primary me-2" href="../documentos/decretos/<?= $FilasDecretos['Archivo']; ?>" download="Decreto-Entrada-<?= $FilasDecretos['Archivo']; ?>"><i class="mdi mdi-file"></i></a>
@@ -353,12 +360,6 @@ $codEntrada = $_GET['id'];
                                               <h6><?php echo $FilasDecretos['Archivo']; ?></h6>
                                             </div>
                                           </div>
-                                        </td>
-                                        <td>
-                                          <p><?php echo $FilasDecretos['Descripcion']; ?></p>
-                                        </td>
-                                        <td>
-                                          <p><?php echo $FilasDecretos['Fecha']; ?></p>
                                         </td>
 
                                       </tr>
@@ -390,20 +391,27 @@ $codEntrada = $_GET['id'];
                                   </div>
                                   <div class="list-wrapper">
                                     <?php
-                                    $qMiembro = "SELECT `entradas`.*, `decretos`.`Fecha`, `miembros`.`Nombre` FROM `entradas` INNER JOIN `decretos` ON `decretos`.`DocEntrada` = `entradas`.`Id` , `miembros` WHERE entradas.Id='$codEntrada' GROUP BY(miembros.Nombre)";
-                                    $resulMiem = mysqli_query($conn, $qMiembro);
-                                    $numDecre = mysqli_num_rows($resulMiem);
+                                    $qIdMiembro = "SELECT destino.Miembro FROM destino INNER JOIN decretos ON destino.Decreto = decretos.Id WHERE decretos.DocEntrada ='$codEntrada' GROUP BY(destino.Miembro)";
+                                    $resulId = mysqli_query($conn, $qIdMiembro);
+                                    $numDecre = mysqli_num_rows($resulId);
                                     ?>
                                     <ul class="todo-list todo-list-rounded">
                                       <?php
-                                      while ($FilasMiembros = mysqli_fetch_array($resulMiem)) {
+                                      while ($FilasMiembros = mysqli_fetch_array($resulId)) {
+                                        $codMiem = $FilasMiembros['Miembro'];
+                                        $qMiem = "SELECT * FROM miembros WHERE Id = '$codMiem'";
+                                        $ResultMiem = mysqli_query($conn, $qMiem);
                                       ?>
 
                                         <li class="d-block">
                                           <div class="form-check w-100">
 
                                             <div class="d-flex mt-2">
-                                              <div class="ps-4 text-small me-3"><?php echo $FilasMiembros['Nombre']; ?></div>
+                                              <?php while ($FilasMiembro = mysqli_fetch_array($ResultMiem)) {
+                                                # code...
+                                              ?>
+                                              <div class="ps-4 text-small me-3"><?php echo $FilasMiembro['Nombre']; ?></div>
+                                              <?php } ?>
 
                                             </div>
                                           </div>

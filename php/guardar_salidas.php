@@ -31,7 +31,7 @@ if ($size > 1000000) {
 }
 
 
-$qLastID = "SELECT MAX(entradas.Id) AS Codigo FROM entradas";
+$qLastID = "SELECT MAX(salidas.Id) AS Codigo FROM salidas";
 $ResultId = mysqli_query($conn, $qLastID);
 $arrayId = mysqli_fetch_array($ResultId);
 $datoId = $arrayId['Codigo'];
@@ -72,13 +72,33 @@ if ($persFisic != "") {
 
     $idSalida = mysqli_insert_id($conn);
 
-    $queryPJ = "INSERT INTO ir SET Salida='$idSalida', Seccion='$institucion'"; 
+    $queryPJ = "INSERT INTO ir SET Salida='$idSalida', Seccion='$institucion'";
     $resultPJ = mysqli_query($conn, $queryPJ);
 
     if ($resultPJ) {
         header('Location: ../users/salidas.php?mensaje=insertado');
     } else {
         header('Location: ../users/salidas.php?mensaje=error');
+    }
+} else if ($_POST['instiDepart'] != "") {
+    $arregloSeccion = $_POST['instiDepart'];
+    $num = count($arregloSeccion);
+
+    $sqlEntrda = "INSERT INTO salidas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Referencia, Usuario)
+    VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$ref','$usuario')";
+        $resultado = mysqli_query($conn, $sqlEntrda);
+        $idSalidas = mysqli_insert_id($conn);
+
+    for ($i = 0; $i < $num; $i++) { 
+        
+        $queryPJVarias = "INSERT INTO ir (Salida, Seccion) VALUES ('$idSalidas','$arregloSeccion[$i]')";
+        $resultPJV = mysqli_query($conn, $queryPJVarias);
+
+        if ($resultPJV) {
+            header('Location: ../users/salidas.php?mensaje=insertado');
+        } else {
+            header('Location: ../users/salidas.php?mensaje=error');
+        }
     }
 } else {
     echo "No he recibido nada";

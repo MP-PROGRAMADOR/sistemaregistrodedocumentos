@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-lg-6 mb-2">
-        <a href="../users/nuevaEntrada.php" class="btn btn-primary"><i class="mdi mdi-account-plus"></i></a>
+        <a href="../users/nuevaEntrada.php" class="btn btn-primary"><i class="mdi mdi-folder-plus"></i></a>
+        <a href="#../users/nuevoDecreto.php" class="btn btn-success"><i class="mdi mdi-printer"></i></a>
     </div>
 </div>
 
@@ -86,7 +87,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         <div class="card-body">
 
             <div class="table-responsive">
-                <table id="tablaEntrada" class="table table-hover">
+                <table id="myTable" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Nº Registro</th>
@@ -97,7 +98,8 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>Fecha Firma</th>
                             <th>Importe</th>
                             <th>Archivo</th>
-                            <td>ACCIONES</td>
+                            <td>Ver</td>
+                            <td>Editar</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,10 +131,12 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td> <?= $row_entradas['Importe']; ?></td>
                                 <td> <a class="btn btn-primary me-2" href="../documentos/entradas/<?= $row_entradas['Archivo']; ?>" download="Entrada-<?= $row_entradas['NumRegistro']; ?>"><i class="mdi mdi-download"></i></a></td>
                                 <td>
+
                                     <a class="btn btn-success me-2" href="../users/detallesEntradas.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
                                 </td>
+
                                 <td>
-                                    <a class="btn btn-warning me-2" href="../users/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-pencil"></i></a>
+                                    <a class="btn btn-warning me-2" href="#../users/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-pencil"></i></a>
                                 </td>
                                 <!-- <td>
                                     <a class="btn btn-danger me-2" href=" #" onclick="agregarForm('<?php echo $datos; ?>');" data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion"><i class="mdi mdi-delete"></i></a>
@@ -152,9 +156,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
 
 
 
-<script>
-    $('#tablaEntrada').DataTable();
-</script>
+
 
 
 <script>
