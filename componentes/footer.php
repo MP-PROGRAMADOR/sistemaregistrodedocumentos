@@ -1,8 +1,8 @@
 <footer class="footer">
-    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"><a href="https://mpmarketingsolution.net/" target="_blank">MP Marketing & Solutions</a>.</span>
-        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2023. Todos los derechos reservados..</span>
-    </div>
+  <div class="d-sm-flex justify-content-center justify-content-sm-between">
+    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"><a href="https://mpmarketingsolution.net/" target="_blank">MP Marketing & Solutions</a>.</span>
+    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2023. Todos los derechos reservados..</span>
+  </div>
 </footer>
 <!-- partial -->
 </div>
@@ -34,18 +34,43 @@
 <!-- inject:js -->
 <script src="../js/off-canvas.js"></script>
 <script src="../js/todolist.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-  <script src="../js/dashboard.js"></script>
-  <script src="../js/Chart.roundedBarCharts.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="../js/jquery.cookie.js" type="text/javascript"></script>
+<script src="../js/dashboard.js"></script>
+<script src="../js/Chart.roundedBarCharts.js"></script>
 
 
 <!-- Page specific script -->
 <script>
-$(document).ready( function () {
-$('#myTable').DataTable();
-} );
+  // $(document).ready( function () {
+  //   $('#myTable').DataTable();
+  // } );
+
+  $(document).ready(function() {
+    $('#myTable').DataTable({
+      "language": {
+        "lengthMenu": "Mostrar" +
+          `<select>
+                  <option values="10">10</option>
+                  <option values="25">25</option>
+                  <option values="50">50</option>
+                  <option values="100">100</option>
+                  <option values="-1">Todos</option>
+                  </select>` +
+          "Registros por páginas",
+        "zeroRecords": "No hay coincidencia con la insertado - Lo siento ):",
+        "info": "Mostrando la página _PAGE_ de _PAGES_",
+        "infoEmpty": "No records available",
+        "infoFiltered": "(Filtrado de _MAX_ Registros Totales)",
+        'search': "Buscar:",
+        'paginate ': {
+          'next': "Siguente",
+          'previous': "Anterior _MENU_"
+        }
+      }
+    });
+  });
 </script>
 
 

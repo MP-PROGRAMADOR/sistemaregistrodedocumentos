@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-6 mb-2">
         <a href="../users/nuevaSalida.php" class="btn btn-primary"><i class="mdi mdi-folder-plus"></i></a>
-        <a href="#../users/nuevoDecreto.php" class="btn btn-success"><i class="mdi mdi-printer"></i></a>
+        <a href="../fpdf/salidas.php" target="__blanck" class="btn btn-success"><i class="mdi mdi-printer"></i></a>
     </div>
 </div>
 
