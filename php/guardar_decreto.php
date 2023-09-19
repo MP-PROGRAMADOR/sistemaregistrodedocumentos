@@ -31,15 +31,36 @@ $descripcion = $conn->real_escape_string($_POST['descripcion']);
 $archivo = $conn->real_escape_string($_FILES["archivo"]["name"]);
 $entradaDoc = $conn->real_escape_string($_POST['entradaDoc']);
 $fechaRegistro = date("Y-m-d H:i:s");
+$persFisic = $conn->real_escape_string($_POST['persFisic']);
+$_POST['miembro'] = "";
 
-$sql = "INSERT INTO decretos (Descripcion,Fecha,Archivo,DocEntrada)
+
+// $sql = "INSERT INTO decretos (Descripcion,Fecha,Archivo,DocEntrada)
+//     VALUES ('$descripcion','$fechaRegistro','$archivo','$entradaDoc')";
+// $conn->query($sql);
+// $idDecreto = mysqli_insert_id($conn);
+
+if ($persFisic != "") {
+    $sql = "INSERT INTO decretos (Descripcion,Fecha,Archivo,DocEntrada)
     VALUES ('$descripcion','$fechaRegistro','$archivo','$entradaDoc')";
-$conn->query($sql);
-$idDecreto = mysqli_insert_id($conn);
+    $conn->query($sql);
+    $idDecreto = mysqli_insert_id($conn);
 
-if ($_POST['miembro'] != "") {
+    $queryPF = "INSERT INTO personafisica SET NombreCompleto='$persFisic', Decreto='$idDecreto'";
+    $resultPF = mysqli_query($conn, $queryPF);
 
-    $arregloMiembro = $_POST['miembro']; 
+    if ($resultPF) {
+        header('Location: ../users/decretos.php?mensaje=insertado');
+    } else {
+        header('Location: ../users/decretos.php?mensaje=error');
+    }
+} else if ($_POST['miembro'] != "") {
+    $sql = "INSERT INTO decretos (Descripcion,Fecha,Archivo,DocEntrada)
+    VALUES ('$descripcion','$fechaRegistro','$archivo','$entradaDoc')";
+    $conn->query($sql);
+    $idDecreto = mysqli_insert_id($conn);
+
+    $arregloMiembro = $_POST['miembro'];
     $num = count($arregloMiembro);
     echo $num . "</br>";
     print_r("Valores: <br>");
@@ -48,10 +69,12 @@ if ($_POST['miembro'] != "") {
         $q = "INSERT INTO destino (Miembro, Decreto) VALUES ('$arregloMiembro[$i]','$idDecreto')";
         $qDestino =  mysqli_query($conn, $q);
 
-        if ( $qDestino) {
+        if ($qDestino) {
             header('Location: ../users/decretos.php?mensaje=insertado');
         } else {
             header('Location: ../users/decretos.php?mensaje=error');
         }
     }
+} else {
+    echo " /Nada ha sido seleccionado";
 }

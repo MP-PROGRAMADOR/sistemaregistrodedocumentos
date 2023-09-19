@@ -31,7 +31,7 @@ $numero_salidasT = mysqli_num_rows($resultado_salidasT);
 // $numero_informe = mysqli_num_rows($resultado_informe);
 
 // cogiendo el numero de DECRETOS
-$sql_decreto = "SELECT `usuarios`.`Id`, `entradas`.`NumRegistro`, `decretos`.`Id` FROM `usuarios` LEFT JOIN `entradas` ON `entradas`.`Usuario` = `usuarios`.`Id` LEFT JOIN `decretos` ON `decretos`.`DocEntrada` = `entradas`.`Id` where usuarios.Id=$usuario_id";
+$sql_decreto = "SELECT decretos.Descripcion FROM decretos INNER JOIN entradas ON decretos.DocEntrada = entradas.Id WHERE entradas.Usuario = $usuario_id";
 $resultado_decreto = mysqli_query($conn, $sql_decreto);
 $numero_decretos = mysqli_num_rows($resultado_decreto);
 
@@ -272,7 +272,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                         </div>
                         <div class="d-none d-md-block">
                           <p class="statistics-title">Fecha</p>
-                          <h3 class="rate-percentage"><?php echo $fecha_actual;    ?></h3>
+                          <h3 class="rate-percentage"><?php echo date('d-m-Y');    ?></h3>
 
                         </div>
                         <div class="d-none d-md-block">
@@ -392,12 +392,12 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                         </td>
                                         <td>
                                           <div>
-                                              <?php 
-                                                $resulDiv = ($numero_entradas/$numero_entradasT)*100;
-                                              ?>
+                                            <?php
+                                            $resulDiv = ($numero_entradas / $numero_entradasT) * 100;
+                                            ?>
                                             <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
                                               <p class="text-success"><?php echo $resulDiv; ?>%</p>
-                                              <p><?php echo $numero_entradas."/".$numero_entradasT;?></p>
+                                              <p><?php echo $numero_entradas . "/" . $numero_entradasT; ?></p>
                                             </div>
                                             <div class="progress progress-md">
                                               <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $resulDiv; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -406,12 +406,12 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                         </td>
                                         <td>
                                           <div>
-                                              <?php 
-                                                $resulDivS = ($numero_salidas/$numero_salidasT)*100;
-                                              ?>
+                                            <?php
+                                            $resulDivS = ($numero_salidas / $numero_salidasT) * 100;
+                                            ?>
                                             <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
                                               <p class="text-danger"><?php echo $resulDivS; ?>%</p>
-                                              <p><?php echo $numero_salidas."/".$numero_salidasT;?></p>
+                                              <p><?php echo $numero_salidas . "/" . $numero_salidasT; ?></p>
                                             </div>
                                             <div class="progress progress-md">
                                               <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $resulDivS; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -446,7 +446,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                               <div class="row">
                                 <div class="col-lg-12">
                                   <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title card-title-dash">Ultimos Registros de Entradas</h4>
+                                    <h4 class="card-title card-title-dash">Último Registro de Entradas</h4>
                                     <div class="add-items d-flex mb-0">
                                       <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
                                       <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button>
@@ -458,11 +458,9 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                       <!-- cogiendo todos los registros de entrada -->
                                       <?php
 
-                                      $sql_entradas2 = "SELECT * FROM entradas where Usuario=$usuario_id ORDER BY Id DESC LIMIT 4";
+                                      $sql_entradas2 = "SELECT * FROM entradas ORDER BY Id DESC LIMIT 4";
                                       $resultado_entradas = mysqli_query($conn, $sql_entradas2);
                                       $fila = mysqli_fetch_assoc($resultado_entradas);
-
-
 
                                       ?>
 
@@ -470,12 +468,12 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
                                         <div class="form-check w-100">
                                           <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"><?php echo $fila['Descripcion'];  ?><i class="input-helper rounded"></i>
+                                            <?php echo $fila['TipoDoc'];  ?>
                                           </label>
                                           <div class="d-flex mt-2">
-                                            <div class="ps-4 text-small me-3"><?php echo $fila['FechaRegistro'];  ?></div>
-                                            <div class="badge badge-opacity-warning me-3">Numero: <?php echo $fila['NumRegistro'];  ?></div>
-                                            <i class="mdi mdi-flag ms-2 flag-color"></i>
+                                            <div class="ps-4 text-small me-3">F. Registro <?php echo $fila['FechaRegistro'];  ?></div>
+                                            <div class="badge badge-opacity-warning me-3">Numero Registro: <?php echo $fila['NumRegistro'];  ?></div>
+
                                           </div>
 
 
@@ -524,7 +522,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                 <div class="col-lg-12">
                                   <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>
-                                      <h4 class="card-title card-title-dash">Ultimos Registros de Salidas</h4>
+                                      <h4 class="card-title card-title-dash">Último Registro de Salida</h4>
                                     </div>
                                   </div>
                                   <div class="mt-3">
@@ -534,7 +532,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                       <!-- cogiendo todos los registros de salida -->
                                       <?php
 
-                                      $sql_salida2 = "SELECT * FROM salidas where Usuario=$usuario_id ORDER BY Id DESC LIMIT 4";
+                                      $sql_salida2 = "SELECT * FROM salidas ORDER BY Id DESC LIMIT 4";
                                       $resultado_salida2 = mysqli_query($conn, $sql_salida2);
                                       $fila23 = mysqli_fetch_assoc($resultado_salida2);
 
@@ -547,12 +545,11 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
                                       <div class="form-check w-100">
                                         <label class="form-check-label">
-                                          <input class="checkbox" type="checkbox"><?php echo $fila23['Descripcion'];  ?><i class="input-helper rounded"></i>
+                                          <?php echo $fila23['TipoDoc'];  ?>
                                         </label>
                                         <div class="d-flex mt-2">
-                                          <div class="ps-4 text-small me-3"><?php echo $fila23['FechaRegistro'];  ?></div>
-                                          <div class="badge badge-opacity-warning me-3">Numero: <?php echo $fila23['NumRegistro'];  ?></div>
-                                          <i class="mdi mdi-flag ms-2 flag-color"></i>
+                                          <div class="ps-4 text-small me-3">F. Registro<?php echo $fila23['FechaRegistro'];  ?></div>
+                                          <div class="badge badge-opacity-warning me-3">Numero Registro: <?php echo $fila23['NumRegistro'];  ?></div>
                                         </div>
 
 

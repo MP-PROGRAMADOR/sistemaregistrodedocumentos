@@ -25,7 +25,7 @@ else{
 
 
 // obteniendo los dias del mes
-$fecha_actual=date("d-m-y");
+$fecha_actual="";#date("d-m-y");
 
 
     $vector = array(
@@ -104,7 +104,7 @@ $fecha_actual=date("d-m-y");
             </li>
             <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                 <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="img-xs rounded-circle" src="../images/faces/face8.jpg" alt="Profile image"> </a>
+                    <img class="img-xs rounded-circle" src="../images/faces/profile/foto1.jpg" alt="Profile image"> </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <div class="dropdown-header text-center">
                         <img class="img-md rounded-circle" src="../images/faces/face8.jpg" alt="Profile image">

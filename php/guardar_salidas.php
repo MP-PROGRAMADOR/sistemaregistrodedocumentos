@@ -28,7 +28,7 @@ if ($size > 1000000) {
     } else {
         echo "Solo se admiten archivos pdf/docx";
     }
-}
+} 
 
 
 $qLastID = "SELECT MAX(salidas.Id) AS Codigo FROM salidas";
