@@ -320,7 +320,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                               </div>
                               <div class="chartjs-bar-wrapper mt-3">
 
-                                <div id="columnchart_material2" style="width: 900px; height: 300px;"></div>
+                                <div id="columnchart_material2" style="width: 100%; height: 300px;"></div>
 
                               </div>
                             </div>
