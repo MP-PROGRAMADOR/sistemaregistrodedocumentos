@@ -315,7 +315,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                               <div class="chartjs-bar-wrapper mt-3">
                                 <!-- <canvas id="marketingOverview"></canvas> -->
 
-                                <div id="columnchart_material" style="width: 900px; height: 300px;"></div>
+                                <div id="columnchart_material" style="width: 100%; height: 300px;"></div>
 
                               </div>
                             </div>
