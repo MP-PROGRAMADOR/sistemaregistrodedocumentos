@@ -80,6 +80,7 @@
                 $("#pf").hide();
             }else{
                 $("#pf").show();
+                $("#persFisic").focus();
                 $("#pj").hide();
             }
         });
@@ -91,6 +92,7 @@
                 $("#pj").hide();
             }else{
                 $("#pj").show();
+                $("#institucion").focus();
                 $("#pf").hide();
             }
         });
