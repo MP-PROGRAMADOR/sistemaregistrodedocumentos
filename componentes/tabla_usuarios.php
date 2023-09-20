@@ -95,7 +95,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>TIPO USUARIO</th>
                             <th>FOTO</th>
                             <th>EDITAR</th>
-                            <th>ELIMINAR</th>
+                            <!-- <th>ELIMINAR</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -146,10 +146,10 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td>
                                     <a href="../admin/editarUsuarios.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-warning me-2" ">EDITAR</a>
                                 </td>
-                                <td>
+                                <!-- <td>
                                
                                 <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-danger me-2"  data-bs-toggle="modal" data-bs-target="#eliminaModal"><i class="mdi mdi-delete"></i></a>
-                                </td>
+                                </td> -->
                             </tr>
 
 

@@ -11,10 +11,10 @@ $sql_salidas = "SELECT * FROM salidas";
 $resultado_salidas = mysqli_query($conn, $sql_salidas);
 $numero_salidas = mysqli_num_rows($resultado_salidas);
 
-// cogiendo el numero de INFORMES
-// $sql_informe = "SELECT * FROM informe";
-// $resultado_informe = mysqli_query($conn, $sql_informe);
-// $numero_informe = mysqli_num_rows($resultado_informe);
+// cogiendo el numero de REFERENCIAS
+ $sql_Referencias = "SELECT * FROM referencias";
+ $resultado_referencia = mysqli_query($conn, $sql_Referencias);
+ $numero_referencia = mysqli_num_rows($resultado_referencia);
 
 // cogiendo el numero de DECRETOS
 $sql_decreto = "SELECT * FROM decretos";
@@ -269,8 +269,8 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                           <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
                         </div>
                         <div>
-                          <p class="statistics-title">INFORMES</p>
-                          <h3 class="rate-percentage"> <?php // echo $numero_informe;    ?></h3>
+                          <p class="statistics-title">REFERENCIAS</p>
+                          <h3 class="rate-percentage"> <?php echo $numero_referencia;    ?></h3>
                           <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
                         </div>
                         <div class="d-none d-md-block">

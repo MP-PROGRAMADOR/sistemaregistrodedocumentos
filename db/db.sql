@@ -1,6 +1,4 @@
-DROP DATABASE IF EXISTS TESORERIA;
-CREATE DATABASE TESORERIA;
-USE TESORERIA;
+
 
 CREATE TABLE instituciones(
     Id int(5) not null auto_increment,

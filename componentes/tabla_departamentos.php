@@ -139,7 +139,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td>
                                     <a href="../admin/editarDepartamentos.php?id=<?php echo $row_departamentos['Id'];  ?>" class="btn btn-warning me-2" ">EDITAR</a>
                               
-                                    <a href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#eliminaModal"><i class="mdi mdi-archive"></i></a>
+                                    <!-- <a href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#eliminaModal"><i class="mdi mdi-archive"></i></a> -->
                                 </td>
 
 

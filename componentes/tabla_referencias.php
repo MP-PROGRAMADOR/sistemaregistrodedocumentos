@@ -110,7 +110,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td> <?= $row_pacientes['Nombre']; ?></td>
                                 <td> <?= $row_pacientes['Codigo']; ?></td>
                                 <td>
-                                    <a href="#../admin/editarMiembros.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-warning me-2" ">EDITAR</a>
+                                    <a href="../admin/editarReferencia.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-warning me-2" ">EDITAR</a>
                                 </td>
                             </tr>
 

@@ -43,7 +43,7 @@ $id_insert= $id;
                 </div>
                 <div class="form-group">
                     <label for="password">PASSWORD</label>
-                    <input type="password" class="form-control" value="<?php echo $fila2['Pass']; ?>" id="password" name="password" placeholder="PASSWORD" required>
+                    <input type="password" class="form-control" value="<?php //echo $fila2['Pass']; ?>" id="password" name="password" placeholder="PASSWORD" required>
                 </div>
                 <div class="form-group">
                     <label for="Tipo_Usuario">TIPO DE USUARIO</label>
@@ -62,7 +62,7 @@ $id_insert= $id;
                 </div>
                 <div class="form-group">
                     <label for="archivo">FOTO</label>
-                    <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*">
+                    <input type="file" class="form-control" id="archivo" name="archivo" accept="image/*" required>
 
                     <?php
 
@@ -81,7 +81,7 @@ $id_insert= $id;
 
 
                 </div>
-                <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
+                <button type="submit" class="btn btn-primary me-2">ACTUALIZAR</button>
                 <a href="../admin/usuarios.php" class="btn btn-danger me-2">CANCELAR</a>
             </form>
         </div>

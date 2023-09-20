@@ -64,7 +64,7 @@ $fila = mysqli_fetch_assoc($pacientes);
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary me-2">GUARDAR</button>
+                <button type="submit" class="btn btn-primary me-2">ACTUALIZAR</button>
                 <a href="../admin/departamentos.php" class="btn btn-danger me-2">CANCELAR</a>
             </form>
         </div>
