@@ -60,10 +60,11 @@ class PDF extends FPDF
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
       $this->Cell(30, 10, utf8_decode('N° de Registro'), 1, 0, 'C', 1);
-      $this->Cell(120, 10, utf8_decode('Tipo de Documento'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('IMPORTE'), 1, 0, 'C', 1);
+      $this->Cell(90, 10, utf8_decode('Tipo de Documento'), 1, 0, 'C', 1);
+      $this->Cell(35, 10, utf8_decode('IMPORTE'), 1, 0, 'C', 1);
       $this->Cell(45, 10, utf8_decode('FECHA DE REGISTRO'), 1, 0, 'C', 1);
-      $this->Cell(40, 10, utf8_decode('REFERENCIA'), 1, 1, 'C', 1);
+      $this->Cell(30, 10, utf8_decode('REFERENCIA'), 1, 0, 'C', 1);
+      $this->Cell(45, 10, utf8_decode('ENTRADA'), 1, 1, 'C', 1);
    }
 
    // Pie de página
@@ -104,15 +105,16 @@ $resul = mysqli_query($conn, $query);
     $i = $i + 1;
     /* TABLA */
     $pdf->Cell(30, 10, utf8_decode($entradas['NumRegistro']), 1, 0, 'C', 0);
-    $pdf->Cell(120, 10, utf8_decode($entradas['TipoDoc']), 1, 0, 'C', 0);
-    $pdf->Cell(40, 10, utf8_decode($entradas['Importe']), 1, 0, 'C', 0);
+    $pdf->Cell(90, 10, utf8_decode($entradas['TipoDoc']), 1, 0, 'C', 0);
+    $pdf->Cell(35, 10, utf8_decode($entradas['Importe']), 1, 0, 'C', 0);
     $pdf->Cell(45, 10, utf8_decode($entradas['FechaRegistro']), 1, 0, 'C', 0);
 
     $codRef = $entradas['Referencia'];
     $queryRef = "SELECT * FROM referencias WHERE Id = $codRef";
     $resulRef = mysqli_query($conn, $queryRef); 
     $RefCod = mysqli_fetch_array($resulRef);
-    $pdf->Cell(40, 10, utf8_decode($RefCod['Codigo']), 1, 1, 'C', 0);
+    $pdf->Cell(30, 10, utf8_decode($RefCod['Codigo']), 1, 0, 'C', 0);
+    $pdf->Cell(45, 10, utf8_decode($entradas['Entrada']), 1, 1, 'C', 0);
 }
 
 

@@ -97,6 +97,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>Referencia</th>
                             <th>Fecha Firma</th>
                             <th>Importe</th>
+                            <th>Entrada</th>
                             <th>Archivo</th>
                             <th>Ver</th>
                             <th>Editar</th>
@@ -130,12 +131,13 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
 
                                 <td> <?= $row_entradas['FechaFirma']; ?></td>
                                 <td> <?= $row_entradas['Importe']; ?></td>
+                                <td> <?= $row_entradas['Entrada']; ?></td>
                                 <td> <a class="btn btn-primary me-2" href="../documentos/salidas/<?= $row_entradas['Archivo']; ?>" download="Salida-<?= $row_entradas['NumRegistro']; ?>"><i class="mdi mdi-download"></i></a></td>
                                 <td>
                                     <a class="btn btn-success me-2" href="../users/detallesSalidas.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-warning me-2" href="#../users/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-pencil"></i></a>
+                                    <a class="btn btn-warning me-2" href="../users/editarSalida.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-pencil"></i></a>
                                 </td>
                                
                             </tr>

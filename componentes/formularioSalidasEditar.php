@@ -1,11 +1,14 @@
 <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">FORMULARIO DE REGISTRO DE SALIDAS</h4>
-            <form class="forms-sample" method="POST" action="../php/guardar_salidas.php" enctype="multipart/form-data">
+            <h4 class="card-title">MODIFICAR LA SALIDA NÚMERO: <?php echo $resultado['NumRegistro']; ?></h4>
+            <form class="forms-sample" method="POST" action="../php/actualizar_salida.php" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="TipoDoc" name="cod" value="<?php echo $resultado['Id']; ?>">
+                </div>
                 <div class="form-group">
                     <label for="TipoDoc">Tipo de Documento</label>
-                    <input type="text" class="form-control" id="TipoDoc" name="TipoDoc" placeholder="Ejemplo carta...">
+                    <input type="text" class="form-control" id="TipoDoc" name="TipoDoc" value="<?php echo $resultado['TipoDoc']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="ckeditor">Descripción</label>
@@ -13,15 +16,15 @@
                 </div>
                 <div class="form-group">
                     <label for="palabrasClaves">Palabras Claves del Documento</label>
-                    <input type="text" class="form-control" id="palabrasClaves" name="palabrasClaves" placeholder="Ejemplo solicitud de...">
+                    <input type="text" class="form-control" id="palabrasClaves" name="palabrasClaves" value="<?php echo $resultado['PalabrasClaves']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="fechaFirma">¿Cuando de Firmo el documento?</label>
-                    <input type="date" class="form-control" id="fechaFirma" name="fechaFirma" placeholder="Ejemplo solicitud de...">
+                    <input type="date" class="form-control" id="fechaFirma" name="fechaFirma" value="<?php echo $resultado['FechaFirma']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="importe">Importe</label>
-                    <input type="text" class="form-control" id="importe" name="importe" placeholder="Ejemplo 1.000.000">
+                    <input type="text" class="form-control" id="importe" name="importe" value="<?php echo $resultado['Importe']; ?>">
                 </div>
                 <div class="form-group" id="">
                     <label for="institucion"> Seleccione la Referencia</label>
@@ -32,12 +35,12 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="archivo">Selecciona el Documento</label>
                     <input type="file" class="form-control" id="archivo" name="archivo" placeholder="Ejemplo solicitud de...">
-                </div>
-                <label for="institucion">Se envia a...</label>
-                <div class="form-group">
+                </div> -->
+                <!-- <label for="institucion">Se envia a...</label> -->
+                <!-- <div class="form-group">
                     <label class="form-check-label">
                         <input class="checkbox" name="procede" type="radio" id="perFS" value="pf"> Una Persona Física<i class="input-helper rounded"></i>
                     </label>
@@ -51,7 +54,7 @@
                     <label class="form-check-label">
                         <input class="checkbox" name="procede" type="radio" id="vperJS" value="pj"> Varias Persona Jurídica<i class="input-helper rounded"></i>
                     </label>
-                </div>
+                </div> -->
 
                 <div class="form-group" id="pfs">
                     <label for="importe">Nombre Completo de la Persona</label>
@@ -73,7 +76,9 @@
                     FROM departementos INNER JOIN instituciones ON departementos.Institucion = instituciones.Id WHERE departementos.Institucion != 1 ORDER BY instituciones.Nombre ASC;";
                     $ResultDpto = $conn->query($queryDpto);
                     ?>
-                    <label for="instiDepart"><h5>Institución y Sección</h5></label>
+                    <label for="instiDepart">
+                        <h5>Institución y Sección</h5>
+                    </label>
                     <?php while ($DptoInst = mysqli_fetch_array($ResultDpto)) { ?>
                         <div class="form-group">
                             <input type="checkbox" id="instiDepart<?php echo $DptoInst['CodDpto']; ?>" name="instiDepart[]" value="<?php echo $DptoInst['CodDpto']; ?>">

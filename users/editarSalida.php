@@ -2,14 +2,14 @@
 
 require '../conexion/conexion.php';
 
-$sqlInstituciones = "SELECT departementos.Id AS Codigo, departementos.Nombre AS Departamento, instituciones.Nombre_Corto AS Institucion 
-FROM departementos INNER JOIN instituciones ON departementos.Institucion = instituciones.Id WHERE instituciones.Nombre_Corto != 'TGE';";
+  $sqlInstituciones = "SELECT departementos.Id AS Codigo, departementos.Nombre AS Departamento, instituciones.Nombre_Corto AS Institucion 
+    FROM departementos INNER JOIN instituciones ON departementos.Institucion = instituciones.Id WHERE instituciones.Nombre_Corto != 'TGE';";
 
-$instituciones = $conn->query($sqlInstituciones);
+  $instituciones = $conn->query($sqlInstituciones);
 
-$sqlreferencias = "SELECT * FROM referencias";
+  $sqlreferencias = "SELECT * FROM referencias";
 
-$referencias = $conn->query($sqlreferencias);  
+  $referencias = $conn->query($sqlreferencias);  
 
 
 ?>
@@ -19,7 +19,7 @@ $referencias = $conn->query($sqlreferencias);
     <!-- partial:../../partials/_navbar.html -->
     <?php require "../componentes/topMenu.php"; ?> 
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper"> 
         <!-- partial:../../partials/_settings-panel.html -->
         <!-- <div class="theme-setting-wrapper">
             <div id="settings-trigger"><i class="ti-settings"></i></div>
@@ -200,7 +200,13 @@ $referencias = $conn->query($sqlreferencias);
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formularioSalidas.php"; ?>    
+                <?php 
+                    $CodSalid = $_GET['id'];
+                    $qSalida = "SELECT * FROM salidas WHERE Id = '$CodSalid'";
+                    $Execute = mysqli_query($conn, $qSalida);
+                    $resultado = mysqli_fetch_array($Execute);
+                    require "../componentes/formularioSalidasEditar.php"; 
+                ?> 
                 </div>
             </div>
             <!-- content-wrapper ends -->

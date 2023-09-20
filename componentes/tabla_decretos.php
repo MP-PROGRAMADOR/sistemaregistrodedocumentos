@@ -94,7 +94,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>Descripcion del Decreto</th>
                             <th>Fecha</th>
                             <th>Archivo</th>
-                            <td>ACCIONES</td>
+                            <!-- <td>ACCIONES</td> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -127,9 +127,9 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <!-- <td>
                                     <a class="btn btn-success me-2" href="../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
                                 </td> -->
-                                <td>
+                                <!-- <td>
                                     <a class="btn btn-warning me-2" href="#../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id'];  ?>"><i class="mdi mdi-pencil"></i></a>
-                                </td>
+                                </td> -->
                                 <!-- <td>
                                     <a class="btn btn-danger me-2" href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion"><i class="mdi mdi-delete"></i></a>
                                 </td> -->

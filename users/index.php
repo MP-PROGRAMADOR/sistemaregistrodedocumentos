@@ -394,9 +394,10 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                           <div>
                                             <?php
                                             $resulDiv = ($numero_entradas / $numero_entradasT) * 100;
+                                            $porCientoEntrada = round($resulDiv);
                                             ?>
                                             <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                              <p class="text-success"><?php echo $resulDiv; ?>%</p>
+                                              <p class="text-success"><?php echo $porCientoEntrada; ?>%</p>
                                               <p><?php echo $numero_entradas . "/" . $numero_entradasT; ?></p>
                                             </div>
                                             <div class="progress progress-md">
@@ -408,9 +409,10 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                           <div>
                                             <?php
                                             $resulDivS = ($numero_salidas / $numero_salidasT) * 100;
+                                            $porCientoSalida = round($resulDivS);
                                             ?>
                                             <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                              <p class="text-danger"><?php echo $resulDivS; ?>%</p>
+                                              <p class="text-danger"><?php echo $porCientoSalida; ?>%</p>
                                               <p><?php echo $numero_salidas . "/" . $numero_salidasT; ?></p>
                                             </div>
                                             <div class="progress progress-md">

@@ -3,8 +3,7 @@
         <div class="card-body">
             <h4 class="card-title">MODIFICAR LA ENTRADA NÚMERO: <?php echo $resultado['NumRegistro']; ?></h4>
             <form class="forms-sample" method="POST" action="../php/actualizar_entrada.php" enctype="multipart/form-data">
-                <div class="form-group">
-                    
+                <div class="form-group">                    
                     <input type="hidden" class="form-control" id="TipoDoc" name="cod" value="<?php echo $resultado['Id']; ?>">
                 </div>
                 <div class="form-group">

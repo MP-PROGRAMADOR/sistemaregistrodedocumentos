@@ -47,12 +47,13 @@ $archivo = $conn->real_escape_string($_FILES["archivo"]["name"]);
 $institucion = $conn->real_escape_string($_POST['institucion']);
 $ref = $conn->real_escape_string($_POST['ref']);
 $persFisic = $conn->real_escape_string($_POST['persFisic']);
+$entrada = $conn->real_escape_string($_POST['selEntrada']);
 $numRegistro = $idLast . "-" . $YearActual;
 $fechaRegistro = date("Y-m-d");
 
 if ($persFisic != "") {
-    $sqlEntrda = "INSERT INTO salidas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Referencia, Usuario)
-   VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$ref','$usuario')";
+    $sqlEntrda = "INSERT INTO salidas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Entrada, Referencia, Usuario)
+   VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe', '$entrada','$ref','$usuario')";
     $resultado = mysqli_query($conn, $sqlEntrda);
 
     $idSalida = mysqli_insert_id($conn);
@@ -66,8 +67,8 @@ if ($persFisic != "") {
         header('Location: ../users/salidas.php?mensaje=error');
     }
 } else if ($institucion != "") {
-    $sqlEntrda = "INSERT INTO salidas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Referencia, Usuario)
-    VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$ref','$usuario')";
+    $sqlEntrda = "INSERT INTO salidas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Entrada, Referencia, Usuario)
+    VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe', '$entrada', '$ref','$usuario')";
     $resultado = mysqli_query($conn, $sqlEntrda);
 
     $idSalida = mysqli_insert_id($conn);
@@ -84,8 +85,8 @@ if ($persFisic != "") {
     $arregloSeccion = $_POST['instiDepart'];
     $num = count($arregloSeccion);
 
-    $sqlEntrda = "INSERT INTO salidas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Referencia, Usuario)
-    VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe','$ref','$usuario')";
+    $sqlEntrda = "INSERT INTO salidas (NumRegistro,FechaRegistro,TipoDoc,Archivo, Descripcion, PalabrasClaves, FechaFirma, Importe, Entrada, Referencia, Usuario)
+    VALUES ('$numRegistro','$fechaRegistro','$TipoDoc','$archivo','$descripcion','$palabrasClaves','$fechaFirma','$importe', '$entrada', '$ref','$usuario')";
         $resultado = mysqli_query($conn, $sqlEntrda);
         $idSalidas = mysqli_insert_id($conn);
 
