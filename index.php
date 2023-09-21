@@ -150,7 +150,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="images/LOGO-GRANDE.png" alt="logo">
+                <img src="images/LOGO-GRANDE.png" alt="logo" width="100px">
               </div>
               <h4>Hola! Bienvenid@</h4>
               <h6 class="fw-light">Pon tus datos para continuar.</h6>
