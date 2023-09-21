@@ -12,9 +12,9 @@ $resultado_salidas = mysqli_query($conn, $sql_salidas);
 $numero_salidas = mysqli_num_rows($resultado_salidas);
 
 // cogiendo el numero de REFERENCIAS
- $sql_Referencias = "SELECT * FROM referencias";
- $resultado_referencia = mysqli_query($conn, $sql_Referencias);
- $numero_referencia = mysqli_num_rows($resultado_referencia);
+$sql_Referencias = "SELECT * FROM referencias";
+$resultado_referencia = mysqli_query($conn, $sql_Referencias);
+$numero_referencia = mysqli_num_rows($resultado_referencia);
 
 // cogiendo el numero de DECRETOS
 $sql_decreto = "SELECT * FROM decretos";
@@ -261,32 +261,32 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                         <div>
                           <p class="statistics-title">ENTRADAS</p>
                           <h3 class="rate-percentage"><?php echo $numero_entradas;    ?></h3>
-                          <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
+
                         </div>
                         <div>
                           <p class="statistics-title">SALIDAD</p>
                           <h3 class="rate-percentage"><?php echo $numero_salidas;    ?></h3>
-                          <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
+
                         </div>
                         <div>
                           <p class="statistics-title">REFERENCIAS</p>
                           <h3 class="rate-percentage"> <?php echo $numero_referencia;    ?></h3>
-                          <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+
                         </div>
                         <div class="d-none d-md-block">
                           <p class="statistics-title">DECRETOS</p>
                           <h3 class="rate-percentage"><?php echo $numero_decretos;    ?></h3>
-                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+
                         </div>
                         <div class="d-none d-md-block">
                           <p class="statistics-title">DESTINOS</p>
                           <h3 class="rate-percentage"><?php echo $numero_destinos;    ?></h3>
-                          <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+
                         </div>
                         <div class="d-none d-md-block">
                           <p class="statistics-title">INSTITUCIONES</p>
                           <h3 class="rate-percentage"><?php echo $numero_instituciones;    ?></h3>
-                          <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+
                         </div>
                       </div>
                     </div>
@@ -306,7 +306,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                               </div>
                               <div class="d-sm-flex align-items-center mt-1 justify-content-between">
                                 <div class="d-sm-flex align-items-center mt-4 justify-content-between">
-                                  <h4 class="text-success">(+1.37%)</h4>
+                                  <!-- <h4 class="text-success">(+1.37%)</h4> -->
                                 </div>
                                 <div class="me-3">
                                   <div id="marketing-overview-legend"></div>
@@ -331,8 +331,8 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                             <div class="card-body">
                               <div class="d-sm-flex justify-content-between align-items-start">
                                 <div>
-                                  <h4 class="card-title card-title-dash">Pending Requests</h4>
-                                  <p class="card-subtitle card-subtitle-dash">You have 50+ new requests</p>
+                                  <h4 class="card-title card-title-dash">Progreso de Usuario</h4>
+
                                 </div>
 
                               </div>
@@ -340,16 +340,10 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                                 <table class="table select-table">
                                   <thead>
                                     <tr>
-                                      <th>
-                                        <div class="form-check form-check-flat mt-0">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                        </div>
-                                      </th>
                                       <th>USUARIO</th>
                                       <th>DEPARTAMENTO</th>
-                                      <th>PROGRESO</th>
-                                      <th>ESTADO</th>
+                                      <th>ENTRADAS</th>
+                                      <th>SALIDAS</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -360,52 +354,78 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
 
                                     include '../conexion/conexion.php';
 
-                                    $sql_usuario = "SELECT * FROM usuarios LIMIT 4";
+                                    $sql_usuario = "SELECT * FROM usuarios";
                                     $resultado_usuario = mysqli_query($conn, $sql_usuario);
-                                   
 
-                                     while ($row_usuarios = $resultado_usuario->fetch_assoc()) {  
+
+                                    while ($row_usuarios = $resultado_usuario->fetch_assoc()) {
 
                                     ?>
 
-                                    <tr>
-
-                                      <td>
-                                        <div class="form-check form-check-flat mt-0">
-                                          <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                        </div>
-                                      </td>
-
-                                      <td>
-                                        <div class="d-flex">
-                                          <img src="data:image/*;base64,<?php echo base64_encode($row_usuarios['Foto']); ?>" alt=""  height="50px">
+                                      <tr>
+                                        <td>
+                                          <div class="d-flex">
+                                            <img src="data:image/*;base64,<?php echo base64_encode($row_usuarios['Foto']); ?>" alt="" height="50px">
+                                            <div>
+                                              <h6><?= $row_usuarios['Nombre'];   ?></h6>
+                                              <p><?= $row_usuarios['Tipo_Usuario'];   ?></p>
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <h6></h6>
+                                          <?php
+                                          $codeDep = $row_usuarios['Dpto'];
+                                          $depart = "SELECT * FROM departementos WHERE Id = '$codeDep'";
+                                          $resulDep = mysqli_query($conn, $depart);
+                                          $nomDep = mysqli_fetch_array($resulDep);
+                                          ?>
+                                          <p><?= $nomDep['Nombre'];  ?></p>
+                                        </td>
+                                        <td>
+                                          <?php
+                                          $user_id = $row_usuarios['Id'];
+                                          $sql_entradaUser = "SELECT * FROM entradas WHERE Usuario = $user_id";
+                                          $resultado_entradaUser = mysqli_query($conn, $sql_entradaUser);
+                                          $numero_entrada = mysqli_num_rows($resultado_entradaUser);
+                                          ?>
                                           <div>
-                                            <h6><?=  $row_usuarios['Nombre'];   ?></h6>
-                                            <p>Head admin</p>
+                                            <?php
+                                            $resulDivE = ($numero_entrada / $numero_entradas) * 100;
+                                            $porCientoEntrada = round($resulDivE);
+                                            ?>
+                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
+                                              <p class="text-success"><?php echo $porCientoEntrada; ?>%</p>
+                                              <p><?php echo $numero_entrada . "/" . $numero_entradas; ?></p>
+                                            </div>
+                                            <div class="progress progress-md">
+                                              <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $resulDivE; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                           </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <h6></h6>
-                                        <p><?=  $row_usuarios['Dpto'];  ?></p>
-                                      </td>
-                                      <td>
-                                        <div>
-                                          <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                            <p class="text-success">79%</p>
-                                            <p>85/162</p>
+                                        </td>
+                                        <td>
+                                          <?php
+                                          $users_id = $row_usuarios['Id'];
+                                          $sql_salida = "SELECT * FROM salidas where Usuario=$users_id";
+                                          $resultado_salida = mysqli_query($conn, $sql_salida);
+                                          $numero_salida = mysqli_num_rows($resultado_salida);
+                                          ?>
+                                          <div>
+                                            <?php
+                                            $resulDivS = ($numero_salida / $numero_salidas) * 100;
+                                            $porCientoSalida = round($resulDivS);
+                                            ?>
+                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
+                                              <p class="text-danger"><?php echo $porCientoSalida; ?>%</p>
+                                              <p><?php echo $numero_salida . "/" . $numero_salidas; ?></p>
+                                            </div>
+                                            <div class="progress progress-md">
+                                              <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $resulDivS; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                           </div>
-                                          <div class="progress progress-md">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div class="badge badge-opacity-warning">In progress</div>
-                                      </td>
-                                    </tr>
-                                   
+                                        </td>
+                                      </tr>
+
 
                                     <?php } ?>
 

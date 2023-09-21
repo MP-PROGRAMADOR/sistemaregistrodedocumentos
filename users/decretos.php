@@ -2,13 +2,13 @@
 
 require '../conexion/conexion.php';
 
-$sqlEntradas= " SELECT * FROM decretos";
+$sqlEntradas= " SELECT * FROM decretos GROUP BY(DocEntrada)";
 
 $entradas= $conn->query($sqlEntradas);
 
 
 ?>
-<?php require "../componentes/head.php"; ?>
+<?php require "../componentes/head.php"; ?> 
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <?php require "../componentes/topMenu.php"; ?>

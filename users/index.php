@@ -322,7 +322,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
                                 <div id="columnchart_material2" style="width: 100%; height: 300px;"></div>
 
-                              </div>
+                              </div> 
                             </div>
                           </div>
                         </div>
