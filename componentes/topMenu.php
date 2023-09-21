@@ -77,13 +77,11 @@ $fecha_actual="";#date("d-m-y");
                 <span class="icon-menu"></span>
             </button>
         </div>
-        <div>
+        <div class="">
             <a class="navbar-brand brand-logo" href="index.php">
                 <img src="../images/TESORERIA.png" alt="logo" />
             </a>
-            <a class="navbar-brand brand-logo-mini" href="index.php">
-                <img src="../images/TESORERIA.png" alt="logo" />
-            </a>
+           
         </div>
     </div>
     
