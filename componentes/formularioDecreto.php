@@ -52,7 +52,7 @@
                     <h6 class="card-title">Selecciona Miembros</h6>
                     <?php while ($miembros = mysqli_fetch_array($ResultMiembros)) { ?>
                         <div class="form-group">
-                            <input type="checkbox" id="miembro<?php echo $miembros['Id']; ?>" name="miembro[]" value="<?php echo $miembros['Nombre']; ?>">
+                            <input type="checkbox" id="miembro<?php echo $miembros['Id']; ?>" name="miembro[]" value="<?php echo $miembros['Id']; ?>">
                             <label for="miembro<?php echo $miembros['Id']; ?>"><?php echo $miembros['Nombre']; ?></label>
                         </div>
                     <?php } ?>

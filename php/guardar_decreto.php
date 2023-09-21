@@ -39,16 +39,17 @@ $persFisic2 = $conn->real_escape_string($_POST['persFisic']);
 $miembro= $_POST['miembro'];
 
 
-foreach($miembro as $llave => $valor){
+// foreach($miembro as $llave => $valor){
 
-    echo $valor . "<br>";
+//     echo $valor . "<br>";
 
-}
+// }
 
 
-echo $persFisic2;
+// echo $persFisic2;
 
-exit();
+// exit();
+
 
 $descripcion;
 $archivo;
@@ -94,7 +95,7 @@ if ($persFisic!="") {
             header('Location: ../users/decretos.php?mensaje=error');
         }
         
-    }
+    } 
 
     // $sql = "INSERT INTO decretos (Descripcion,Fecha,Archivo,DocEntrada)
     // VALUES ('$descripcion','$fechaRegistro','$archivo','$entradaDoc')";
@@ -116,6 +117,38 @@ if ($persFisic!="") {
     //         header('Location: ../users/decretos.php?mensaje=error');
     //     }
     // }
-} else {
+}else if($persFisic2!=""){
+
+    $sql = "INSERT INTO decretos (Descripcion,Fecha,Archivo,DocEntrada)
+    VALUES ('$descripcion','$fechaRegistro','$archivo','$entradaDoc')";
+    $conn->query($sql);
+    $idDecreto = mysqli_insert_id($conn);
+
+    $queryPF = "INSERT INTO personafisica SET NombreCompleto='$persFisic2', Decreto='$idDecreto'";
+    $resultPF = mysqli_query($conn, $queryPF);
+
+
+    foreach($miembro as $llave => $valor){
+
+        $sql = "INSERT INTO decretos (Descripcion,Fecha,Archivo,DocEntrada)
+        VALUES ('$descripcion','$fechaRegistro','$archivo','$entradaDoc')";
+        $conn->query($sql);
+        $idDecreto = mysqli_insert_id($conn);
+
+        /////////////////////////////////////////////////
+        $q = "INSERT INTO destino (Miembro, Decreto) VALUES ('$valor','$idDecreto')";
+        $qDestino =  mysqli_query($conn, $q);
+
+        if ($qDestino) {
+            header('Location: ../users/decretos.php?mensaje=insertado');
+        } else {
+            header('Location: ../users/decretos.php?mensaje=error');
+        }
+
+    }
+
+
+        
+}else {
     echo " /Nada ha sido seleccionado";
 }
