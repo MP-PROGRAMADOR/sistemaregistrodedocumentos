@@ -184,7 +184,7 @@ $codEntrada = $_GET['id'];
     </div>
     <!-- partial -->
     <!-- partial:partials/_sidebar.html -->
-    <?php require "../componentes/sidebarUser.php"; ?>
+    <?php require "../componentes/sidebarUser.php"; ?> 
     <!-- partial -->
     <div class="main-panel">
       <div class="content-wrapper">
@@ -199,7 +199,7 @@ $codEntrada = $_GET['id'];
               <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                 <div>
                   <div class="btn-wrapper">
-                    <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Imprimir</a>
+                    <!-- <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Imprimir</a> -->
                   </div>
                 </div>
               </div>
@@ -412,6 +412,30 @@ $codEntrada = $_GET['id'];
                                               ?>
                                               <div class="ps-4 text-small me-3"><?php echo $FilasMiembro['Nombre']; ?></div>
                                               <?php } ?>
+
+                                            </div>
+                                          </div>
+                                        </li>
+                                      <?php } ?>
+
+                                    </ul>
+                                    <h4 class="card-title card-title-dash">Personas Físicas intervenidos</h4>
+                                    <?php
+                                    $qIdMiembro = "SELECT personafisica.NombreCompleto FROM personafisica INNER JOIN decretos ON personafisica.Decreto = decretos.Id WHERE decretos.DocEntrada ='$codEntrada' GROUP BY(personafisica.NombreCompleto )";
+                                    $resulId = mysqli_query($conn, $qIdMiembro);
+                                    $numDecre = mysqli_num_rows($resulId);
+                                    ?>
+                                    <ul class="todo-list todo-list-rounded">
+                                      <?php
+                                      while ($FilasMiembros = mysqli_fetch_array($resulId)) {
+                                       
+                                      ?>
+                                        <li class="d-block">
+                                          <div class="form-check w-100">
+
+                                            <div class="d-flex mt-2">
+                                             
+                                              <div class="ps-4 text-small me-3"><?php echo $FilasMiembros['NombreCompleto']; ?></div>                                              
 
                                             </div>
                                           </div>
