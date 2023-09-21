@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-group">
                     <label for="ckeditor">Descripción</label>
-                    <textarea name="descripcion" id="descrip ckeditor" class="form-control ckeditor"  cols="30" rows="15" value="<?php echo $resultado['Descripcion']; ?>"></textarea>
+                    <textarea name="descripcion" id="descrip ckeditor" class="form-control ckeditor"  cols="30" rows="15" ><?php echo $resultado['Descripcion']; ?></textarea>
                 </div>
                 
                 <div class="form-group">

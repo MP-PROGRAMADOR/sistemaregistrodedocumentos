@@ -38,9 +38,10 @@
                     <?php } ?>
                 </div>
 
+
                 <div class="form-group" id="pfs">
                     <label for="importe">Nombre Completo de la Persona</label>
-                    <input type="text" class="form-control" id="persFisic" name="persFisic" placeholder="Ingrese el nombre completo de la persona">
+                    <input type="text" class="form-control" id="persFisic" name="persFisic34" placeholder="Ingrese el nombre completo de la persona">
                 </div>
 
                 <div class="form-group" id="miembrosPF">
@@ -51,13 +52,13 @@
                     <h6 class="card-title">Selecciona Miembros</h6>
                     <?php while ($miembros = mysqli_fetch_array($ResultMiembros)) { ?>
                         <div class="form-group">
-                            <input type="checkbox" id="miembro<?php echo $miembros['Id']; ?>" name="miembro[]" value="<?php echo $miembros['Id']; ?>">
+                            <input type="checkbox" id="miembro<?php echo $miembros['Id']; ?>" name="miembro[]" value="<?php echo $miembros['Nombre']; ?>">
                             <label for="miembro<?php echo $miembros['Id']; ?>"><?php echo $miembros['Nombre']; ?></label>
                         </div>
                     <?php } ?>
 
                     <div class="form-group" id="pfs">
-                        <label for="importe">Nombre Completo de la Persona</label>
+                        <label for="importe">Nombre Completo de la Persona23</label>
                         <input type="text" class="form-control" id="persFisic" name="persFisic" placeholder="Ingrese el nombre completo de la persona">
                     </div>
                 </div>
