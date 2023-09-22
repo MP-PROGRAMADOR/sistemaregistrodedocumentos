@@ -79,7 +79,7 @@ $fecha_actual="";#date("d-m-y");
         </div>
         <div class="">
             <a class="navbar-brand brand-logo" href="index.php">
-                <img src="../images/TESORERIA.png" alt="logo" />
+                <img src="../images/2.png" alt="logo" />
             </a>
            
         </div>
