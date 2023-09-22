@@ -14,8 +14,8 @@ $tipoArchivo = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
 
 //validar tamaño imagen
 $size = $_FILES["archivo"]["size"];
-if ($size > 1000000) {
-    echo "El Documento pesa mas de 1000000KB";
+if ($size < 0) {
+    echo "Elija un documento";
 } else {
     //validar tipo de imagen
     if ($tipoArchivo == "pdf" || $tipoArchivo == "docx") {
