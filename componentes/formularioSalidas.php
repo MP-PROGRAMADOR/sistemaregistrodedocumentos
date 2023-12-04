@@ -1,7 +1,27 @@
+<?php
+// obteniendo el ultimo registro de la base de datos
+$sql_numero="SELECT * FROM salidas ORDER BY id DESC LIMIT 1";
+$sql_resultado= mysqli_query($conn, $sql_numero);
+$fila_numero= mysqli_fetch_assoc($sql_resultado);
+
+//sumando el primero numero del registro 1 ;
+$ultimo_registro= substr($fila_numero['NumRegistro'],0,1);
+$ultimo_registro1= $ultimo_registro +1;
+
+$ultimo_registro= substr($fila_numero['NumRegistro'],1,6);
+?> 
+
 <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">FORMULARIO DE REGISTRO DE SALIDAS</h4>
+        <div class="row">
+                <div class="col-lg-6">
+                <h4 class="card-title">FORMULARIO DE REGISTRO DE SALIDAS</h4>
+                </div>
+                <div class="col-lg-6">
+                <h4 class="card-title text-success">Siguiente Registro: <?php  echo $ultimo_registro1 . $ultimo_registro;   ?></h4>
+                </div>
+            </div>
             <form class="forms-sample" method="POST" action="../php/guardar_salidas.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="TipoDoc">Tipo de Documento</label>

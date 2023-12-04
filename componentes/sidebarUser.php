@@ -27,6 +27,13 @@
                 <span class="menu-title">Decretos</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="./reportes.php">
+                <i class="mdi mdi-database-plus menu-icon"></i>
+                <span class="menu-title">Reportes</span>
+            </a>
+        </li>
         
        
        
