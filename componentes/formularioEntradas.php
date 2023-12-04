@@ -5,11 +5,25 @@ $sql_numero="SELECT * FROM entradas ORDER BY id DESC LIMIT 1";
 $sql_resultado= mysqli_query($conn, $sql_numero);
 $fila_numero= mysqli_fetch_assoc($sql_resultado);
 
-//sumando el primero numero del registro 1 ;
+$numero_instituciones= mysqli_num_rows($sql_resultado);
+
+if($numero_instituciones==0){
+    $fech=date("Y");
+    echo $fech;
+  
+   $ultimo_registro1= 1;
+   $ultimo_registro="-".$fech;
+}else{
+
+    //sumando el primero numero del registro 1 ;
 $ultimo_registro= substr($fila_numero['NumRegistro'],0,1);
 $ultimo_registro1= $ultimo_registro +1;
 
 $ultimo_registro= substr($fila_numero['NumRegistro'],1,6);
+
+}
+
+
 ?> 
 
 <div class="col-md-12 grid-margin stretch-card">

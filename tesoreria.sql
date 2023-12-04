@@ -6,6 +6,9 @@
 -- Tiempo de generación: 02-12-2023 a las 11:25:32
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
+drop database if exists tesoreria;
+CREATE database tesoreria;
+use tesoreria;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

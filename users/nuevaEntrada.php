@@ -7,6 +7,15 @@ require '../conexion/conexion.php';
 
   $instituciones = $conn->query($sqlInstituciones);
 
+
+
+  
+$numero_instituciones= mysqli_num_rows($instituciones);
+if($numero_instituciones<0){
+    echo "TODAVIA NO HAY REGISTROS";
+}
+
+
   $sqlreferencias = "SELECT * FROM referencias";
 
   $referencias = $conn->query($sqlreferencias);  
