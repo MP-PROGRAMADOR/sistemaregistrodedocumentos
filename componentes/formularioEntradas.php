@@ -23,7 +23,6 @@ $ultimo_registro= substr($fila_numero['NumRegistro'],1,6);
 
 }
 
-
 ?> 
 
 <div class="col-md-12 grid-margin stretch-card">
