@@ -102,7 +102,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
 
                         <?php while ($row_pacientes = $pacientes->fetch_assoc()) {  ?>
 
-                            <?php 
+                            <?php
                             $datos = $row_pacientes['Id'];
 
                             ?>
@@ -112,43 +112,46 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td> <?= $row_pacientes['Nombre']; ?></td>
 
 
-                                <?php  
-                                
-                                $id_departamento=$row_pacientes['Dpto'];
-                                
-                                $sql1="SELECT * FROM departementos WHERE Id=$id_departamento";
-                                
-                                $resultado=mysqli_query($conn, $sql1);
+                                <?php
 
-                                $fila1=mysqli_fetch_assoc($resultado);
-                                 
-                                $departamento= $fila1['Nombre'];
+                                $id_departamento = $row_pacientes['Dpto'];
+
+                                $sql1 = "SELECT * FROM departementos WHERE Id=$id_departamento";
+
+                                $resultado = mysqli_query($conn, $sql1);
+
+                                $fila1 = mysqli_fetch_assoc($resultado);
+
+                                $departamento = $fila1['Nombre'];
 
                                 // ruta de la imagen 
-                                $id_insert= $conn->insert_id;
+                                $id_insert = $conn->insert_id;
                                 $dir = '../php/files/';
-                                
+
                                 ?>
 
 
                                 <td> <?= $departamento; ?></td>
-                                <?php  
-                                $usuario= $row_pacientes['Tipo_Usuario'];
+                                <?php
+                                $usuario = $row_pacientes['Tipo_Usuario'];
 
-                                if($usuario=="ADMINISTRADOR"){
-                                    $tipo_usuario=$usuario;
+                                if ($usuario == "ADMINISTRADOR") {
+                                    $tipo_usuario = "Administrador";
+                                    $clase_badge = "bg-danger"; // rojo para admin
+                                } else {
+                                    $tipo_usuario = "Usuario normal";
+                                    $clase_badge = "bg-secondary"; // gris para usuario normal
                                 }
-                                
-                                
                                 ?>
-                                <td><span class="badge bg-primary"><?= $tipo_usuario;  ?></span></td>
-                                <td><img src="data:image/*;base64,<?php echo base64_encode($row_pacientes['Foto']); ?> " alt=""  height="50px"></td>
+                                <td><span class="badge <?= $clase_badge; ?>"><?= $tipo_usuario; ?></span></td>
+
+                                <td><img src="data:image/*;base64,<?php echo base64_encode($row_pacientes['Foto']); ?> " alt="" height="50px"></td>
                                 <td>
                                     <a href="../admin/editarUsuarios.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-warning me-2" ">EDITAR</a>
                                 </td>
                                 <!-- <td>
                                
-                                <a href="#" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-danger me-2"  data-bs-toggle="modal" data-bs-target="#eliminaModal"><i class="mdi mdi-delete"></i></a>
+                                <a href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#eliminaModal"><i class="mdi mdi-delete"></i></a>
                                 </td> -->
                             </tr>
 
@@ -161,22 +164,13 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
     </div>
 </div>
 
-<?php  include '../admin/ModaleliminarUsuarios.php'   ?>
+<?php include '../admin/ModaleliminarUsuarios.php'   ?>
 
 
 
 
 
 <script>
-  
-
-
-
-
-
-
-
-
     // agregar datos al formulario
     function agregarForm(datos) {
         var d = datos.split('||');
@@ -185,5 +179,4 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         $('#Id').val(d[0]);
 
     }
-   
 </script>

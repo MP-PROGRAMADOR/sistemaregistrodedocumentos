@@ -250,13 +250,18 @@ $numero_diciembre5 = mysqli_num_rows($resultado_diciembre5);
 
 
 
+// eso en el grafico circular
+$anio_actual = date("Y");
 
-// trayendo todas las entradas y salidas para el grafico circular
-$sql_entradas_total = "SELECT * FROM entradas WHERE  Usuario=$usuario_id";
+// Entradas del año actual
+$sql_entradas_total = "SELECT * FROM entradas 
+    WHERE YEAR(FechaRegistro) = $anio_actual AND Usuario = $usuario_id";
 $resultado_entradas_total = mysqli_query($conn, $sql_entradas_total);
 $numero_entradas_total = mysqli_num_rows($resultado_entradas_total);
 
-$sql_salidas_total = "SELECT * FROM salidas WHERE  Usuario=$usuario_id";
+// Salidas del año actual
+$sql_salidas_total = "SELECT * FROM salidas 
+    WHERE YEAR(FechaRegistro) = $anio_actual AND Usuario = $usuario_id";
 $resultado_salidas_total = mysqli_query($conn, $sql_salidas_total);
 $numero_salidas_total = mysqli_num_rows($resultado_salidas_total);
 
@@ -313,41 +318,195 @@ $numero_salidas_total = mysqli_num_rows($resultado_salidas_total);
     <!-- graficas  -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['bar']
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+    <style>
+  .table th, .table td {
+    vertical-align: middle;
+  }
+  .table th {
+    font-weight: 600;
+  }
+</style>
+<style>
+  .bg-light-subtle {
+    background-color: #f8f9fa; /* más suave que blanco puro */
+  }
+</style>
+
+
+
+<style>
+  .info-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+  }
+
+  .info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.08);
+  }
+
+  .info-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    display: inline-block;
+    padding: 15px;
+    border-radius: 50%;
+  }
+
+  .bg-entrada {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: #fff;
+  }
+
+  .bg-salida {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: #fff;
+  }
+
+  .bg-decreto {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    color: #fff;
+  }
+
+  .bg-fecha {
+    background: #eef0f4;
+    color: #343a40;
+  }
+
+  .bg-hora {
+    background: #f8f9fa;
+    color: #495057;
+  }
+
+  .info-title {
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+
+  .info-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #212529;
+  }
+</style>
+
+
+
+<style>
+  .sidebar {
+    background: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    padding-top: 1rem;
+    height: 100vh;
+  }
+
+  .sidebar .nav-link {
+    color: #495057;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+    border-radius: 0 20px 20px 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .sidebar .nav-link:hover {
+    background-color: #e9ecef;
+    border-left: 4px solid #0d6efd;
+    color: #0d6efd;
+  }
+
+  .sidebar .nav-link.active {
+    background-color: #e2e6ea;
+    border-left: 4px solid #0d6efd;
+    color: #0d6efd;
+  }
+
+  .sidebar .menu-icon {
+    font-size: 1.2rem;
+    margin-right: 12px;
+    color: inherit;
+  }
+
+  .sidebar .menu-title {
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 992px) {
+    .sidebar {
+      position: fixed;
+      z-index: 1050;
+      width: 250px;
+      transition: all 0.3s ease;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+google.charts.load('current', {'packages': ['bar']});
+
+$(document).ready(function () {
+    $('.seleccionar-anio').click(function (e) {
+        e.preventDefault();
+        var anio = $(this).data('anio');
+
+        $.ajax({
+            url: 'grafico_anual.php',
+            method: 'POST',
+            data: { anio: anio },
+            dataType: 'json',
+            success: function (response) {
+                google.charts.setOnLoadCallback(function () {
+                    drawChart(response);
+                });
+            }
         });
-        google.charts.setOnLoadCallback(drawChart);
+    });
 
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Meses', 'Entradas', 'Salidas'],
-                ['Enero', <?= $numero_enero;   ?>, <?= $numero_enero2;   ?>],
-                ['Febrero', <?= $numero_febrero;   ?>, <?= $numero_febrero2;   ?>],
-                ['Marzo', <?= $numero_marzo;   ?>, <?= $numero_marzo2;   ?>],
-                ['Abril', <?= $numero_abril;   ?>, <?= $numero_abril2;   ?>],
-                ['Mayo', <?= $numero_mayo;   ?>, <?= $numero_mayo2;   ?>],
-                ['Junio', <?= $numero_junio;   ?>, <?= $numero_junio2;   ?>],
-                ['Julio', <?= $numero_julio;   ?>, <?= $numero_julio2;   ?>],
-                ['Agosto', <?= $numero_agosto;   ?>, <?= $numero_agosto2;   ?>],
-                ['Septiembre', <?= $numero_septiembre;   ?>, <?= $numero_septiembre2;   ?>],
-                ['Octubre', <?= $numero_octubre;   ?>, <?= $numero_octubre2;   ?>],
-                ['Noviembre', <?= $numero_noviembre;   ?>, <?= $numero_noviembre2;   ?>],
-                ['Diciembre', <?= $numero_diciembre;   ?>, <?= $numero_diciembre2;   ?>]
-            ]);
+    function drawChart(datos) {
+        var data = google.visualization.arrayToDataTable(datos);
 
-            var options = {
-                chart: {
-                    // title: 'Company Performance',
-                    // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                }
-            };
+        var options = {
+            chart: {
+                title: 'Entradas y Salidas por mes'
+            }
+        };
 
-            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+});
+</script>
 
-            chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
-    </script>
 
 
     <script type="text/javascript">
@@ -387,31 +546,42 @@ $numero_salidas_total = mysqli_num_rows($resultado_salidas_total);
     </script>
 
 
+
+
+
     <!-- grafico circular -->
 
-    <script type="text/javascript">
-        google.charts.load("current", {
-            packages: ["corechart"]
-        });
-        google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Language', 'Speakers (in millions)'],
-                ['Entradas', <?= $numero_entradas_total;   ?>],
-                ['Salidas', <?= $numero_salidas_total;   ?>]
-            ]);
 
-            var options = {
-                legend: 'none',
-                pieSliceText: 'label',
-                pieStartAngle: 100,
-            };
 
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            chart.draw(data, options);
-        }
-    </script>
+<script type="text/javascript">
+google.charts.load("current", {
+    packages: ["corechart"]
+});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Tipo', 'Cantidad'],
+        ['Entradas', <?= $numero_entradas_total; ?>],
+        ['Salidas', <?= $numero_salidas_total; ?>]
+    ]);
+
+    var options = {
+        legend: 'none',
+        pieSliceText: 'label',
+        pieStartAngle: 100,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+}
+</script>
+
+
+
+
+
 
 
 

@@ -252,79 +252,89 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
               </div>
               <div class="tab-content tab-content-basic">
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="statistics-details d-flex align-items-center justify-content-between">
-                        <div>
-                          <p class="statistics-title">Entradas</p>
-                          <h3 class="rate-percentage"><?php echo $numero_entradas;    ?></h3>
-                        </div>
-                        <div>
-                          <p class="statistics-title">Salidas</p>
-                          <h3 class="rate-percentage"><?php echo $numero_salidas;    ?></h3>
+                 
 
-                        </div>
 
-                        <div class="d-none d-md-block">
-                          <p class="statistics-title">Decretos</p>
-                          <h3 class="rate-percentage"><?php echo $numero_decretos;    ?></h3>
+                <div class="row g-3">
+  <div class="col-6 col-md-2">
+    <div class="info-card">
+      <div class="info-icon bg-entrada"><i class="bi bi-arrow-down-circle-fill"></i></div>
+      <div class="info-title">Entradas</div>
+      <div class="info-value"><?= $numero_entradas ?></div>
+    </div>
+  </div>
 
-                        </div>
-                        <div class="d-none d-md-block">
-                          <p class="statistics-title">Fecha</p>
-                          <h3 class="rate-percentage"><?php echo date('d-m-Y');    ?></h3>
+  <div class="col-6 col-md-2">
+    <div class="info-card">
+      <div class="info-icon bg-salida"><i class="bi bi-arrow-up-circle-fill"></i></div>
+      <div class="info-title">Salidas</div>
+      <div class="info-value"><?= $numero_salidas ?></div>
+    </div>
+  </div>
 
-                        </div>
-                        <div class="d-none d-md-block">
-                          <p class="statistics-title">Hora</p>
-                          <h3 class="rate-percentage"><?php echo $hora;    ?></h3>
+  <div class="col-6 col-md-2">
+    <div class="info-card">
+      <div class="info-icon bg-decreto"><i class="bi bi-journal-text"></i></div>
+      <div class="info-title">Decretos</div>
+      <div class="info-value"><?= $numero_decretos ?></div>
+    </div>
+  </div>
 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+  <div class="col-6 col-md-3">
+    <div class="info-card">
+      <div class="info-icon bg-fecha"><i class="bi bi-calendar-event"></i></div>
+      <div class="info-title">Fecha</div>
+      <div class="info-value"><?= date('d-m-Y') ?></div>
+    </div>
+  </div>
+
+  <div class="col-6 col-md-3 mb-3">
+    <div class="info-card">
+      <div class="info-icon bg-hora"><i class="bi bi-clock-history"></i></div>
+      <div class="info-title">Hora</div>
+      <div class="info-value"><?= $hora ?></div>
+    </div>
+  </div>
+</div>
+
 
 
                   <div class="row">
                     <div class="col-lg-8 d-flex flex-column">
                       <div class="row flex-grow">
                         <div class="col-12 grid-margin stretch-card">
-                          <div class="card card-rounded">
+                          <div class="card shadow-sm border-0 rounded-4 bg-light-subtle">
                             <div class="card-body">
-                              <div class="d-sm-flex justify-content-between align-items-start">
+                              <!-- Título y selector -->
+                              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
                                 <div>
-                                  <h4 class="card-title card-title-dash">Estadisticas</h4>
-                                  <p class="card-subtitle card-subtitle-dash">estadistica del registro de entrada y salidas</p>
+                                  <h4 class="fw-bold text-primary mb-1">📈 Estadísticas</h4>
+                                  <p class="text-muted small mb-0">Registro anual de entradas y salidas</p>
                                 </div>
                                 <div>
                                   <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle toggle-dark btn-lg mb-0 me-0" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Años </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                      <h6 class="dropdown-header">Settings</h6>
-                                      <a class="dropdown-item" href="#">Action</a>
-                                      <a class="dropdown-item" href="#">Another action</a>
-                                      <a class="dropdown-item" href="#">Something else here</a>
-                                      <div class="dropdown-divider"></div>
-                                      <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
+                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButtonAnios"
+                                      data-bs-toggle="dropdown" aria-expanded="false">
+                                      <i class="bi bi-calendar3 me-1"></i> Año
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="dropdownMenuButtonAnios">
+                                      <?php for ($anio = 2023; $anio <= 2030; $anio++): ?>
+                                        <li><a class="dropdown-item seleccionar-anio" href="#" data-anio="<?= $anio ?>"><?= $anio ?></a></li>
+                                      <?php endfor; ?>
+                                    </ul>
                                   </div>
                                 </div>
                               </div>
-                              <div class="d-sm-flex align-items-center mt-1 justify-content-between">
 
-                                <div class="me-3">
-
-                                  <div id="marketing-overview-legend"></div>
-
+                              <!-- Gráfico -->
+                              <div class="mt-4">
+                                <div class="bg-white border rounded-3 p-3 shadow-sm">
+                                  <div id="columnchart_material" style="width: 100%; height: 320px;"></div>
                                 </div>
                               </div>
-                              <div class="chartjs-bar-wrapper mt-3">
-
-                                <div id="columnchart_material2" style="width: 100%; height: 300px;"></div>
-
-                              </div> 
                             </div>
                           </div>
+
                         </div>
                       </div>
 
@@ -333,101 +343,74 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
                       <div class="row flex-grow">
                         <div class="col-12 grid-margin stretch-card">
-                          <div class="card card-rounded">
+                          <div class="card shadow-sm border-0 rounded-4">
                             <div class="card-body">
-                              <div class="d-sm-flex justify-content-between align-items-start">
-                                <div>
-                                  <h4 class="card-title card-title-dash">Progreso de Usuario</h4>
-                                </div>
+                              <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="card-title fw-bold text-primary">📊 Progreso de Usuario</h4>
                               </div>
-                              <div class="table-responsive  mt-1">
-                                <table class="table select-table">
-                                  <thead>
+                              <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                  <thead class="table-light">
                                     <tr>
-
-                                      <th>USUARIO</th>
-                                      <th>DEPARTAMENTO</th>
-                                      <th>PROGRECIÓN DE ENTRADAS</th>
-                                      <th>PROGRECIÓN DE SALIDAS</th>
+                                      <th>👤 Usuario</th>
+                                      <th>🏢 Departamento</th>
+                                      <th>📈 Entradas</th>
+                                      <th>📉 Salidas</th>
                                     </tr>
                                   </thead>
                                   <tbody>
-
-
-
                                     <?php
-
                                     include '../conexion/conexion.php';
-
                                     $sql_usuario = "SELECT * FROM usuarios WHERE Id=$usuario_id";
                                     $resultado_usuario = mysqli_query($conn, $sql_usuario);
 
-
                                     while ($row_usuarios = $resultado_usuario->fetch_assoc()) {
-
                                     ?>
-
                                       <tr>
-
-
-
-                                        <td>
-                                          <div class="d-flex">
-                                            <img src="data:image/*;base64,<?php echo base64_encode($row_usuarios['Foto']); ?>" alt="" height="50px">
-                                            <div>
-                                              <h6><?= $row_usuarios['Tipo_Usuario'];   ?></h6>
-                                              <p><?= $row_usuarios['Nombre'];   ?></p>
-                                            </div>
+                                        <td class="d-flex align-items-center">
+                                          <img src="data:image/*;base64,<?php echo base64_encode($row_usuarios['Foto']); ?>" class="rounded-circle me-3" height="50" width="50" alt="Foto">
+                                          <div>
+                                            <div class="fw-semibold"><?= $row_usuarios['Nombre']; ?></div>
+                                            <div class="text-muted small"><?= $row_usuarios['Tipo_Usuario']; ?></div>
                                           </div>
                                         </td>
                                         <td>
-                                          <h6></h6>
                                           <?php
                                           $codeDep = $row_usuarios['Dpto'];
                                           $depart = "SELECT * FROM departementos WHERE Id = '$codeDep'";
                                           $resulDep = mysqli_query($conn, $depart);
                                           $nomDep = mysqli_fetch_array($resulDep);
                                           ?>
-                                          <p><?= $nomDep['Nombre'];  ?></p>
+                                          <span class="badge bg-info text-dark px-3 py-2"><?= $nomDep['Nombre']; ?></span>
                                         </td>
                                         <td>
-                                          <div>
-                                            <?php
-                                            $resulDiv = ($numero_entradas / $numero_entradasT) * 100;
-                                            $porCientoEntrada = round($resulDiv);
-                                            ?>
-                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                              <p class="text-success"><?php echo $porCientoEntrada; ?>%</p>
-                                              <p><?php echo $numero_entradas . "/" . $numero_entradasT; ?></p>
-                                            </div>
-                                            <div class="progress progress-md">
-                                              <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $resulDiv; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                          <?php
+                                          $resulDiv = ($numero_entradas / $numero_entradasT) / 100;
+                                          $porCientoEntrada = round($resulDiv);
+                                          ?>
+                                          <div class="d-flex justify-content-between">
+                                            <span class="text-success fw-medium"><?= $porCientoEntrada; ?>%</span>
+                                            <span class="text-muted"><?= $numero_entradas . " / " . $numero_entradasT; ?></span>
+                                          </div>
+                                          <div class="progress rounded-pill" style="height: 8px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: <?= $resulDiv; ?>%"></div>
                                           </div>
                                         </td>
                                         <td>
-                                          <div>
-                                            <?php
-                                            $resulDivS = ($numero_salidas / $numero_salidasT) * 100;
-                                            $porCientoSalida = round($resulDivS);
-                                            ?>
-                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                              <p class="text-danger"><?php echo $porCientoSalida; ?>%</p>
-                                              <p><?php echo $numero_salidas . "/" . $numero_salidasT; ?></p>
-                                            </div>
-                                            <div class="progress progress-md">
-                                              <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $resulDivS; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                          <?php
+                                          $resulDivS = ($numero_salidas / $numero_salidasT) / 100;
+                                          $porCientoSalida = round($resulDivS);
+                                          ?>
+                                          <div class="d-flex justify-content-between">
+                                            <span class="text-danger fw-medium"><?= $porCientoSalida; ?>%</span>
+                                            <span class="text-muted"><?= $numero_salidas . " / " . $numero_salidasT; ?></span>
+                                          </div>
+                                          <div class="progress rounded-pill" style="height: 8px;">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $resulDivS; ?>%"></div>
                                           </div>
                                         </td>
                                       </tr>
-
-
                                     <?php } ?>
-
-
-
-
                                   </tbody>
                                 </table>
                               </div>
@@ -497,19 +480,32 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                       <div class="row flex-grow">
                         <div class="col-12 grid-margin stretch-card">
                           <div class="card card-rounded">
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="card-title card-title-dash">Entradas VS Salidas</h4>
+                            <div class="card shadow-sm border-0 rounded-4 bg-light-subtle">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <!-- Título -->
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                      <div>
+                                        <h4 class="fw-bold text-primary mb-1">
+                                          🧮 Entradas vs Salidas - <?= $anio_actual ?>
+                                        </h4>
+                                        <p class="text-muted small mb-0">Resumen gráfico de los registros anuales</p>
+                                      </div>
+                                    </div>
+
+                                    <!-- Gráfico -->
+                                    <div class="bg-white border rounded-3 p-3 shadow-sm">
+                                      <div id="piechart" style="width: 100%; height: 300px;"></div>
+                                    </div>
+
+                                    <!-- Leyenda si aplica -->
+                                    <div id="doughnut-chart-legend" class="mt-4 text-center text-muted small"></div>
                                   </div>
-
-                                  <div id="piechart" style="width: 100%; height: 300px;"></div>
-
-                                  <div id="doughnut-chart-legend" class="mt-5 text-center"></div>
                                 </div>
                               </div>
                             </div>
+
                           </div>
                         </div>
                       </div>
