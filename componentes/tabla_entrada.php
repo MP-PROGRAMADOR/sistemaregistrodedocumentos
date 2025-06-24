@@ -154,7 +154,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
 
                                 ?>
                                     <td> <?= $filasEntradas['Codigo']; ?></td>
-                                <?php  } ?>
+                                <?php  } ?>  
 
                                 <td> <?= $row_entradas['FechaFirma']; ?></td>
                                 <td> <?= $row_entradas['Importe']; ?></td>
