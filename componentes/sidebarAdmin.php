@@ -17,6 +17,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="../admin/departamentos.php">Departamentos</a></li>
                     <li class="nav-item"> <a class="nav-link" href="../admin/instituciones.php">Instituciones</a></li>
+                       <li class="nav-item"> <a class="nav-link" href="../admin/bancos.php">Bancos</a></li>
                 </ul>
             </div>
         </li>
