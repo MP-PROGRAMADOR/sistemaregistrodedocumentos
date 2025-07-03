@@ -2,6 +2,7 @@
 session_start();
 require 'conexion/conexion.php';
 
+
 $msg = '';
 $msg_type = 'danger'; // default tipo alerta: error
 

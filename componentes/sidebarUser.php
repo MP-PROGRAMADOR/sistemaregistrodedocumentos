@@ -29,6 +29,19 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link <?= $page == 'cheques' ? 'active' : '' ?>" href="cheques.php">
+        <i class="mdi mdi-tag menu-icon"></i>
+        <span class="menu-title">Cheques</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?= $page == 'pagos' ? 'active' : '' ?>" href="pagos.php">
+        <i class="mdi mdi-tag menu-icon"></i>
+        <span class="menu-title">pagos</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link <?= $page == 'reportes' ? 'active' : '' ?>" href="reportes.php">
         <i class="mdi mdi-chart-bar menu-icon"></i>
         <span class="menu-title">Reportes</span>

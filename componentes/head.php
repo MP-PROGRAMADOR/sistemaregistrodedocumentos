@@ -307,6 +307,9 @@ $numero_salidas_total = mysqli_num_rows($resultado_salidas_total);
     <!-- css datables nuevo -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <!-- Bootstrap Icons CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     <script src="../ckeditor/ckeditor.js"></script>
     <script src="../js/jquery.js"></script>
 
@@ -402,61 +405,254 @@ $numero_salidas_total = mysqli_num_rows($resultado_salidas_total);
 
 
 <style>
-  .sidebar {
-    background: #f8f9fa;
-    border-right: 1px solid #dee2e6;
-    padding-top: 1rem;
-    height: 100vh;
-  }
+       
+        /* Clases únicas para el modal del cheque */
+        .cheque-modal-content {
+            border-radius: 1rem; /* Bordes más redondeados para el modal */
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Sombra sutil */
+        }
+        .cheque-modal-header {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .cheque-modal-title {
+            font-weight: 600;
+            color: #343a40;
+        }
+        /* El botón de cerrar (btn-close) es una clase de Bootstrap y no se debe modificar */
+        .cheque-modal-card {
+            background-color: #f8f9fa; /* Fondo gris claro para un look moderno */
+            border: 1px solid #dee2e6; /* Borde suave */
+            border-radius: 0.75rem; /* Bordes redondeados */
+            padding: 2rem;
+            box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.08); /* Sombra sutil */
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+        }
+        .cheque-modal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #007bff, #6610f2); /* Línea de color superior */
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+        .cheque-modal-top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        .cheque-modal-bank-logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #007bff;
+            display: flex;
+            align-items: center;
+        }
+        .cheque-modal-bank-logo-text i {
+            font-size: 2.2rem;
+            margin-right: 0.8rem;
+            color: #0056b3;
+        }
+        .cheque-modal-ref-info {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .cheque-modal-ref-info strong {
+            color: #343a40;
+        }
+        .cheque-modal-payee-amount {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #ced4da;
+        }
+        .cheque-modal-payee-details {
+            flex-grow: 1;
+        }
+        .cheque-modal-payee-details p {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: #343a40;
+        }
+        .cheque-modal-payee-details strong {
+            font-weight: 600;
+        }
+        .cheque-modal-amount-box {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745; /* Verde para el importe */
+            border: 2px solid #28a745;
+            padding: 0.5rem 1.2rem;
+            border-radius: 0.5rem;
+            background-color: #e9f7ef;
+            display: inline-block;
+            box-shadow: 0 0.2rem 0.4rem rgba(40, 167, 69, 0.2);
+        }
+        .cheque-modal-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .cheque-modal-detail-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+        .cheque-modal-detail-item i {
+            margin-right: 0.75rem;
+            color: #6c757d;
+            width: 20px;
+            text-align: center;
+        }
+        .cheque-modal-concept-signature {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ced4da;
+        }
+        .cheque-modal-concept {
+            flex-grow: 1;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+        .cheque-modal-concept strong {
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .cheque-modal-signature-area {
+            text-align: right;
+            margin-left: 2rem;
+            flex-shrink: 0;
+        }
+        .cheque-modal-signature-area span {
+            display: block;
+            border-top: 1px solid #000;
+            padding-top: 0.2rem;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #444;
+            min-width: 180px;
+        }
+        .cheque-modal-footer-info {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px dashed #e9ecef;
+        }
+        .cheque-modal-footer {
+            border-top: none;
+            padding-top: 0;
+        }
+    </style>
 
-  .sidebar .nav-link {
-    color: #495057;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1.25rem;
-    border-left: 4px solid transparent;
-    transition: all 0.3s ease;
-    border-radius: 0 20px 20px 0;
-    margin-bottom: 0.25rem;
-  }
-
-  .sidebar .nav-link:hover {
-    background-color: #e9ecef;
-    border-left: 4px solid #0d6efd;
-    color: #0d6efd;
-  }
-
-  .sidebar .nav-link.active {
-    background-color: #e2e6ea;
-    border-left: 4px solid #0d6efd;
-    color: #0d6efd;
-  }
-
-  .sidebar .menu-icon {
-    font-size: 1.2rem;
-    margin-right: 12px;
-    color: inherit;
-  }
-
-  .sidebar .menu-title {
-    font-size: 0.95rem;
-  }
-
-  @media (max-width: 992px) {
-    .sidebar {
-      position: fixed;
-      z-index: 1050;
-      width: 250px;
-      transition: all 0.3s ease;
-    }
-  }
-</style>
 
 
 
-
-
+<style>
+       
+        /* Clases únicas para el modal del cheque */
+        .cheque-modal-content {
+            border-radius: 1rem; /* Bordes más redondeados para el modal */
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Sombra sutil */
+        }
+        .cheque-modal-header {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .cheque-modal-title {
+            font-weight: 600;
+            color: #343a40;
+        }
+        /* El botón de cerrar (btn-close) es una clase de Bootstrap y no se debe modificar */
+        .cheque-modal-card {
+            background: linear-gradient(135deg, #f0f2f5 0%, #e0e2e6 100%); /* Degradado suave para el fondo del cheque */
+            border: 1px solid #dcdcdc;
+            border-radius: 0.75rem; /* Bordes redondeados para el cheque */
+            padding: 1.5rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.08); /* Sombra más pronunciada para el cheque */
+            position: relative;
+            overflow: hidden;
+        }
+        .cheque-modal-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            z-index: 0;
+        }
+        .cheque-modal-cheque-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .cheque-modal-bank-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .cheque-modal-details div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+        .cheque-modal-details div i {
+            margin-right: 0.75rem;
+            color: #6c757d;
+            width: 20px; /* Ancho fijo para los iconos */
+            text-align: center;
+        }
+        .cheque-modal-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #28a745; /* Color verde para el importe */
+            text-align: right;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #e9f7ef;
+            border-radius: 0.5rem;
+            border: 1px dashed #28a745;
+        }
+        .cheque-modal-signature {
+            text-align: right;
+            margin-top: 2rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed #adb5bd;
+            font-style: italic;
+            color: #6c757d;
+        }
+        .cheque-modal-footer-info {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        .cheque-modal-footer {
+            border-top: none;
+            padding-top: 0;
+        }
+    </style>
 
 
 
