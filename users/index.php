@@ -341,140 +341,141 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
 
 
-                      <div class="row flex-grow">
-                        <div class="col-12 grid-margin stretch-card">
-                          <div class="card shadow-sm border-0 rounded-4">
-                            <div class="card-body">
-                              <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title fw-bold text-primary">📊 Progreso de Usuario</h4>
-                              </div>
-                              <div class="table-responsive">
-                                <table class="table table-hover align-middle">
-                                  <thead class="table-light">
-                                    <tr>
-                                      <th>👤 Usuario</th>
-                                      <th>🏢 Departamento</th>
-                                      <th>📈 Entradas</th>
-                                      <th>📉 Salidas</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <?php
-                                    include '../conexion/conexion.php';
-                                    $sql_usuario = "SELECT * FROM usuarios WHERE Id=$usuario_id";
-                                    $resultado_usuario = mysqli_query($conn, $sql_usuario);
+                    <div class="row flex-grow">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="card-title fw-bold text-primary">
+            <i class="bi bi-graph-up-arrow me-2"></i> Progreso del Usuario
+          </h4>
+        </div>
 
-                                    while ($row_usuarios = $resultado_usuario->fetch_assoc()) {
-                                    ?>
-                                      <tr>
-                                        <td class="d-flex align-items-center">
-                                          <img src="data:image/*;base64,<?php echo base64_encode($row_usuarios['Foto']); ?>" class="rounded-circle me-3" height="50" width="50" alt="Foto">
-                                          <div>
-                                            <div class="fw-semibold"><?= $row_usuarios['Nombre']; ?></div>
-                                            <div class="text-muted small"><?= $row_usuarios['Tipo_Usuario']; ?></div>
-                                          </div>
-                                        </td>
-                                        <td>
-                                          <?php
-                                          $codeDep = $row_usuarios['Dpto'];
-                                          $depart = "SELECT * FROM departementos WHERE Id = '$codeDep'";
-                                          $resulDep = mysqli_query($conn, $depart);
-                                          $nomDep = mysqli_fetch_array($resulDep);
-                                          ?>
-                                          <span class="badge bg-info text-dark px-3 py-2"><?= $nomDep['Nombre']; ?></span>
-                                        </td>
-                                        <td>
-                                          <?php
-                                          $resulDiv = ($numero_entradas / $numero_entradasT) / 100;
-                                          $porCientoEntrada = round($resulDiv);
-                                          ?>
-                                          <div class="d-flex justify-content-between">
-                                            <span class="text-success fw-medium"><?= $porCientoEntrada; ?>%</span>
-                                            <span class="text-muted"><?= $numero_entradas . " / " . $numero_entradasT; ?></span>
-                                          </div>
-                                          <div class="progress rounded-pill" style="height: 8px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: <?= $resulDiv; ?>%"></div>
-                                          </div>
-                                        </td>
-                                        <td>
-                                          <?php
-                                          $resulDivS = ($numero_salidas / $numero_salidasT) / 100;
-                                          $porCientoSalida = round($resulDivS);
-                                          ?>
-                                          <div class="d-flex justify-content-between">
-                                            <span class="text-danger fw-medium"><?= $porCientoSalida; ?>%</span>
-                                            <span class="text-muted"><?= $numero_salidas . " / " . $numero_salidasT; ?></span>
-                                          </div>
-                                          <div class="progress rounded-pill" style="height: 8px;">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $resulDivS; ?>%"></div>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    <?php } ?>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+        <div class="table-responsive">
+          <table class="table align-middle table-borderless">
+            <thead class="bg-light text-uppercase small text-muted">
+              <tr>
+                <th><i class="bi bi-person-circle me-1"></i> Usuario</th>
+                <th><i class="bi bi-building me-1"></i> Departamento</th>
+                <th><i class="bi bi-box-arrow-in-down me-1"></i> Entradas</th>
+                <th><i class="bi bi-box-arrow-up me-1"></i> Salidas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              include '../conexion/conexion.php';
+              $sql_usuario = "SELECT * FROM usuarios WHERE Id=$usuario_id";
+              $resultado_usuario = mysqli_query($conn, $sql_usuario);
+
+              while ($row_usuarios = $resultado_usuario->fetch_assoc()) {
+              ?>
+                <tr class="bg-white border-bottom">
+                  <td class="d-flex align-items-center py-3">
+                    <img src="data:image/*;base64,<?= base64_encode($row_usuarios['Foto']); ?>" 
+                         class="rounded-circle me-3 shadow-sm border" height="55" width="55" alt="Foto">
+                    <div>
+                      <div class="fw-semibold fs-6"><?= $row_usuarios['Nombre']; ?></div>
+                      <div class="text-muted small"><?= $row_usuarios['Tipo_Usuario']; ?></div>
+                    </div>
+                  </td>
+                  <td>
+                    <?php
+                    $codeDep = $row_usuarios['Dpto'];
+                    $depart = "SELECT * FROM departementos WHERE Id = '$codeDep'";
+                    $resulDep = mysqli_query($conn, $depart);
+                    $nomDep = mysqli_fetch_array($resulDep);
+                    ?>
+                    <span class="badge bg-info-subtle text-dark rounded-pill px-3 py-2">
+                      <?= $nomDep['Nombre']; ?>
+                    </span>
+                  </td>
+                  <td style="min-width: 200px;">
+                    <?php
+                    $resulDiv = ($numero_entradas / $numero_entradasT) * 100/100;
+                    $porCientoEntrada = round($resulDiv);
+                    ?>
+                    <div class="d-flex justify-content-between mb-1">
+                      <small class="text-success fw-bold"><?= $porCientoEntrada; ?>%</small>
+                      <small class="text-muted"><?= "$numero_entradas / $numero_entradasT"; ?></small>
+                    </div>
+                    <div class="progress rounded-pill" style="height: 10px;">
+                      <div class="progress-bar bg-success" role="progressbar" style="width: <?= $resulDiv; ?>%;"></div>
+                    </div>
+                  </td>
+                  <td style="min-width: 200px;">
+                    <?php
+                    $resulDivS = ($numero_salidas / $numero_salidasT) * 100/100;
+                    $porCientoSalida = round($resulDivS);
+                    ?>
+                    <div class="d-flex justify-content-between mb-1">
+                      <small class="text-danger fw-bold"><?= $porCientoSalida; ?>%</small>
+                      <small class="text-muted"><?= "$numero_salidas / $numero_salidasT"; ?></small>
+                    </div>
+                    <div class="progress rounded-pill" style="height: 10px;">
+                      <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $resulDivS; ?>%;"></div>
+                    </div>
+                  </td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 
 
                     </div>
                     <div class="col-lg-4 d-flex flex-column">
-                      <div class="row flex-grow">
-                        <div class="col-12 grid-margin stretch-card">
-                          <div class="card card-rounded">
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title card-title-dash">Último Registro de Entradas</h4>
-                                    <div class="add-items d-flex mb-0">
-                                      <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
-                                      <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button>
-                                    </div>
-                                  </div>
-                                  <div class="list-wrapper">
-                                    <ul class="todo-list todo-list-rounded">
+                    <div class="row flex-grow">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="card-title text-primary fw-bold mb-0">
+            <i class="bi bi-journal-text me-2"></i> Último Registro de Entradas
+          </h4>
+          <button class="btn btn-outline-primary rounded-pill btn-sm">
+            <i class="bi bi-plus-circle me-1"></i> Nuevo
+          </button>
+        </div>
 
-                                      <!-- cogiendo todos los registros de entrada -->
-                                      <?php
+        <?php
+        $sql_entradas2 = "SELECT * FROM entradas ORDER BY Id DESC LIMIT 2";
+        $resultado_entradas = mysqli_query($conn, $sql_entradas2);
+        ?>
 
-                                      $sql_entradas2 = "SELECT * FROM entradas ORDER BY Id DESC LIMIT 4";
-                                      $resultado_entradas = mysqli_query($conn, $sql_entradas2);
-                                      $fila = mysqli_fetch_assoc($resultado_entradas);
+        <ul class="list-group list-group-flush">
+          <?php while ($fila = mysqli_fetch_assoc($resultado_entradas)) : ?>
+            <li class="list-group-item bg-light rounded-3 mb-2 shadow-sm border-0">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="mb-1 text-dark">
+                    <i class="bi bi-file-earmark-text me-2 text-secondary"></i>
+                    <?= htmlspecialchars($fila['TipoDoc']) ?>
+                  </h6>
+                  <small class="text-muted">
+                    <i class="bi bi-calendar-check me-1"></i> Fecha: <?= htmlspecialchars($fila['FechaRegistro']) ?>
+                  </small>
+                </div>
+                <span class="badge bg-warning-subtle text-dark fw-semibold px-3 py-2 rounded-pill">
+                  Nº <?= htmlspecialchars($fila['NumRegistro']) ?>
+                </span>
+              </div>
+            </li>
+          <?php endwhile; ?>
+        </ul>
 
-                                      ?>
+      </div>
+    </div>
+  </div>
+</div>
 
-                                      <li class="d-block">
-
-                                        <div class="form-check w-100">
-                                          <label class="form-check-label">
-                                            <?php echo $fila['TipoDoc'];  ?>
-                                          </label>
-                                          <div class="d-flex mt-2">
-                                            <div class="ps-4 text-small me-3">F. Registro <?php echo $fila['FechaRegistro'];  ?></div>
-                                            <div class="badge badge-opacity-warning me-3">Numero Registro: <?php echo $fila['NumRegistro'];  ?></div>
-
-                                          </div>
-
-
-                                        </div>
-                                      </li>
-
-
-
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
 
                       <div class="row flex-grow">
@@ -496,7 +497,7 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
                                     <!-- Gráfico -->
                                     <div class="bg-white border rounded-3 p-3 shadow-sm">
-                                      <div id="piechart" style="width: 100%; height: 300px;"></div>
+                                      <div id="piechart" style="width: 100%; height: 100%;"></div>
                                     </div>
 
                                     <!-- Leyenda si aplica -->
@@ -512,63 +513,47 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
 
 
 
-                      <div class="row flex-grow">
-                        <div class="col-12 grid-margin stretch-card">
-                          <div class="card card-rounded">
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div>
-                                      <h4 class="card-title card-title-dash">Último Registro de Salida</h4>
-                                    </div>
-                                  </div>
-                                  <div class="mt-3">
-                                    <div class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
+                    <div class="row flex-grow">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="card-title text-primary fw-bold mb-0">
+            <i class="bi bi-box-arrow-up-right me-2"></i> Últimos Registros de Salida
+          </h4>
+        </div>
 
+        <?php
+        $sql_salida2 = "SELECT * FROM salidas ORDER BY Id DESC LIMIT 2";
+        $resultado_salida2 = mysqli_query($conn, $sql_salida2);
+        ?>
 
-                                      <!-- cogiendo todos los registros de salida -->
-                                      <?php
+        <ul class="list-group list-group-flush">
+          <?php while ($fila23 = mysqli_fetch_assoc($resultado_salida2)) : ?>
+            <li class="list-group-item bg-light rounded-3 mb-2 shadow-sm border-0">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="mb-1 text-dark">
+                    <i class="bi bi-file-earmark-arrow-up me-2 text-secondary"></i>
+                    <?= htmlspecialchars($fila23['TipoDoc']) ?>
+                  </h6>
+                  <small class="text-muted">
+                    <i class="bi bi-calendar-check me-1"></i> Fecha: <?= htmlspecialchars($fila23['FechaRegistro']) ?>
+                  </small>
+                </div>
+                <span class="badge bg-warning-subtle text-dark fw-semibold px-3 py-2 rounded-pill">
+                  Nº <?= htmlspecialchars($fila23['NumRegistro']) ?>
+                </span>
+              </div>
+            </li>
+          <?php endwhile; ?>
+        </ul>
 
-                                      $sql_salida2 = "SELECT * FROM salidas ORDER BY Id DESC LIMIT 4";
-                                      $resultado_salida2 = mysqli_query($conn, $sql_salida2);
-                                      $fila23 = mysqli_fetch_assoc($resultado_salida2);
+      </div>
+    </div>
+  </div>
+</div>
 
-
-
-                                      ?>
-
-
-
-
-                                      <div class="form-check w-100">
-                                        <label class="form-check-label">
-                                          <?php echo $fila23['TipoDoc'];  ?>
-                                        </label>
-                                        <div class="d-flex mt-2">
-                                          <div class="ps-4 text-small me-3">F. Registro<?php echo $fila23['FechaRegistro'];  ?></div>
-                                          <div class="badge badge-opacity-warning me-3">Numero Registro: <?php echo $fila23['NumRegistro'];  ?></div>
-                                        </div>
-
-
-                                      </div>
-
-
-
-
-                                    </div>
-
-
-
-
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

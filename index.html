@@ -1,87 +1,5 @@
-<?php
-session_start();
-// Asegúrate de que 'conexion/conexion.php' establece la conexión $conn y maneja errores.
-// Ejemplo simple de conexion.php (adaptar según tu configuración real):
-/*
-<?php
-$servername = "localhost";
-$username = "tu_usuario";
-$password = "tu_contraseña";
-$dbname = "tu_base_de_datos";
-
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-?>
-*/
-require 'conexion/conexion.php';
-
-
-$msg = '';
-$msg_type = 'danger'; // default tipo alerta: error
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre_usuario = trim($_POST['nombre_usuario'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-
-    if (empty($nombre_usuario) || empty($password)) {
-        $msg = 'Por favor complete todos los campos.';
-    } else {
-        // Usamos un bloque try-finally para asegurar el cierre de recursos
-        try {
-            $stmt = $conn->prepare("SELECT Id, Nombre, Pass, Tipo_Usuario FROM usuarios WHERE Nombre = ?");
-            if ($stmt === false) {
-                throw new Exception("Error al preparar la consulta: " . $conn->error);
-            }
-            $stmt->bind_param("s", $nombre_usuario);
-            $stmt->execute();
-            $resultado = $stmt->get_result();
-
-            if ($resultado->num_rows === 1) {
-                $usuario = $resultado->fetch_assoc();
-
-                if (password_verify($password, $usuario['Pass'])) {
-                    $_SESSION['usuario'] = $usuario['Nombre'];
-                    $_SESSION['codigo'] = $usuario['Id'];
-                    $_SESSION['tipo'] = $usuario['Tipo_Usuario'];
-
-                    // Redireccionar inmediatamente después del éxito
-                    if ($usuario['Tipo_Usuario'] === "ADMINISTRADOR") {
-                        header("Location: admin/index.php");
-                        exit;
-                    } elseif ($usuario['Tipo_Usuario'] === "USUARIO") {
-                        header("Location: users/index.php");
-                        exit;
-                    } else {
-                        $msg = "Tipo de usuario no válido.";
-                    }
-                } else {
-                    $msg = "Contraseña incorrecta.";
-                }
-            } else {
-                $msg = "El usuario no existe.";
-            }
-        } catch (Exception $e) {
-            $msg = "Ocurrió un error en el servidor: " . $e->getMessage();
-            error_log($e->getMessage()); // Para depuración, registra el error en el log del servidor
-        } finally {
-            if (isset($stmt) && $stmt !== false) {
-                $stmt->close();
-            }
-            if (isset($conn) && $conn !== false) {
-                $conn->close();
-            }
-        }
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,7 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
-        /* ... Tu CSS existente ... */
         :root {
             --primary-color: #1976d2;
             --secondary-color: #424242;
@@ -203,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 1.5rem;
         }
 
-        .form-floating>.form-control {
+        .form-floating > .form-control {
             border: 2px solid #e0e0e0;
             border-radius: 12px;
             padding: 1rem 0.75rem;
@@ -212,13 +129,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transition: all 0.3s ease;
         }
 
-        .form-floating>.form-control:focus {
+        .form-floating > .form-control:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.15);
             background: white;
         }
 
-        .form-floating>label {
+        .form-floating > label {
             color: #666;
             font-weight: 500;
         }
@@ -317,13 +234,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @media (max-width: 480px) {
@@ -331,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 margin: 10px;
                 border-radius: 16px;
             }
-
+            
             .login-header,
             .login-form {
                 padding: 1.5rem;
@@ -358,21 +270,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             0% {
                 transform: translateY(0) rotate(0deg);
             }
-
             50% {
                 transform: translateY(-10px) rotate(5deg);
             }
-
             100% {
                 transform: translateY(0) rotate(0deg);
             }
         }
     </style>
 </head>
-
 <body>
     <canvas id="particleCanvas"></canvas>
-
+    
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
@@ -380,30 +289,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <i class="bi bi-bank2"></i>
                 </div>
                 <h1>Tesorería General del Estado</h1>
-                <p>Gabinete de la Tesoreria</p>
+                <p>Sistema de Gestión Financiera</p>
             </div>
-
-       
-
-
-
-
-            <form class="login-form" id="loginForm" method="POST" action="">
-
-
-               
-
-
+            
+            <form class="login-form" id="loginForm">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="username" placeholder="Usuario" required name="nombre_usuario">
+                    <input type="text" class="form-control" id="username" placeholder="Usuario" required>
                     <label for="username"><i class="bi bi-person-circle me-2"></i>Usuario</label>
                 </div>
-
+                
                 <div class="form-floating">
-                    <input type="password" class="form-control" id="password" placeholder="Contraseña" required name="password">
+                    <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
                     <label for="password"><i class="bi bi-lock-fill me-2"></i>Contraseña</label>
                 </div>
-
+                
                 <div class="remember-forgot">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="remember">
@@ -413,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
                 </div>
-
+                
                 <button type="submit" class="btn btn-primary w-100">
                     <span class="btn-text">
                         <i class="bi bi-box-arrow-in-right me-2"></i>
@@ -421,30 +320,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </span>
                     <div class="loading-spinner"></div>
                 </button>
-
-                     <?php if (!empty($msg)): ?>
-  <div class="alert alert-<?= htmlspecialchars($msg_type) ?> alert-dismissible fade show mt-1" role="alert" id="mensajeFlash">
-    <?= htmlspecialchars($msg) ?>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-  </div>
-<?php endif; ?>
-
+                
                 <div class="security-badge">
                     <i class="bi bi-shield-lock-fill"></i>
                     Conexión segura SSL
                 </div>
             </form>
-
+            
             <div class="footer-info">
-                <p>© 2025 Tesorería General del Estado. Todos los derechos reservados.</p>
+                <p><i class="bi bi-info-circle me-1"></i>Acceso autorizado únicamente</p>
+                <p>© 2024 Tesorería General del Estado. Todos los derechos reservados.</p>
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
+    
     <script>
-        // Document Canvas Animation (Código optimizado previamente)
+        // Document Canvas Animation
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         const documents = [];
@@ -453,46 +346,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         let lastSpawnTime = 0;
 
         // Document types with their icons and colors
-        const documentTypes = [{
-                icon: '📄',
-                color: 'rgba(255, 255, 255, 0.8)',
-                size: 24
-            },
-            {
-                icon: '📊',
-                color: 'rgba(255, 255, 255, 0.7)',
-                size: 28
-            },
-            {
-                icon: '📋',
-                color: 'rgba(255, 255, 255, 0.6)',
-                size: 26
-            },
-            {
-                icon: '💰',
-                color: 'rgba(255, 255, 255, 0.8)',
-                size: 22
-            },
-            {
-                icon: '📈',
-                color: 'rgba(255, 255, 255, 0.7)',
-                size: 25
-            },
-            {
-                icon: '🧾',
-                color: 'rgba(255, 255, 255, 0.6)',
-                size: 24
-            },
-            {
-                icon: '💳',
-                color: 'rgba(255, 255, 255, 0.8)',
-                size: 26
-            },
-            {
-                icon: '📑',
-                color: 'rgba(255, 255, 255, 0.7)',
-                size: 23
-            }
+        const documentTypes = [
+            { icon: '📄', color: 'rgba(255, 255, 255, 0.8)', size: 24 },
+            { icon: '📊', color: 'rgba(255, 255, 255, 0.7)', size: 28 },
+            { icon: '📋', color: 'rgba(255, 255, 255, 0.6)', size: 26 },
+            { icon: '💰', color: 'rgba(255, 255, 255, 0.8)', size: 22 },
+            { icon: '📈', color: 'rgba(255, 255, 255, 0.7)', size: 25 },
+            { icon: '🧾', color: 'rgba(255, 255, 255, 0.6)', size: 24 },
+            { icon: '💳', color: 'rgba(255, 255, 255, 0.8)', size: 26 },
+            { icon: '📑', color: 'rgba(255, 255, 255, 0.7)', size: 23 }
         ];
 
         function resizeCanvas() {
@@ -508,7 +370,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Pre-render icons to offscreen canvases
         const offscreenCanvases = new Map();
-
         function createOffscreenCanvas(docType) {
             const offscreenCanvas = document.createElement('canvas');
             const offscreenCtx = offscreenCanvas.getContext('2d');
@@ -522,7 +383,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             offscreenCtx.textAlign = 'center';
             offscreenCtx.textBaseline = 'middle';
             offscreenCtx.fillText(docType.icon, offscreenCanvas.width / 2, offscreenCanvas.height / 2);
-
+            
             return offscreenCanvas;
         }
 
@@ -538,7 +399,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             let x, y, vx, vy;
 
             // Optimized spawn points: closer to edges, less random initial velocity
-            switch (side) {
+            switch(side) {
                 case 0: // from top
                     x = Math.random() * canvas.width;
                     y = -docType.size; // Start just outside
@@ -588,20 +449,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         function updateDocuments() {
             for (let i = documents.length - 1; i >= 0; i--) {
                 const doc = documents[i];
-
+                
                 doc.x += doc.vx;
                 doc.y += doc.vy;
                 doc.rotation += doc.rotationSpeed;
                 doc.alpha -= doc.fadeSpeed;
-
+                
                 // Remove document if it's off screen or fully faded
-                if (doc.x < -doc.docType.size * 2 || doc.x > canvas.width + doc.docType.size * 2 ||
-                    doc.y < -doc.docType.size * 2 || doc.y > canvas.height + doc.docType.size * 2 ||
+                if (doc.x < -doc.docType.size * 2 || doc.x > canvas.width + doc.docType.size * 2 || 
+                    doc.y < -doc.docType.size * 2 || doc.y > canvas.height + doc.docType.size * 2 || 
                     doc.alpha <= 0) {
                     documents.splice(i, 1);
                 }
             }
-
+            
             // Add new documents only if below maxDocuments and after a certain time
             if (documents.length < maxDocuments && performance.now() - lastSpawnTime > spawnRate) {
                 documents.push(createDocument());
@@ -617,7 +478,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ctx.translate(doc.x, doc.y);
                 ctx.rotate(doc.rotation * Math.PI / 180);
                 ctx.globalAlpha = doc.alpha;
-
+                
                 // Draw pre-rendered icon
                 const offscreen = offscreenCanvases.get(doc.docType.icon);
                 ctx.drawImage(offscreen, -offscreen.width / 2, -offscreen.height / 2); // Center the image
@@ -627,7 +488,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         let animationFrameId;
-
         function animate() {
             updateDocuments();
             drawDocuments();
@@ -654,17 +514,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const btnText = document.querySelector('.btn-text');
 
         loginForm.addEventListener('submit', async (e) => {
-            // No e.preventDefault() here if PHP handles submission directly
-            // The loading state should be managed differently if PHP redirects on success
-
-            // This client-side loading visual is primarily for demonstrating an immediate feedback.
-            // If PHP redirects instantly, this part might not be visible.
-            // You might want to remove or adjust this if the page reloads quickly on submission.
+            e.preventDefault();
+            
+            // Show loading state
             loadingSpinner.style.display = 'inline-block';
             btnText.style.display = 'none';
-
-            // No need for setTimeout if PHP handles the redirection.
-            // The page will reload/redirect upon PHP's header() call.
+            
+            // Simulate login process
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Hide loading state
+            loadingSpinner.style.display = 'none';
+            btnText.style.display = 'inline-flex';
+            
+            // Show success message (in a real app, you'd redirect)
+            alert('Inicio de sesión exitoso! En una aplicación real, serías redirigido al dashboard.');
         });
 
         // Ripple effect for buttons
@@ -675,14 +539,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 const size = Math.max(rect.width, rect.height);
                 const x = e.clientX - rect.left - size / 2;
                 const y = e.clientY - rect.top - size / 2;
-
+                
                 ripple.style.width = ripple.style.height = size + 'px';
                 ripple.style.left = x + 'px';
                 ripple.style.top = y + 'px';
                 ripple.classList.add('ripple');
-
+                
                 this.appendChild(ripple);
-
+                
                 setTimeout(() => {
                     ripple.remove();
                 }, 600);
@@ -694,7 +558,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             input.addEventListener('focus', function() {
                 this.parentElement.classList.add('focused');
             });
-
+            
             input.addEventListener('blur', function() {
                 if (!this.value) {
                     this.parentElement.classList.remove('focused');
@@ -707,7 +571,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-
+            
             // Create burst of documents at click position
             for (let i = 0; i < 3; i++) { // Reduced burst count
                 const docType = documentTypes[Math.floor(Math.random() * documentTypes.length)];
@@ -725,19 +589,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         });
     </script>
-    <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const mensaje = document.getElementById('mensajeFlash');
-    if (mensaje) {
-      setTimeout(() => {
-        // Usa Bootstrap 5 para ocultar
-        const alert = bootstrap.Alert.getOrCreateInstance(mensaje);
-        alert.close();
-      }, 5000);
-    }
-  });
-</script>
-
 </body>
-
 </html>
