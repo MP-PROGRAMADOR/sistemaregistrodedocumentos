@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 21-06-2025 a las 14:30:13
+-- Tiempo de generación: 05-07-2025 a las 14:42:28
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -46,6 +46,38 @@ INSERT INTO `bancos` (`Id`, `Nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cheques`
+--
+
+CREATE TABLE `cheques` (
+  `id` int(11) NOT NULL,
+  `confin` int(11) NOT NULL,
+  `procedencia` varchar(3) NOT NULL,
+  `r_documento` varchar(11) NOT NULL,
+  `id_banco` int(11) NOT NULL,
+  `beneficiario` varchar(255) NOT NULL,
+  `importe` int(11) NOT NULL,
+  `concepto` text NOT NULL,
+  `iva` varchar(5) NOT NULL,
+  `fecha_entrada` date NOT NULL,
+  `fecha_firma` date NOT NULL,
+  `fecha_retirada` date NOT NULL,
+  `quien_retira` varchar(255) NOT NULL,
+  `archivo` text NOT NULL,
+  `n_registro` varchar(30) NOT NULL,
+  `Usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cheques`
+--
+
+INSERT INTO `cheques` (`id`, `confin`, `procedencia`, `r_documento`, `id_banco`, `beneficiario`, `importe`, `concepto`, `iva`, `fecha_entrada`, `fecha_firma`, `fecha_retirada`, `quien_retira`, `archivo`, `n_registro`, `Usuario`) VALUES
+(1, 3644572, 'PR', 'doc-025', 4, 'Salvador mete Bijeri', 10000000, 'pago de cheque por la pagina web', 'CON', '2025-07-03', '2025-07-03', '2025-07-03', 'Salvador mete bijeri', '686648f7c8312-trabajo diagnostico.pdf', '1-2025', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `decretos`
 --
 
@@ -53,7 +85,7 @@ CREATE TABLE `decretos` (
   `Id` int(20) NOT NULL,
   `Descripcion` text DEFAULT NULL,
   `Fecha` date DEFAULT NULL,
-  `Archivo` varchar(15) DEFAULT NULL,
+  `Archivo` text DEFAULT NULL,
   `DocEntrada` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -138,7 +170,7 @@ CREATE TABLE `entradas` (
   `NumRegistro` varchar(8) DEFAULT NULL,
   `FechaRegistro` date DEFAULT NULL,
   `TipoDoc` varchar(50) DEFAULT NULL,
-  `Archivo` varchar(15) DEFAULT NULL,
+  `Archivo` text DEFAULT NULL,
   `Descripcion` text DEFAULT NULL,
   `PalabrasClaves` text DEFAULT NULL,
   `FechaFirma` date DEFAULT NULL,
@@ -152,7 +184,12 @@ CREATE TABLE `entradas` (
 --
 
 INSERT INTO `entradas` (`Id`, `NumRegistro`, `FechaRegistro`, `TipoDoc`, `Archivo`, `Descripcion`, `PalabrasClaves`, `FechaFirma`, `Importe`, `Referencia`, `Usuario`) VALUES
-(1, '1-2023', '2023-12-04', 'carta de presentacion', 'bd.pdf', '<p>documento de prueba</p>\r\n', 'DP', '2023-12-01', '5000', 2, 2);
+(1, '1-2023', '2023-12-04', 'carta de presentacion', 'bd.pdf', '<p>documento de prueba</p>\r\n', 'DP', '2023-12-01', '5000', 2, 2),
+(2, '2-2025', '2025-06-24', 'carta', 'External-Intern', '<p>blablabla</p>\r\n', 'tesoreria, pagos', '2025-06-24', '5000000', 2, 2),
+(3, '3-2025', '2025-06-24', 'proforma', 'External-Internal Job Posting _Network Infrastructure Support .pdf', '<p>proforma de compra de material informatico</p>\r\n', 'tesoreria, pagos', '2025-06-24', '15000000', 3, 2),
+(4, '4-2025', '2025-06-26', 'carta', 'External-Internal Job Posting _Network Infrastructure Support .pdf', 'se esta pidiendo un pago', 'pago', '2025-06-19', '100000', 2, 2),
+(5, '5-2025', '2025-06-26', 'Jubilacion', 'TEMA 1 (1).pdf', 'se debe jubilar al personal', 'jubilacion', '2025-06-12', '2000000', 2, 2),
+(6, '6-2025', '2025-06-25', 'carta', 'TEMA 1 (1).pdf', 'hola ', 'hola', '2025-06-18', '3000000', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -162,7 +199,7 @@ INSERT INTO `entradas` (`Id`, `NumRegistro`, `FechaRegistro`, `TipoDoc`, `Archiv
 
 CREATE TABLE `instituciones` (
   `Id` int(5) NOT NULL,
-  `Nombre` varchar(100) DEFAULT NULL,
+  `Nombre` text NOT NULL,
   `Nombre_Corto` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -173,7 +210,8 @@ CREATE TABLE `instituciones` (
 INSERT INTO `instituciones` (`Id`, `Nombre`, `Nombre_Corto`) VALUES
 (1, 'Tesoreria General del Estado', 'TGE'),
 (2, 'Universidad Nacional de Guinea Ecuatorial', 'UNGE'),
-(3, 'Instituto Nacional de Estadisticas de Guinea Ecuatorial', 'INEGE');
+(3, 'Instituto Nacional de Estadisticas de Guinea Ecuatorial', 'INEGE'),
+(4, 'ORTEL', 'órgano reg');
 
 -- --------------------------------------------------------
 
@@ -220,24 +258,32 @@ INSERT INTO `miembros` (`Id`, `Nombre`, `Dpto`) VALUES
 
 CREATE TABLE `pagos` (
   `Id` int(11) NOT NULL,
-  `NumRegistro` varchar(10) NOT NULL,
-  `Concepto` varchar(255) NOT NULL,
-  `Descripcion` text NOT NULL,
-  `FechaFirma` date NOT NULL,
-  `Cantidad` float NOT NULL,
+  `n_registro` varchar(10) NOT NULL,
+  `Concepto` text NOT NULL,
+  `fecha_firma` date NOT NULL,
+  `importe` int(11) NOT NULL,
   `Archivo` varchar(255) NOT NULL,
   `Usuario` int(11) NOT NULL,
   `Beneficiario` varchar(255) NOT NULL,
-  `Banco` int(11) NOT NULL
+  `id_banco` int(11) NOT NULL,
+  `cuenta_tesoro` varchar(250) NOT NULL,
+  `iva` varchar(5) NOT NULL,
+  `n_documento` varchar(10) NOT NULL,
+  `procedencia` varchar(3) NOT NULL,
+  `fecha_entrada_tesoreria` date DEFAULT NULL,
+  `fecha_entrada_banco` date DEFAULT NULL,
+  `fecha_entrega` date DEFAULT NULL,
+  `confin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `pagos`
 --
 
-INSERT INTO `pagos` (`Id`, `NumRegistro`, `Concepto`, `Descripcion`, `FechaFirma`, `Cantidad`, `Archivo`, `Usuario`, `Beneficiario`, `Banco`) VALUES
-(2, '1-2023', 'Pago de la factura del sistema', '<p>se realiza este pago por el concepto de la factura de una pagina web al sr. SALVADOR METE Bijeri</p>\r\n', '2023-12-14', 6000000, 'FACTURA-PROFORMA.pdf', 2, 'SALVADOR METE', 1),
-(3, '3-2023', 'pago de los trabajadores', '<p>hola este es el salario</p>\r\n', '2023-12-14', 8000000, 'FACTURA-PROFORMA_4.pdf', 2, 'ribertya mangue', 3);
+INSERT INTO `pagos` (`Id`, `n_registro`, `Concepto`, `fecha_firma`, `importe`, `Archivo`, `Usuario`, `Beneficiario`, `id_banco`, `cuenta_tesoro`, `iva`, `n_documento`, `procedencia`, `fecha_entrada_tesoreria`, `fecha_entrada_banco`, `fecha_entrega`, `confin`) VALUES
+(2, '1-2023', 'Pago de la factura del sistema', '2023-12-14', 6000000, 'FACTURA-PROFORMA.pdf', 2, 'SALVADOR METE', 1, '', '', '', '', NULL, NULL, NULL, 0),
+(3, '3-2023', 'pago de los trabajadores', '2023-12-14', 8000000, 'FACTURA-PROFORMA_4.pdf', 2, 'ribertya mangue', 3, '', '', '', '', NULL, NULL, NULL, 0),
+(4, '4-2025', 'pago del estudiante', '2025-07-03', 30000000, 'pago_1751558108.pdf', 2, '0', 3, '8907265423', 'SIN', 'doc-0947', 'PM', NULL, '2025-07-03', '2025-07-04', 6453423);
 
 -- --------------------------------------------------------
 
@@ -259,7 +305,8 @@ CREATE TABLE `personafisica` (
 
 INSERT INTO `personafisica` (`Id`, `NombreCompleto`, `Entrada`, `Salida`, `Decreto`) VALUES
 (1, 'Salvador Mete bijeri', 1, NULL, NULL),
-(2, 'Carlos ab malabo', NULL, 1, NULL);
+(2, 'Carlos ab malabo', NULL, 1, NULL),
+(3, 'Salvador mete bijeri', 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -272,6 +319,16 @@ CREATE TABLE `proviene` (
   `Entrada` int(10) DEFAULT NULL,
   `Seccion` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `proviene`
+--
+
+INSERT INTO `proviene` (`Id`, `Entrada`, `Seccion`) VALUES
+(1, 2, 4),
+(2, 3, 3),
+(3, 5, 3),
+(4, 6, 4);
 
 -- --------------------------------------------------------
 
@@ -305,7 +362,7 @@ CREATE TABLE `salidas` (
   `NumRegistro` varchar(8) DEFAULT NULL,
   `FechaRegistro` date DEFAULT NULL,
   `TipoDoc` varchar(50) DEFAULT NULL,
-  `Archivo` varchar(15) DEFAULT NULL,
+  `Archivo` text DEFAULT NULL,
   `Descripcion` text DEFAULT NULL,
   `PalabrasClaves` text DEFAULT NULL,
   `FechaFirma` date DEFAULT NULL,
@@ -356,6 +413,13 @@ INSERT INTO `usuarios` (`Id`, `Nombre`, `Pass`, `Foto`, `Dpto`, `Tipo_Usuario`) 
 --
 ALTER TABLE `bancos`
   ADD PRIMARY KEY (`Id`);
+
+--
+-- Indices de la tabla `cheques`
+--
+ALTER TABLE `cheques`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_banco` (`id_banco`);
 
 --
 -- Indices de la tabla `decretos`
@@ -414,7 +478,7 @@ ALTER TABLE `miembros`
 ALTER TABLE `pagos`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `Usuario` (`Usuario`),
-  ADD KEY `Banco` (`Banco`);
+  ADD KEY `Banco` (`id_banco`);
 
 --
 -- Indices de la tabla `personafisica`
@@ -462,7 +526,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `bancos`
 --
 ALTER TABLE `bancos`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `cheques`
+--
+ALTER TABLE `cheques`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `decretos`
@@ -486,13 +556,13 @@ ALTER TABLE `destino`
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `instituciones`
 --
 ALTER TABLE `instituciones`
-  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `ir`
@@ -510,19 +580,19 @@ ALTER TABLE `miembros`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `personafisica`
 --
 ALTER TABLE `personafisica`
-  MODIFY `Id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `proviene`
 --
 ALTER TABLE `proviene`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `referencias`
@@ -547,10 +617,16 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- Filtros para la tabla `cheques`
+--
+ALTER TABLE `cheques`
+  ADD CONSTRAINT `cheques_ibfk_1` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`Id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `decretos`
 --
 ALTER TABLE `decretos`
-  ADD CONSTRAINT `decretos_ibfk_1` FOREIGN KEY (`DocEntrada`) REFERENCES `entradas` (`Id`);
+  ADD CONSTRAINT `decretos_ibfk_1` FOREIGN KEY (`DocEntrada`) REFERENCES `entradas` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `departementos`
@@ -590,29 +666,29 @@ ALTER TABLE `miembros`
 --
 ALTER TABLE `pagos`
   ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`Banco`) REFERENCES `bancos` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `personafisica`
 --
 ALTER TABLE `personafisica`
-  ADD CONSTRAINT `personafisica_ibfk_1` FOREIGN KEY (`Entrada`) REFERENCES `entradas` (`Id`),
   ADD CONSTRAINT `personafisica_ibfk_2` FOREIGN KEY (`Salida`) REFERENCES `salidas` (`Id`),
-  ADD CONSTRAINT `personafisica_ibfk_3` FOREIGN KEY (`Decreto`) REFERENCES `decretos` (`Id`);
+  ADD CONSTRAINT `personafisica_ibfk_3` FOREIGN KEY (`Decreto`) REFERENCES `decretos` (`Id`),
+  ADD CONSTRAINT `personafisica_ibfk_4` FOREIGN KEY (`Entrada`) REFERENCES `entradas` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `proviene`
 --
 ALTER TABLE `proviene`
-  ADD CONSTRAINT `proviene_ibfk_1` FOREIGN KEY (`Entrada`) REFERENCES `entradas` (`Id`),
-  ADD CONSTRAINT `proviene_ibfk_2` FOREIGN KEY (`Seccion`) REFERENCES `departementos` (`Id`);
+  ADD CONSTRAINT `proviene_ibfk_4` FOREIGN KEY (`Seccion`) REFERENCES `departementos` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `proviene_ibfk_5` FOREIGN KEY (`Entrada`) REFERENCES `entradas` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `salidas`
 --
 ALTER TABLE `salidas`
-  ADD CONSTRAINT `salidas_ibfk_1` FOREIGN KEY (`Referencia`) REFERENCES `referencias` (`Id`),
-  ADD CONSTRAINT `salidas_ibfk_2` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`Id`);
+  ADD CONSTRAINT `salidas_ibfk_3` FOREIGN KEY (`Referencia`) REFERENCES `referencias` (`Id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `salidas_ibfk_4` FOREIGN KEY (`Usuario`) REFERENCES `usuarios` (`Id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuarios`
