@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validar extensión pdf
         if ($fileExtension !== 'pdf') {
             $_SESSION['mensaje_error'] = "El archivo debe ser PDF.";
-            header("Location: ../users/editarCheque.php?id=$id");
+            header("Location: ../admin/cheques.php?id=$id");
             exit;
         }
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $archivoNuevoNombre = $nuevoNombreArchivo;
         } else {
             $_SESSION['mensaje_error'] = "Error al subir el archivo.";
-            header("Location: ../users/editarCheque.php?id=$id");
+            header("Location: ../admin/cheques.php?id=$id");
             exit;
         }
     }
@@ -83,16 +83,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        // Mensaje de éxito en sesión
         $_SESSION['mensaje'] = "Cheque actualizado correctamente.";
         $_SESSION['mensaje_tipo'] = "success";
-        header("Location: ../users/cheques.php");
+        header("Location: ../admin/cheques.php");
         exit;
     } else {
        // Mensaje de error en sesión
         $_SESSION['mensaje'] = "Error al actualizar: " . $conn->error;
         $_SESSION['mensaje_tipo'] = "danger";
-        header("Location: ../users/users.php?id=$id");
+        header("Location: ../admin/cheques.php?id=$id");
     }
 } else {
     // No es POST, redirigir o mostrar error
-    header("Location: ../users/cheques.php");
+    header("Location: ../admin/cheques.php");
     exit;
 }

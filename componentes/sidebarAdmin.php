@@ -6,6 +6,43 @@
                 <span class="menu-title">Inicio</span>
             </a>
         </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="entradas.php">
+                <i class="mdi mdi-tag menu-icon"></i>
+                <span class="menu-title">Entradas</span>
+            </a>
+        </li>
+
+         <li class="nav-item">
+            <a class="nav-link" href="decretos.php">
+                <i class="mdi mdi-tag menu-icon"></i>
+                <span class="menu-title">Decretos</span>
+            </a>
+        </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="salidas.php">
+                <i class="mdi mdi-tag menu-icon"></i>
+                <span class="menu-title">Salidas</span>
+            </a>
+        </li>
+
+         <li class="nav-item">
+            <a class="nav-link" href="cheques.php">
+                <i class="mdi mdi-tag menu-icon"></i>
+                <span class="menu-title">Cheques</span>
+            </a>
+        </li>
+
+         <li class="nav-item">
+            <a class="nav-link" href="pagos.php">
+                <i class="mdi mdi-tag menu-icon"></i>
+                <span class="menu-title">Pagos</span>
+            </a>
+        </li>
+
+
         <!-- <li class="nav-item nav-category">UI Elements</li> -->
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">

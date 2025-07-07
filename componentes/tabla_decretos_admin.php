@@ -128,7 +128,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                     <a class="btn btn-success me-2" href="../admin/editarInstitucion.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
                                 </td> -->
                                 <td>
-                                    <a class="btn btn-success me-2" href="../users/detallesEntradas.php?id=<?php echo $row_entradas['DocEntrada'];  ?>"><i class="mdi mdi-eye"></i></a>
+                                    <a class="btn btn-success me-2" href="../admin/detallesEntradas.php?id=<?php echo $row_entradas['DocEntrada'];  ?>"><i class="mdi mdi-eye"></i></a>
                                 </td>
                                 <!-- <td>
                                     <a class="btn btn-danger me-2" href=" #" onclick="agregarForm('<?php echo $datos; ?>');" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion"><i class="mdi mdi-delete"></i></a>
