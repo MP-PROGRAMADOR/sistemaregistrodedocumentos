@@ -195,7 +195,7 @@ require '../conexion/conexion.php';
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formularioDecreto.php"; ?>   
+                <?php require "../componentes/formularioDecreto_admin.php"; ?>   
                 </div>
             </div>
             <!-- content-wrapper ends -->

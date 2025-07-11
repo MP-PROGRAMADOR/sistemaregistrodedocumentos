@@ -1,25 +1,24 @@
 <?php
 // obteniendo el ultimo registro de la base de datos
-$sql_numero="SELECT * FROM entradas ORDER BY id DESC LIMIT 1";
-$sql_resultado= mysqli_query($conn, $sql_numero);
-$fila_numero= mysqli_fetch_assoc($sql_resultado);
+$sql_numero = "SELECT * FROM entradas ORDER BY id DESC LIMIT 1";
+$sql_resultado = mysqli_query($conn, $sql_numero);
+$fila_numero = mysqli_fetch_assoc($sql_resultado);
 
-$numero_instituciones= mysqli_num_rows($sql_resultado);
+$numero_instituciones = mysqli_num_rows($sql_resultado);
 
-if($numero_instituciones==0){
-    $fech=date("Y");
+if ($numero_instituciones == 0) {
+    $fech = date("Y");
     echo $fech;
-  
-   $ultimo_registro1= 1;
-   $ultimo_registro="-".$fech;
-}else{
+
+    $ultimo_registro1 = 1;
+    $ultimo_registro = "-" . $fech;
+} else {
 
     //sumando el primero numero del registro 1 ;
-$ultimo_registro= substr($fila_numero['NumRegistro'],0,1);
-$ultimo_registro1= $ultimo_registro +1;
+    $ultimo_registro = substr($fila_numero['NumRegistro'], 0, 1);
+    $ultimo_registro1 = $ultimo_registro + 1;
 
-$ultimo_registro= substr($fila_numero['NumRegistro'],1,6);
-
+    $ultimo_registro = substr($fila_numero['NumRegistro'], 1, 6);
 }
 
 ?>
@@ -30,7 +29,7 @@ $ultimo_registro= substr($fila_numero['NumRegistro'],1,6);
         <a href="../fpdf/entradas.php" target="__blanck" class="btn btn-success"><i class="mdi mdi-printer"></i></a>
     </div>
     <div class="col-lg-6 mb-2">
-                <h4 class="card-title text-success">Siguiente Registro: <?php  echo $ultimo_registro1 . $ultimo_registro;   ?></h4>
+        <h4 class="card-title text-success">Siguiente Registro: <?php echo $ultimo_registro1 . $ultimo_registro;   ?></h4>
     </div>
 </div>
 
@@ -111,7 +110,42 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
 
 
 
+
+
+
+
 <div class="col-lg-12 grid-margin stretch-card">
+
+
+
+    <?php
+
+
+    if (isset($_SESSION['mensaje'])): ?>
+        <div id="alertaMensaje" class="alert alert-<?= $_SESSION['mensaje_tipo'] ?> alert-dismissible fade show" role="alert" style="position: fixed; top: 1rem; right: 1rem; z-index: 1055;">
+            <?= htmlspecialchars($_SESSION['mensaje']) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+        <script>
+            // Ocultar mensaje después de 5 segundos
+            setTimeout(() => {
+                const alerta = document.getElementById('alertaMensaje');
+                if (alerta) {
+                    // Bootstrap 5 alert dispose
+                    let alert = bootstrap.Alert.getOrCreateInstance(alerta);
+                    alert.close();
+                }
+            }, 5000);
+        </script>
+    <?php
+        unset($_SESSION['mensaje'], $_SESSION['mensaje_tipo']);
+    endif;
+    ?>
+
+
+
+
+
     <div class="card">
         <div class="card-body">
 
@@ -127,8 +161,8 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                             <th>Fecha Firma</th>
                             <th>Importe</th>
                             <th>Archivo</th>
-                            <td>Ver</td>
-                            <td>Editar</td>
+                            <td>Acciones</td>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -146,7 +180,7 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td> <?= $row_entradas['TipoDoc']; ?></td>
                                 <td> <?= $row_entradas['Descripcion']; ?></td>
                                 <?php
-                                $procedencia = $row_entradas['Referencia']; 
+                                $procedencia = $row_entradas['Referencia'];
                                 $buscarProcedencia = "SELECT * FROM referencias WHERE Id = '$procedencia'";
                                 $Resultprocedencia = $conn->query($buscarProcedencia);
 
@@ -154,19 +188,25 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
 
                                 ?>
                                     <td> <?= $filasEntradas['Codigo']; ?></td>
-                                <?php  } ?>  
+                                <?php  } ?>
 
                                 <td> <?= $row_entradas['FechaFirma']; ?></td>
                                 <td> <?= $row_entradas['Importe']; ?></td>
-                                <td> <a class="btn btn-primary me-2" href="../documentos/entradas/<?= $row_entradas['Archivo']; ?>" download="Entrada-<?= $row_entradas['NumRegistro'].".pdf"; ?>"><i class="mdi mdi-download"></i></a></td>
+                                <td> <a class="btn btn-primary me-2" href="../documentos/entradas/<?= $row_entradas['Archivo']; ?>" download="Entrada-<?= $row_entradas['NumRegistro'] . ".pdf"; ?>"><i class="mdi mdi-download"></i></a></td>
                                 <td>
 
                                     <a class="btn btn-success me-2" href="../admin/detallesEntradas.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-eye"></i></a>
+                                    <a class="btn btn-warning me-2" href="../admin/editarEntrada.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-pencil"></i></a>
+
+                                    <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'SUPERUSUARIO'): ?>
+                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"
+                                            onclick="setChequeToDelete(<?= $row_entradas['Id']; ?>)">
+                                            <i class="bi bi-trash-fill"></i> Eliminar
+                                        </button>
+                                    <?php endif; ?>
                                 </td>
 
-                                <td>
-                                    <a class="btn btn-warning me-2" href="../admin/editarEntrada.php?id=<?php echo $row_entradas['Id']; ?>" class="btn btn-sm btn-warning"><i class="mdi mdi-pencil"></i></a>
-                                </td>
+
                                 <!-- <td>
                                     <a class="btn btn-danger me-2" href=" #" onclick="agregarForm('<?php echo $datos; ?>');" data-bs-toggle="modal" data-bs-target="#eliminaModalInstitucion"><i class="mdi mdi-delete"></i></a>
                                 </td> -->
@@ -181,7 +221,39 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
     </div>
 </div>
 
-<?php include '../admin/ModaleliminarInstitucion.php'    ?>
+
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-light border-0">
+                <div class="d-flex align-items-center">
+                    <div class="bg-danger text-white rounded-circle d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;">
+                        <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                    </div>
+                    <h5 class="modal-title ms-3 fw-bold text-danger" id="deleteConfirmModalLabel">¿Eliminar Registro?</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="mb-2 fs-6">Esta acción no se puede deshacer.</p>
+                <p class="fw-semibold text-danger mb-0">¿Estás seguro de que deseas eliminar este cheque?</p>
+            </div>
+            <div class="modal-footer justify-content-center border-0 pb-4">
+                <form id="deleteChequeForm" method="POST" action="../php/eliminar_entrada.php">
+                    <input type="hidden" name="id_entrada" id="chequeIdToDelete">
+                    <button type="button" class="btn btn-outline-secondary px-4 me-2" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-danger px-4">
+                        <i class="bi bi-trash me-1"></i> Sí, Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -198,5 +270,11 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
         // return false;
         $('#Id').val(d[0]);
 
+    }
+</script>
+
+<script>
+    function setChequeToDelete(id) {
+        document.getElementById('chequeIdToDelete').value = id;
     }
 </script>

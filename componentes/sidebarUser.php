@@ -33,22 +33,9 @@
       </a>
     </li>
 
-    <!-- CHEQUES -->
-    <li class="nav-item mb-2">
-      <a class="nav-link <?= $page == 'cheques' ? 'active' : '' ?>" href="cheques.php">
-        <i class="mdi mdi-bank-check menu-icon me-2 text-info"></i>
-        <span class="menu-title">Cheques</span>
-      </a>
-    </li>
+    
 
-    <!-- PAGOS -->
-    <li class="nav-item mb-2">
-      <a class="nav-link <?= $page == 'pagos' ? 'active' : '' ?>" href="pagos.php">
-        <i class="mdi mdi-cash-multiple menu-icon me-2 text-secondary"></i>
-        <span class="menu-title">Pagos</span>
-      </a>
-    </li>
-
+    
     <!-- REPORTES -->
     <li class="nav-item">
       <a class="nav-link <?= $page == 'reportes' ? 'active' : '' ?>" href="reportes.php">

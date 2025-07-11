@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">FORMULARIO DE REGISTRO DE DECRETOS</h4>
-            <form class="forms-sample" method="POST" action="../php/guardar_decreto.php" enctype="multipart/form-data">
+            <form class="forms-sample" method="POST" action="../php/guardar_decreto_admin.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="ckeditor">Descripción del Decreto</label>
                     <textarea name="descripcion" id="ckeditor" class="form-control ckeditor" id="" cols="30" rows="15" placeholder="Descripcion del documento"></textarea>

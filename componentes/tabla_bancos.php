@@ -110,9 +110,11 @@ if (isset($_GET['mensaje']) and $_GET['mensaje'] == 'eliminado') {
                                 <td>
                                     <a href="../admin/editarBanco.php?id=<?php echo $row_pacientes['Id'];  ?>" class="btn btn-warning me-2">EDITAR</a>
 
+                                     <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'SUPERUSUARIO'): ?>
                                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal" onclick="setIdEliminar(<?= $row_pacientes['Id']; ?>)">
                                         ELIMINAR
                                     </button>
+                                    <?php endif; ?>
                                 </td>
                                 <!-- <td>
                                

@@ -24,7 +24,7 @@ if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) 
     if ($ext !== 'pdf') {
         $_SESSION['mensaje'] = "Solo se permiten archivos PDF.";
         $_SESSION['mensaje_tipo'] = "danger";
-        header("Location: ../user/cheques.php");
+        header("Location: ../admin/cheques.php");
         exit;
     }
 
@@ -39,13 +39,13 @@ if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) 
     if (!move_uploaded_file($ruta_temp, $destino)) {
         $_SESSION['mensaje'] = "Error al subir el archivo.";
         $_SESSION['mensaje_tipo'] = "danger";
-        header("Location: ../user/cheques.php");
+        header("Location: ../admin/cheques.php");
         exit;
     }
 } else {
     $_SESSION['mensaje'] = "Debe subir un archivo PDF.";
     $_SESSION['mensaje_tipo'] = "danger";
-    header("Location: ../user/cheques.php");
+    header("Location: ../admin/cheques.php");
     exit;
 }
 
@@ -62,5 +62,5 @@ if ($conn->query($sql)) {
 }
 
 $conn->close();
-header("Location: ../user/cheques.php");
+header("Location: ../admin/cheques.php");
 exit;

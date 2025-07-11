@@ -111,18 +111,24 @@
                                     </button>
 
 
-                               
-                                    
-
-
-<button type="button" class="btn btn-primary" title="Ver Pago" onclick="abrirModalPago(<?= $row_pago['Id'] ?>)">
-   Ver Detalles Pago
-</button>
 
 
 
 
-                                   
+                                    <button type="button" class="btn btn-primary" title="Ver Pago" onclick="abrirModalPago(<?= $row_pago['Id'] ?>)">
+                                        Ver Detalles Pago
+                                    </button>
+
+                                        <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'SUPERUSUARIO'): ?>
+                                    <!-- Botón Eliminar -->
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"
+                                        onclick="setChequeToDelete(<?= $row_pago['Id']; ?>)">
+                                        <i class="bi bi-trash-fill"></i> Eliminar
+                                    </button>
+                                     <?php endif; ?>
+
+
+
                                 </td>
                             </tr>
                         <?php } ?>
@@ -416,108 +422,141 @@
 
             <!-- Modal del Cheque -->
             <!-- Modal Mostrar Pago como Tarjeta -->
-   <!-- Modal -->
-<div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content shadow-lg border-0 rounded-4">
+            <!-- Modal -->
+            <div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content shadow-lg border-0 rounded-4">
 
-      <div class="modal-header bg-primary text-white rounded-top">
-        <h5 class="modal-title" id="modalPagoLabel">
-          <i class="bi bi-credit-card-2-front me-2"></i> Detalles del Pago
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
+                        <div class="modal-header bg-primary text-white rounded-top">
+                            <h5 class="modal-title" id="modalPagoLabel">
+                                <i class="bi bi-credit-card-2-front me-2"></i> Detalles del Pago
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
 
-      <div class="modal-body">
-        <div class="card border-primary shadow-sm">
-          <div class="card-body">
+                        <div class="modal-body">
+                            <div class="card border-primary shadow-sm">
+                                <div class="card-body">
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <h6><i class="bi bi-hash me-2 text-primary"></i> Nº Registro:</h6>
-                <p class="fw-bold" id="p_n_registro">Cargando...</p>
-              </div>
-              <div class="col-md-6">
-                <h6><i class="bi bi-file-earmark-text me-2 text-primary"></i> Nº Documento:</h6>
-                <p class="fw-bold" id="p_n_documento">Cargando...</p>
-              </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-hash me-2 text-primary"></i> Nº Registro:</h6>
+                                            <p class="fw-bold" id="p_n_registro">Cargando...</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-file-earmark-text me-2 text-primary"></i> Nº Documento:</h6>
+                                            <p class="fw-bold" id="p_n_documento">Cargando...</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-hash me-2 text-primary"></i> Nº Confin:</h6>
+                                            <p class="fw-bold" id="p_confin">Cargando...</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-geo me-2 text-primary"></i> Procedencia:</h6>
+                                            <p class="fw-bold" id="p_procedencia">Cargando...</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-bank2 me-2 text-primary"></i> Banco:</h6>
+                                            <p class="fw-bold" id="p_banco">Cargando...</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-person-badge me-2 text-primary"></i> Beneficiario:</h6>
+                                            <p class="fw-bold" id="p_beneficiario">Cargando...</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-wallet2 me-2 text-primary"></i> Cuenta Tesoro:</h6>
+                                            <p class="fw-bold" id="p_cuenta_tesoro">Cargando...</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-currency-dollar me-2 text-primary"></i> Importe:</h6>
+                                            <p class="fw-bold text-success" id="p_importe">Cargando...</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-percent me-2 text-primary"></i> IVA:</h6>
+                                            <p class="fw-bold" id="p_iva">Cargando...</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6><i class="bi bi-calendar-date me-2 text-primary"></i> Fecha Firma:</h6>
+                                            <p class="fw-bold" id="p_fecha_firma">Cargando...</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h6><i class="bi bi-chat-text me-2 text-primary"></i> Concepto:</h6>
+                                        <p class="fw-bold" id="p_concepto">Cargando...</p>
+                                    </div>
+
+                                    <div>
+                                        <h6><i class="bi bi-paperclip me-2 text-primary"></i> Documento Adjunto:</h6>
+                                        <a href="#" target="_blank" class="btn btn-outline-primary btn-sm" id="p_documento_link">
+                                            <i class="bi bi-file-earmark-pdf"></i> Ver PDF
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle me-1"></i> Cerrar
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <h6><i class="bi bi-hash me-2 text-primary"></i> Nº Confin:</h6>
-                <p class="fw-bold" id="p_confin">Cargando...</p>
-              </div>
-              <div class="col-md-6">
-                <h6><i class="bi bi-geo me-2 text-primary"></i> Procedencia:</h6>
-                <p class="fw-bold" id="p_procedencia">Cargando...</p>
-              </div>
+
+
+
+            <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0 shadow-lg rounded-4">
+                        <div class="modal-header bg-light border-0">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-danger text-white rounded-circle d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                                </div>
+                                <h5 class="modal-title ms-3 fw-bold text-danger" id="deleteConfirmModalLabel">¿Eliminar Registro?</h5>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <p class="mb-2 fs-6">Esta acción no se puede deshacer.</p>
+                            <p class="fw-semibold text-danger mb-0">¿Estás seguro de que deseas eliminar este cheque?</p>
+                        </div>
+                        <div class="modal-footer justify-content-center border-0 pb-4">
+                            <form id="deleteChequeForm" method="POST" action="../php/eliminar_pago.php">
+                                <input type="hidden" name="id_pago" id="chequeIdToDelete">
+                                <button type="button" class="btn btn-outline-secondary px-4 me-2" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle me-1"></i> Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-danger px-4">
+                                    <i class="bi bi-trash me-1"></i> Sí, Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <h6><i class="bi bi-bank2 me-2 text-primary"></i> Banco:</h6>
-                <p class="fw-bold" id="p_banco">Cargando...</p>
-              </div>
-              <div class="col-md-6">
-                <h6><i class="bi bi-person-badge me-2 text-primary"></i> Beneficiario:</h6>
-                <p class="fw-bold" id="p_beneficiario">Cargando...</p>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <h6><i class="bi bi-wallet2 me-2 text-primary"></i> Cuenta Tesoro:</h6>
-                <p class="fw-bold" id="p_cuenta_tesoro">Cargando...</p>
-              </div>
-              <div class="col-md-6">
-                <h6><i class="bi bi-currency-dollar me-2 text-primary"></i> Importe:</h6>
-                <p class="fw-bold text-success" id="p_importe">Cargando...</p>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <h6><i class="bi bi-percent me-2 text-primary"></i> IVA:</h6>
-                <p class="fw-bold" id="p_iva">Cargando...</p>
-              </div>
-              <div class="col-md-6">
-                <h6><i class="bi bi-calendar-date me-2 text-primary"></i> Fecha Firma:</h6>
-                <p class="fw-bold" id="p_fecha_firma">Cargando...</p>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <h6><i class="bi bi-chat-text me-2 text-primary"></i> Concepto:</h6>
-              <p class="fw-bold" id="p_concepto">Cargando...</p>
-            </div>
-
-            <div>
-              <h6><i class="bi bi-paperclip me-2 text-primary"></i> Documento Adjunto:</h6>
-              <a href="#" target="_blank" class="btn btn-outline-primary btn-sm" id="p_documento_link">
-                <i class="bi bi-file-earmark-pdf"></i> Ver PDF
-              </a>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          <i class="bi bi-x-circle me-1"></i> Cerrar
-        </button>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 
 
 
-
-            <?php include '../admin/ModaleliminarInstitucion.php'    ?>
 
 
 
@@ -572,98 +611,105 @@
             </script>
 
             <script>
-               function mostrarPago(data) {
-  console.log("Cargando datos del pago:", data);
+                function mostrarPago(data) {
+                    console.log("Cargando datos del pago:", data);
 
-  // Carga datos en el modal (ejemplo de campos)
-  document.getElementById('modalNRegistro').textContent = data.n_registro || '';
-  document.getElementById('modalNDocumento').textContent = data.n_documento || '';
-  document.getElementById('modalConfin').textContent = data.confin || '';
-  document.getElementById('modalProcedencia').textContent = data.procedencia || '';
-  document.getElementById('modalBanco').textContent = data.banco_nombre || '';
-  document.getElementById('modalBeneficiario').textContent = data.beneficiario || '';
-  document.getElementById('modalCuentaTesoro').textContent = data.cuenta_tesoro || '';
-  document.getElementById('modalImporte').textContent = data.importe ? new Intl.NumberFormat('es-ES').format(data.importe) + ' XAF' : '';
-  document.getElementById('modalIva').textContent = data.iva || '';
-  document.getElementById('modalFechaFirma').textContent = data.fecha_firma || '';
-  document.getElementById('modalConcepto').textContent = data.concepto || '';
-  if(data.archivo){
-    document.getElementById('modalArchivo').innerHTML = `<a href="../documentos/pagos/${data.archivo}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="bi bi-file-earmark-pdf"></i> Ver Documento PDF</a>`;
-  } else {
-    document.getElementById('modalArchivo').innerHTML = '';
-  }
+                    // Carga datos en el modal (ejemplo de campos)
+                    document.getElementById('modalNRegistro').textContent = data.n_registro || '';
+                    document.getElementById('modalNDocumento').textContent = data.n_documento || '';
+                    document.getElementById('modalConfin').textContent = data.confin || '';
+                    document.getElementById('modalProcedencia').textContent = data.procedencia || '';
+                    document.getElementById('modalBanco').textContent = data.banco_nombre || '';
+                    document.getElementById('modalBeneficiario').textContent = data.beneficiario || '';
+                    document.getElementById('modalCuentaTesoro').textContent = data.cuenta_tesoro || '';
+                    document.getElementById('modalImporte').textContent = data.importe ? new Intl.NumberFormat('es-ES').format(data.importe) + ' XAF' : '';
+                    document.getElementById('modalIva').textContent = data.iva || '';
+                    document.getElementById('modalFechaFirma').textContent = data.fecha_firma || '';
+                    document.getElementById('modalConcepto').textContent = data.concepto || '';
+                    if (data.archivo) {
+                        document.getElementById('modalArchivo').innerHTML = `<a href="../documentos/pagos/${data.archivo}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="bi bi-file-earmark-pdf"></i> Ver Documento PDF</a>`;
+                    } else {
+                        document.getElementById('modalArchivo').innerHTML = '';
+                    }
 
-  // Abrir modal usando Bootstrap 5 JS API
-  const modalElement = document.getElementById('modalPago');
-  const modalBootstrap = new bootstrap.Modal(modalElement);
-  modalBootstrap.show();
-}
-
+                    // Abrir modal usando Bootstrap 5 JS API
+                    const modalElement = document.getElementById('modalPago');
+                    const modalBootstrap = new bootstrap.Modal(modalElement);
+                    modalBootstrap.show();
+                }
             </script>
 
             <script>
-
                 function abrirModalPago(idPago) {
-  console.log('Abriendo modal para pago ID:', idPago);
+                    console.log('Abriendo modal para pago ID:', idPago);
 
-  // Mostrar el modal
-  var modalPago = new bootstrap.Modal(document.getElementById('modalPago'));
-  modalPago.show();
+                    // Mostrar el modal
+                    var modalPago = new bootstrap.Modal(document.getElementById('modalPago'));
+                    modalPago.show();
 
-  // Mostrar texto "Cargando..." mientras se obtiene info
-  const campos = ['n_registro', 'n_documento', 'confin', 'procedencia', 'banco', 'beneficiario', 'cuenta_tesoro', 'importe', 'iva', 'fecha_firma', 'concepto', 'documento_link'];
-  campos.forEach(campo => {
-    const elem = document.getElementById('p_' + campo);
-    if (elem) {
-      if(campo === 'documento_link'){
-        elem.href = '#';
-        elem.textContent = 'Cargando...';
-      } else {
-        elem.textContent = 'Cargando...';
-      }
-    }
-  });
+                    // Mostrar texto "Cargando..." mientras se obtiene info
+                    const campos = ['n_registro', 'n_documento', 'confin', 'procedencia', 'banco', 'beneficiario', 'cuenta_tesoro', 'importe', 'iva', 'fecha_firma', 'concepto', 'documento_link'];
+                    campos.forEach(campo => {
+                        const elem = document.getElementById('p_' + campo);
+                        if (elem) {
+                            if (campo === 'documento_link') {
+                                elem.href = '#';
+                                elem.textContent = 'Cargando...';
+                            } else {
+                                elem.textContent = 'Cargando...';
+                            }
+                        }
+                    });
 
-  // Realizar petición AJAX (fetch API)
-  fetch('../php/obtener_pago_t.php?id=' + idPago)
-    .then(response => response.json())
-    .then(data => {
-      console.log('Datos recibidos:', data);
+                    // Realizar petición AJAX (fetch API)
+                    fetch('../php/obtener_pago_t.php?id=' + idPago)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Datos recibidos:', data);
 
-      if(data.success){
-        document.getElementById('p_n_registro').textContent = data.pago.n_registro;
-        document.getElementById('p_n_documento').textContent = data.pago.n_documento;
-        document.getElementById('p_confin').textContent = data.pago.confin;
-        document.getElementById('p_procedencia').textContent = data.pago.procedencia;
-        document.getElementById('p_banco').textContent = data.pago.banco_nombre || 'N/A';
-        document.getElementById('p_beneficiario').textContent = data.pago.Beneficiario;
-        document.getElementById('p_cuenta_tesoro').textContent = data.pago.cuenta_tesoro;
-        document.getElementById('p_importe').textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'XAF' }).format(data.pago.importe);
-        document.getElementById('p_iva').textContent = data.pago.iva;
-        document.getElementById('p_fecha_firma').textContent = data.pago.fecha_firma;
-        document.getElementById('p_concepto').textContent = data.pago.Concepto;
+                            if (data.success) {
+                                document.getElementById('p_n_registro').textContent = data.pago.n_registro;
+                                document.getElementById('p_n_documento').textContent = data.pago.n_documento;
+                                document.getElementById('p_confin').textContent = data.pago.confin;
+                                document.getElementById('p_procedencia').textContent = data.pago.procedencia;
+                                document.getElementById('p_banco').textContent = data.pago.banco_nombre || 'N/A';
+                                document.getElementById('p_beneficiario').textContent = data.pago.Beneficiario;
+                                document.getElementById('p_cuenta_tesoro').textContent = data.pago.cuenta_tesoro;
+                                document.getElementById('p_importe').textContent = new Intl.NumberFormat('es-ES', {
+                                    style: 'currency',
+                                    currency: 'XAF'
+                                }).format(data.pago.importe);
+                                document.getElementById('p_iva').textContent = data.pago.iva;
+                                document.getElementById('p_fecha_firma').textContent = data.pago.fecha_firma;
+                                document.getElementById('p_concepto').textContent = data.pago.Concepto;
 
-        // Documento adjunto
-        const enlace = document.getElementById('p_documento_link');
-        if(data.pago.Archivo){
-          enlace.href = '../documentos/pagos/' + data.pago.Archivo;
-          enlace.textContent = 'Ver PDF';
-          enlace.classList.remove('disabled');
-        } else {
-          enlace.href = '#';
-          enlace.textContent = 'No hay documento';
-          enlace.classList.add('disabled');
-        }
-      } else {
-        alert('No se encontró el pago.');
-        // Cerrar modal si no hay datos
-        modalPago.hide();
-      }
-    })
-    .catch(error => {
-      console.error('Error al obtener los datos:', error);
-      alert('Error al obtener los datos del pago.');
-      modalPago.hide();
-    });
-}
+                                // Documento adjunto
+                                const enlace = document.getElementById('p_documento_link');
+                                if (data.pago.Archivo) {
+                                    enlace.href = '../documentos/pagos/' + data.pago.Archivo;
+                                    enlace.textContent = 'Ver PDF';
+                                    enlace.classList.remove('disabled');
+                                } else {
+                                    enlace.href = '#';
+                                    enlace.textContent = 'No hay documento';
+                                    enlace.classList.add('disabled');
+                                }
+                            } else {
+                                alert('No se encontró el pago.');
+                                // Cerrar modal si no hay datos
+                                modalPago.hide();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error al obtener los datos:', error);
+                            alert('Error al obtener los datos del pago.');
+                            modalPago.hide();
+                        });
+                }
+            </script>
+
+            <script>
+                function setChequeToDelete(id) {
+                    document.getElementById('chequeIdToDelete').value = id;
+                }
             </script>

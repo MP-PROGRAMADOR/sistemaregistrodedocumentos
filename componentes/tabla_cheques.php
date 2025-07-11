@@ -8,7 +8,7 @@
         </button>
 
 
-      
+
     </div>
 </div>
 
@@ -85,35 +85,44 @@
                         </tr>
                     </thead>
                     <tbody>
-    <?php while ($row_entradas = $entradas->fetch_assoc()) { ?>
-        <tr>
-            <td><?= $row_entradas['id']; ?></td>
-            <td><?= $row_entradas['confin']; ?></td>
-            <td><?= htmlspecialchars($row_entradas['procedencia']); ?></td>
-            <td><?= $row_entradas['r_documento']; ?></td>
-            <td><?= htmlspecialchars($row_entradas['banco_nombre']); ?></td>
-            <td><?= htmlspecialchars($row_entradas['beneficiario']); ?></td>
-            <td><?= number_format($row_entradas['importe'], 0, ',', '.'); ?> XAF</td>
-            <td><?= htmlspecialchars($row_entradas['iva']); ?></td>
-            <td><?= $row_entradas['fecha_entrada']; ?></td>
-            <td><?= $row_entradas['fecha_firma']; ?></td>
-            <td><?= $row_entradas['fecha_retirada']; ?></td>
-            <td>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editChequeModal" onclick="cargarDatosCheque(<?= $row_entradas['id']; ?>)">
-                    <i class="bi bi-pencil-square me-2"></i>
-                </button>
+                        <?php while ($row_entradas = $entradas->fetch_assoc()) { ?>
+                            <tr>
+                                <td><?= $row_entradas['id']; ?></td>
+                                <td><?= $row_entradas['confin']; ?></td>
+                                <td><?= htmlspecialchars($row_entradas['procedencia']); ?></td>
+                                <td><?= $row_entradas['r_documento']; ?></td>
+                                <td><?= htmlspecialchars($row_entradas['banco_nombre']); ?></td>
+                                <td><?= htmlspecialchars($row_entradas['beneficiario']); ?></td>
+                                <td><?= number_format($row_entradas['importe'], 0, ',', '.'); ?> XAF</td>
+                                <td><?= htmlspecialchars($row_entradas['iva']); ?></td>
+                                <td><?= $row_entradas['fecha_entrada']; ?></td>
+                                <td><?= $row_entradas['fecha_firma']; ?></td>
+                                <td><?= $row_entradas['fecha_retirada']; ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editChequeModal" onclick="cargarDatosCheque(<?= $row_entradas['id']; ?>)">
+                                        <i class="bi bi-pencil-square me-2"></i>
+                                    </button>
 
-                <?php if (!empty($row_entradas['fecha_retirada']) && !empty($row_entradas['quien_retira'])): ?>
-                    <button class="btn btn-primary btn-sm verChequeBtn" data-id="<?= $row_entradas['id']; ?>">
-                        <i class="bi bi-credit-card-2-front"></i> Ver Detalles
-                    </button>
-                <?php endif; ?>
+                                    <?php if (!empty($row_entradas['fecha_retirada']) && !empty($row_entradas['quien_retira'])): ?>
+                                        <button class="btn btn-primary btn-sm verChequeBtn" data-id="<?= $row_entradas['id']; ?>">
+                                            <i class="bi bi-credit-card-2-front"></i> Ver Detalles
+                                        </button>
+                                    <?php endif; ?>
 
-               
-            </td>
-        </tr>
-    <?php } ?>
-</tbody>
+
+                                      <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'SUPERUSUARIO'): ?>
+                                    <!-- Botón Eliminar -->
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"
+                                        onclick="setChequeToDelete(<?= $row_entradas['id']; ?>)">
+                                        <i class="bi bi-trash-fill"></i> Eliminar
+                                    </button>
+
+                                     <?php endif; ?>
+                                </td>
+
+                            </tr>
+                        <?php } ?>
+                    </tbody>
 
                 </table>
 
@@ -425,7 +434,50 @@
             </div>
 
 
-            <?php include '../admin/ModaleliminarInstitucion.php'    ?>
+      
+            
+
+
+
+<!-- Modal Confirmación de Eliminación -->
+<!-- Modal Confirmación de Eliminación -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-light border-0">
+        <div class="d-flex align-items-center">
+          <div class="bg-danger text-white rounded-circle d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;">
+            <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+          </div>
+          <h5 class="modal-title ms-3 fw-bold text-danger" id="deleteConfirmModalLabel">¿Eliminar Registro?</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="mb-2 fs-6">Esta acción no se puede deshacer.</p>
+        <p class="fw-semibold text-danger mb-0">¿Estás seguro de que deseas eliminar este cheque?</p>
+      </div>
+      <div class="modal-footer justify-content-center border-0 pb-4">
+        <form id="deleteChequeForm" method="POST" action="../php/eliminar_cheque.php">
+          <input type="hidden" name="id_cheque" id="chequeIdToDelete">
+          <button type="button" class="btn btn-outline-secondary px-4 me-2" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle me-1"></i> Cancelar
+          </button>
+          <button type="submit" class="btn btn-danger px-4">
+            <i class="bi bi-trash me-1"></i> Sí, Eliminar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
 
 
 
@@ -551,3 +603,9 @@
                     });
                 });
             </script>
+
+            <script>
+  function setChequeToDelete(id) {
+    document.getElementById('chequeIdToDelete').value = id;
+  }
+</script>

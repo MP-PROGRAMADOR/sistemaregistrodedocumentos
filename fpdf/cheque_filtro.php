@@ -1,6 +1,5 @@
 <?php
-session_start(); // necesario para mensajes con sesión
-
+session_start();
 require('./fpdf.php');
 
 class PDF extends FPDF
@@ -19,18 +18,18 @@ class PDF extends FPDF
         ];
 
         if ($fecha != "") {
-            $titulo = "REPORTE DE ENTRADAS DE FECHA: " . $fecha;
+            $titulo = "REPORTE DE CHEQUES DE FECHA: " . $fecha;
         } elseif ($mes != "") {
             $nombreMes = $meses[intval($mes)] ?? "Mes inválido";
             if ($ano != "") {
-                $titulo = "REPORTE DE ENTRADAS DEL MES DE $nombreMes DE $ano";
+                $titulo = "REPORTE DE CHEQUES DEL MES DE $nombreMes DE $ano";
             } else {
-                $titulo = "REPORTE DE ENTRADAS DEL MES DE $nombreMes";
+                $titulo = "REPORTE DE CHEQUES DEL MES DE $nombreMes";
             }
         } elseif ($ano != "") {
-            $titulo = "REPORTE DE ENTRADAS DEL AÑO: " . $ano;
+            $titulo = "REPORTE DE CHEQUES DEL AÑO: " . $ano;
         } else {
-            $titulo = "REPORTE DE ENTRADAS";
+            $titulo = "REPORTE DE CHEQUES";
         }
 
         $this->Image('../images/2.png', 20, 5, 20);
@@ -60,15 +59,17 @@ class PDF extends FPDF
         $this->Cell(100, 10, utf8_decode($titulo), 0, 1, 'C');
         $this->Ln(7);
 
+        // Cabecera tabla
         $this->SetFillColor(237, 189, 78);
         $this->SetTextColor(255, 255, 255);
         $this->SetDrawColor(163, 163, 163);
         $this->SetFont('Arial', 'B', 11);
-        $this->Cell(30, 10, utf8_decode('N° de Registro'), 1, 0, 'C', 1);
-        $this->Cell(120, 10, utf8_decode('Tipo de Documento'), 1, 0, 'C', 1);
-        $this->Cell(40, 10, utf8_decode('IMPORTE'), 1, 0, 'C', 1);
-        $this->Cell(45, 10, utf8_decode('FECHA DE REGISTRO'), 1, 0, 'C', 1);
-        $this->Cell(40, 10, utf8_decode('REFERENCIA'), 1, 1, 'C', 1);
+        $this->Cell(40, 10, utf8_decode('R. Documento'), 1, 0, 'C', 1);
+        $this->Cell(35, 10, utf8_decode('Banco'), 1, 0, 'C', 1);
+        $this->Cell(70, 10, utf8_decode('Beneficiario'), 1, 0, 'L', 1);
+        $this->Cell(30, 10, utf8_decode('Importe'), 1, 0, 'R', 1);
+        $this->Cell(40, 10, utf8_decode('Fecha Firma'), 1, 0, 'C', 1);
+        $this->Cell(60, 10, utf8_decode('Quien Retira'), 1, 1, 'L', 1);
     }
 
     function Footer()
@@ -83,6 +84,7 @@ class PDF extends FPDF
     }
 }
 
+
 include '../conexion/conexion.php';
 
 $fecha = $conn->real_escape_string($_POST['fecha']);
@@ -91,13 +93,13 @@ $ano = $conn->real_escape_string($_POST['ano']);
 
 $where = [];
 if ($fecha != "") {
-    $where[] = "FechaRegistro = '$fecha'";
+    $where[] = "fecha_firma = '$fecha'";
 }
 if ($mes != "") {
-    $where[] = "MONTH(FechaRegistro) = $mes";
+    $where[] = "MONTH(fecha_firma) = $mes";
 }
 if ($ano != "") {
-    $where[] = "YEAR(FechaRegistro) = $ano";
+    $where[] = "YEAR(fecha_firma) = $ano";
 }
 
 if (count($where) === 0) {
@@ -108,7 +110,15 @@ if (count($where) === 0) {
 }
 
 $sqlWhere = implode(' AND ', $where);
-$query = "SELECT * FROM entradas WHERE $sqlWhere";
+
+// Consulta con JOIN para traer el nombre del banco
+$query = "
+    SELECT c.r_documento, b.Nombre AS banco, c.beneficiario, c.importe, c.fecha_firma, c.quien_retira 
+    FROM cheques c 
+    LEFT JOIN bancos b ON c.id_banco = b.Id 
+    WHERE $sqlWhere
+";
+
 $resul = mysqli_query($conn, $query);
 
 if (mysqli_num_rows($resul) == 0) {
@@ -124,17 +134,13 @@ $pdf->AliasNbPages();
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163);
 
-while ($entradas = mysqli_fetch_array($resul)) {
-    $pdf->Cell(30, 10, utf8_decode($entradas['NumRegistro']), 1, 0, 'C');
-    $pdf->Cell(120, 10, utf8_decode($entradas['TipoDoc']), 1, 0, 'C');
-    $pdf->Cell(40, 10, utf8_decode($entradas['Importe']), 1, 0, 'C');
-    $pdf->Cell(45, 10, utf8_decode($entradas['FechaRegistro']), 1, 0, 'C');
-
-    $codRef = $entradas['Referencia'];
-    $queryRef = "SELECT Codigo FROM referencias WHERE Id = $codRef";
-    $resulRef = mysqli_query($conn, $queryRef);
-    $RefCod = mysqli_fetch_array($resulRef);
-    $pdf->Cell(40, 10, utf8_decode($RefCod['Codigo']), 1, 1, 'C');
+while ($fila = mysqli_fetch_assoc($resul)) {
+    $pdf->Cell(40, 10, utf8_decode($fila['r_documento']), 1, 0, 'C');
+    $pdf->Cell(35, 10, utf8_decode($fila['banco']), 1, 0, 'L');
+    $pdf->Cell(70, 10, utf8_decode($fila['beneficiario']), 1, 0, 'L');
+    $pdf->Cell(30, 10, number_format($fila['importe'], 2, ',', '.'), 1, 0, 'R');
+    $pdf->Cell(40, 10, utf8_decode($fila['fecha_firma']), 1, 0, 'C');
+    $pdf->Cell(60, 10, utf8_decode($fila['quien_retira']), 1, 1, 'L');
 }
 
-$pdf->Output('Reporte_Entradas.pdf', 'I');
+$pdf->Output('Reporte_Cheques.pdf', 'I');

@@ -200,7 +200,7 @@ $referencias = $conn->query($sqlreferencias);
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/formularioSalidas.php"; ?>    
+                <?php require "../componentes/formularioSalidas_admin.php"; ?>    
                 </div>
             </div>
             <!-- content-wrapper ends -->

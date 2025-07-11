@@ -255,42 +255,76 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
               </div>
               <div class="tab-content tab-content-basic">
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+
+
                   <div class="row">
-                    <div class="col-sm-12">
-                      <div class="statistics-details d-flex align-items-center justify-content-between">
-                        <div>
-                          <p class="statistics-title">ENTRADAS</p>
-                          <h3 class="rate-percentage"><?php echo $numero_entradas;    ?></h3>
-
+                    <div class="col-12">
+                      <div class="row g-3 mb-3">
+                        <div class="col-sm-6 col-md-4 col-lg-2">
+                          <div class="card shadow-sm h-100 text-center">
+                            <div class="card-body">
+                              <i class="bi bi-box-arrow-in-right display-5 text-primary mb-2"></i>
+                              <p class="card-title text-muted mb-1 small">ENTRADAS</p>
+                              <h4 class="card-text fw-bold text-primary mb-0"><?php echo $numero_entradas; ?></h4>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <p class="statistics-title">SALIDAD</p>
-                          <h3 class="rate-percentage"><?php echo $numero_salidas;    ?></h3>
 
+                        <div class="col-sm-6 col-md-4 col-lg-2">
+                          <div class="card shadow-sm h-100 text-center">
+                            <div class="card-body">
+                              <i class="bi bi-box-arrow-right display-5 text-success mb-2"></i>
+                              <p class="card-title text-muted mb-1 small">SALIDAS</p>
+                              <h4 class="card-text fw-bold text-success mb-0"><?php echo $numero_salidas; ?></h4>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <p class="statistics-title">REFERENCIAS</p>
-                          <h3 class="rate-percentage"> <?php echo $numero_referencia;    ?></h3>
 
+                        <div class="col-sm-6 col-md-4 col-lg-2">
+                          <div class="card shadow-sm h-100 text-center">
+                            <div class="card-body">
+                              <i class="bi bi-link-45deg display-5 text-info mb-2"></i>
+                              <p class="card-title text-muted mb-1 small">REFERENCIAS</p>
+                              <h4 class="card-text fw-bold text-info mb-0"><?php echo $numero_referencia; ?></h4>
+                            </div>
+                          </div>
                         </div>
-                        <div class="d-none d-md-block">
-                          <p class="statistics-title">DECRETOS</p>
-                          <h3 class="rate-percentage"><?php echo $numero_decretos;    ?></h3>
 
+                        <div class="col-sm-6 col-md-4 col-lg-2 d-none d-md-block">
+                          <div class="card shadow-sm h-100 text-center">
+                            <div class="card-body">
+                              <i class="bi bi-file-earmark-text display-5 text-warning mb-2"></i>
+                              <p class="card-title text-muted mb-1 small">DECRETOS</p>
+                              <h4 class="card-text fw-bold text-warning mb-0"><?php echo $numero_decretos; ?></h4>
+                            </div>
+                          </div>
                         </div>
-                        <div class="d-none d-md-block">
-                          <p class="statistics-title">DESTINOS</p>
-                          <h3 class="rate-percentage"><?php echo $numero_destinos;    ?></h3>
 
+                        <div class="col-sm-6 col-md-4 col-lg-2 d-none d-md-block">
+                          <div class="card shadow-sm h-100 text-center">
+                            <div class="card-body">
+                              <i class="bi bi-geo-alt display-5 text-danger mb-2"></i>
+                              <p class="card-title text-muted mb-1 small">DESTINOS</p>
+                              <h4 class="card-text fw-bold text-danger mb-0"><?php echo $numero_destinos; ?></h4>
+                            </div>
+                          </div>
                         </div>
-                        <div class="d-none d-md-block">
-                          <p class="statistics-title">INSTITUCIONES</p>
-                          <h3 class="rate-percentage"><?php echo $numero_instituciones;    ?></h3>
 
+                        <div class="col-sm-6 col-md-4 col-lg-2 d-none d-md-block">
+                          <div class="card shadow-sm h-100 text-center">
+                            <div class="card-body">
+                              <i class="bi bi-building display-5 text-secondary mb-2"></i>
+                              <p class="card-title text-muted mb-1 small">INSTITUCIONES</p>
+                              <h4 class="card-text fw-bold text-secondary mb-0"><?php echo $numero_instituciones; ?></h4>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
+
+
                   <div class="row">
                     <div class="col-lg-8 d-flex flex-column">
                       <div class="row flex-grow">
@@ -315,7 +349,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                               <div class="chartjs-bar-wrapper mt-3">
                                 <!-- <canvas id="marketingOverview"></canvas> -->
 
-                                <div id="columnchart_material" style="width: 100%; height: 300px;"></div>
+                                <div id="chart_div2" style="width: 100%; height: 100%;"></div>
 
                               </div>
                             </div>
@@ -324,113 +358,115 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                       </div>
 
 
-
-                      <div class="row flex-grow">
+                      <div class="row flex-grow-1">
                         <div class="col-12 grid-margin stretch-card">
-                          <div class="card card-rounded">
+                          <div class="card card-rounded shadow-lg border-0">
                             <div class="card-body">
-                              <div class="d-sm-flex justify-content-between align-items-start">
+                              <div class="d-sm-flex justify-content-between align-items-center mb-4">
                                 <div>
-                                  <h4 class="card-title card-title-dash">Progreso de Usuario</h4>
-
+                                  <h4 class="card-title card-title-dash text-dark fw-bold">
+                                    <i class="bi bi-person-lines-fill me-2 text-primary"></i> Progreso de los Últimos Usuarios
+                                  </h4>
+                                  <p class="text-muted small">Visualiza las actividades de los 3 usuarios más recientes.</p>
                                 </div>
-
                               </div>
-                              <div class="table-responsive  mt-1">
-                                <table class="table select-table">
-                                  <thead>
+                              <div class="table-responsive mt-3">
+                                <table class="table table-hover table-striped">
+                                  <thead class="bg-light">
                                     <tr>
-                                      <th>USUARIO</th>
-                                      <th>DEPARTAMENTO</th>
-                                      <th>ENTRADAS</th>
-                                      <th>SALIDAS</th>
+                                      <th scope="col" class="text-uppercase text-muted fw-bold">Usuario</th>
+                                      <th scope="col" class="text-uppercase text-muted fw-bold">Departamento</th>
+                                      <th scope="col" class="text-uppercase text-muted fw-bold">Entradas</th>
+                                      <th scope="col" class="text-uppercase text-muted fw-bold">Salidas</th>
                                     </tr>
                                   </thead>
                                   <tbody>
-
-
-
                                     <?php
+                                    include '../conexion/conexion.php'; // Asegúrate de que esta ruta sea correcta
 
-                                    include '../conexion/conexion.php';
-
-                                    $sql_usuario = "SELECT * FROM usuarios";
+                                    $sql_usuario = "SELECT * FROM usuarios ORDER BY Id DESC LIMIT 3"; // Ordenamos por ID descendente para los "últimos"
                                     $resultado_usuario = mysqli_query($conn, $sql_usuario);
 
+                                    if ($resultado_usuario && mysqli_num_rows($resultado_usuario) > 0) {
+                                      while ($row_usuarios = $resultado_usuario->fetch_assoc()) {
+                                        // Obtener nombre del departamento
+                                        $codeDep = $row_usuarios['Dpto'];
+                                        $depart_query = "SELECT Nombre FROM departementos WHERE Id = '$codeDep'";
+                                        $resulDep = mysqli_query($conn, $depart_query);
+                                        $nomDep = $resulDep ? mysqli_fetch_array($resulDep)['Nombre'] : 'N/A';
 
-                                    while ($row_usuarios = $resultado_usuario->fetch_assoc()) {
+                                        // Calcular entradas del usuario
+                                        $user_id = $row_usuarios['Id'];
+                                        $sql_entradaUser = "SELECT COUNT(*) AS total_entradas FROM entradas WHERE Usuario = $user_id";
+                                        $resultado_entradaUser = mysqli_query($conn, $sql_entradaUser);
+                                        $numero_entrada = $resultado_entradaUser ? mysqli_fetch_assoc($resultado_entradaUser)['total_entradas'] : 0;
+
+                                        // Calcular salidas del usuario
+                                        $sql_salida = "SELECT COUNT(*) AS total_salidas FROM salidas WHERE Usuario = $user_id";
+                                        $resultado_salida = mysqli_query($conn, $sql_salida);
+                                        $numero_salida = $resultado_salida ? mysqli_fetch_assoc($resultado_salida)['total_salidas'] : 0;
+
+                                        // Obtener total de entradas y salidas para el cálculo de porcentaje global
+                                        // Asumo que $numero_entradas y $numero_salidas vienen de una consulta global previa o están definidos.
+                                        // Si no es así, deberías consultarlos aquí o pasarlos como variables.
+                                        // Para este ejemplo, usaré valores de ejemplo o asumiré que están disponibles globalmente.
+                                        // Si no los tienes, podrías usar un total ficticio o el máximo del usuario.
+                                        $total_global_entradas = isset($numero_entradas) ? $numero_entradas : 100; // Valor por defecto si no está definido
+                                        $total_global_salidas = isset($numero_salidas) ? $numero_salidas : 100;   // Valor por defecto si no está definido
+
+                                        $porCientoEntrada = ($total_global_entradas > 0) ? round(($numero_entrada / $total_global_entradas) * 100) : 0;
+                                        $porCientoSalida = ($total_global_salidas > 0) ? round(($numero_salida / $total_global_salidas) * 100) : 0;
+                                    ?>
+                                        <tr>
+                                          <td class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                              <?php
+                                              $image_src = 'data:image/*;base64,' . base64_encode($row_usuarios['Foto']);
+                                              // Verifica si la imagen está vacía o es inválida antes de mostrarla
+                                              if (!empty($row_usuarios['Foto'])) {
+                                                echo '<img src="' . $image_src . '" class="rounded-circle me-3" alt="Foto de perfil" style="width: 40px; height: 40px; object-fit: cover;">';
+                                              } else {
+                                                // Icono de Bootstrap si no hay foto
+                                                echo '<i class="bi bi-person-circle fs-3 text-muted me-3" style="width: 40px; height: 40px;"></i>';
+                                              }
+                                              ?>
+                                              <div>
+                                                <h6 class="mb-0 text-dark"><?= htmlspecialchars($row_usuarios['Nombre']); ?></h6>
+                                                <p class="text-muted small mb-0"><?= htmlspecialchars($row_usuarios['Tipo_Usuario']); ?></p>
+                                              </div>
+                                            </div>
+                                          </td>
+                                          <td class="align-middle text-muted"><?= htmlspecialchars($nomDep); ?></td>
+                                          <td class="align-middle">
+                                            <div>
+                                              <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <p class="text-success fw-bold mb-0 small"><?= $porCientoEntrada; ?>%</p>
+                                                <p class="text-muted mb-0 small"><?= $numero_entrada . "/" . $total_global_entradas; ?></p>
+                                              </div>
+                                              <div class="progress progress-sm">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: <?= $porCientoEntrada; ?>%" aria-valuenow="<?= $porCientoEntrada; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                          <td class="align-middle">
+                                            <div>
+                                              <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <p class="text-danger fw-bold mb-0 small"><?= $porCientoSalida; ?>%</p>
+                                                <p class="text-muted mb-0 small"><?= $numero_salida . "/" . $total_global_salidas; ?></p>
+                                              </div>
+                                              <div class="progress progress-sm">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $porCientoSalida; ?>%" aria-valuenow="<?= $porCientoSalida; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                    <?php
+                                      }
+                                    } else {
+                                      echo '<tr><td colspan="4" class="text-center text-muted py-4">No hay usuarios recientes para mostrar.</td></tr>';
+                                    }
 
                                     ?>
-
-                                      <tr>
-                                        <td>
-                                          <div class="d-flex">
-                                            <img src="data:image/*;base64,<?php echo base64_encode($row_usuarios['Foto']); ?>" alt="" height="50px">
-                                            <div>
-                                              <h6><?= $row_usuarios['Nombre'];   ?></h6>
-                                              <p><?= $row_usuarios['Tipo_Usuario'];   ?></p>
-                                            </div>
-                                          </div>
-                                        </td>
-                                        <td>
-                                          <h6></h6>
-                                          <?php
-                                          $codeDep = $row_usuarios['Dpto'];
-                                          $depart = "SELECT * FROM departementos WHERE Id = '$codeDep'";
-                                          $resulDep = mysqli_query($conn, $depart);
-                                          $nomDep = mysqli_fetch_array($resulDep);
-                                          ?>
-                                          <p><?= $nomDep['Nombre'];  ?></p>
-                                        </td>
-                                        <td>
-                                          <?php
-                                          $user_id = $row_usuarios['Id'];
-                                          $sql_entradaUser = "SELECT * FROM entradas WHERE Usuario = $user_id";
-                                          $resultado_entradaUser = mysqli_query($conn, $sql_entradaUser);
-                                          $numero_entrada = mysqli_num_rows($resultado_entradaUser);
-                                          ?>
-                                          <div>
-                                            <?php
-                                            $resulDivE = ($numero_entrada / $numero_entradas) * 100;
-                                            $porCientoEntrada = round($resulDivE);
-                                            ?>
-                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                              <p class="text-success"><?php echo $porCientoEntrada; ?>%</p>
-                                              <p><?php echo $numero_entrada . "/" . $numero_entradas; ?></p>
-                                            </div>
-                                            <div class="progress progress-md">
-                                              <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $resulDivE; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                          </div>
-                                        </td>
-                                        <td>
-                                          <?php
-                                          $users_id = $row_usuarios['Id'];
-                                          $sql_salida = "SELECT * FROM salidas where Usuario=$users_id";
-                                          $resultado_salida = mysqli_query($conn, $sql_salida);
-                                          $numero_salida = mysqli_num_rows($resultado_salida);
-                                          ?>
-                                          <div>
-                                            <?php
-                                            $resulDivS = ($numero_salida / $numero_salidas) * 100;
-                                            $porCientoSalida = round($resulDivS);
-                                            ?>
-                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                              <p class="text-danger"><?php echo $porCientoSalida; ?>%</p>
-                                              <p><?php echo $numero_salida . "/" . $numero_salidas; ?></p>
-                                            </div>
-                                            <div class="progress progress-md">
-                                              <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $resulDivS; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                          </div>
-                                        </td>
-                                      </tr>
-
-
-                                    <?php } ?>
-
-
-
                                   </tbody>
                                 </table>
                               </div>
@@ -442,50 +478,59 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
 
                     </div>
                     <div class="col-lg-4 d-flex flex-column">
-                      <div class="row flex-grow">
+
+                      <div class="row flex-grow-1">
                         <div class="col-12 grid-margin stretch-card">
-                          <div class="card card-rounded">
+                          <div class="card card-rounded shadow-lg border-0">
                             <div class="card-body">
                               <div class="row">
                                 <div class="col-lg-12">
-                                  <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title card-title-dash">Ultimos registros de Entrada</h4>
-                                    <div class="add-items d-flex mb-0">
-                                      <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
-                                      <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></button>
-                                    </div>
+                                  <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                                    <h4 class="card-title card-title-dash text-dark fw-bold mb-0">
+                                      <i class="bi bi-journal-text me-2 text-primary"></i> Últimos Registros de Entrada
+                                    </h4>
                                   </div>
+
                                   <div class="list-wrapper">
-                                    <ul class="todo-list todo-list-rounded">
-                                      <li class="d-block">
+                                    <ul class="list-group list-group-flush">
+                                      <?php
+                                      include '../conexion/conexion.php';
+                                      $sql_entradas2 = "SELECT * FROM entradas ORDER BY Id DESC LIMIT 4";
+                                      $resultado_entradas = mysqli_query($conn, $sql_entradas2);
 
-                                        <!-- cogiendo todos los registros de entrada -->
-                                        <?php
-
-                                        $sql_entradas2 = "SELECT * FROM entradas ORDER BY Id DESC LIMIT 4";
-                                        $resultado_entradas = mysqli_query($conn, $sql_entradas2);
-                                        $fila = mysqli_fetch_assoc($resultado_entradas);
-
-
-
-                                        ?>
-
-                                        <div class="form-check w-100">
-                                          <label class="form-check-label">
-                                            <input class="checkbox" type="checkbox"><?php echo $fila['Descripcion'];  ?><i class="input-helper rounded"></i>
-                                          </label>
-                                          <div class="d-flex mt-2">
-                                            <div class="ps-4 text-small me-3"><?php echo $fila['FechaRegistro'];  ?></div>
-                                            <div class="badge badge-opacity-warning me-3">Numero: <?php echo $fila['NumRegistro'];  ?></div>
-                                            <i class="mdi mdi-flag ms-2 flag-color"></i>
-                                          </div>
-
-
-                                        </div>
-                                      </li>
-
+                                      if ($resultado_entradas && mysqli_num_rows($resultado_entradas) > 0) {
+                                        while ($fila = mysqli_fetch_assoc($resultado_entradas)) {
+                                      ?>
+                                          <li class="list-group-item d-flex justify-content-between align-items-start py-3 px-2">
+                                            <div class="d-flex align-items-start flex-grow-1">
+                                              <div class="form-check me-3 mt-1">
+                                                <input class="form-check-input" type="checkbox" id="entrada_<?= $fila['Id'] ?>">
+                                              </div>
+                                              <div>
+                                                <h6 class="mb-1 text-dark fw-semibold">
+                                                  <i class="bi bi-chevron-right text-primary me-1"></i>
+                                                  <?= htmlspecialchars(mb_strimwidth($fila['Descripcion'], 0, 50, '...')); ?>
+                                                </h6>
+                                                <small class="text-muted d-block">
+                                                  <i class="bi bi-calendar-event me-1"></i> <?= htmlspecialchars($fila['FechaRegistro']); ?>
+                                                </small>
+                                              </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                              <span class="badge bg-light text-primary border border-primary py-2 px-3 rounded-pill fw-medium shadow-sm">
+                                                <i class="bi bi-hash me-1"></i> <?= htmlspecialchars($fila['NumRegistro']); ?>
+                                              </span>
+                                            </div>
+                                          </li>
+                                      <?php
+                                        }
+                                      } else {
+                                        echo '<li class="list-group-item text-center text-muted py-4">No hay registros de entrada recientes.</li>';
+                                      }
+                                      ?>
                                     </ul>
                                   </div>
+
                                 </div>
                               </div>
                             </div>
@@ -493,46 +538,93 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                         </div>
                       </div>
 
+
+
+
+                       <div class="row flex-grow">
+                        <div class="col-12 grid-margin stretch-card">
+                          <div class="card card-rounded">
+                            <div class="card shadow-sm border-0 rounded-4 bg-light-subtle">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <!-- Título -->
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                      <div>
+                                        <h4 class="fw-bold text-primary mb-1">
+                                          🧮 Entradas vs Salidas - <?= $anio_actual ?>
+                                        </h4>
+                                        <p class="text-muted small mb-0">Resumen gráfico de los registros anuales</p>
+                                      </div>
+                                    </div>
+
+                                    <!-- Gráfico -->
+                                    <div class="bg-white border rounded-3 p-3 shadow-sm">
+                                      <div id="piechart1" style="width: 100%; height: 100%;"></div>
+                                    </div>
+
+                                    <!-- Leyenda si aplica -->
+                                    <div id="doughnut-chart-legend" class="mt-4 text-center text-muted small"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+
                       <div class="row flex-grow">
                         <div class="col-12 grid-margin stretch-card">
                           <div class="card card-rounded">
                             <div class="card-body">
                               <div class="row">
                                 <div class="col-lg-12">
-                                  <div class="d-flex justify-content-between align-items-center mb-3">
+                                  <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div>
-                                      <h4 class="card-title card-title-dash">Ultimos registros de salida</h4>
+                                      <h4 class="card-title card-title-dash">Últimos Registros de Salida</h4>
+                                      <p class="text-muted mb-0">Visualiza los movimientos más recientes</p>
                                     </div>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Ver Todos</a>
                                   </div>
                                   <div class="mt-3">
-
-
-                                    <!-- cogiendo todos los registros de entrada -->
                                     <?php
+                                    // Asegúrate de que $conn esté definido y sea una conexión válida a la base de datos
+                                    // Ejemplo (adapta esto a tu configuración):
+                                    // $servername = "localhost";
+                                    // $username = "tu_usuario";
+                                    // $password = "tu_contraseña";
+                                    // $dbname = "tu_base_de_datos";
+                                    // $conn = mysqli_connect($servername, $username, $password, $dbname);
+                                    // if (!$conn) {
+                                    //     die("Conexión fallida: " . mysqli_connect_error());
+                                    // }
 
                                     $sql_salida23 = "SELECT * FROM salidas ORDER BY Id DESC LIMIT 4";
                                     $resultado_salida23 = mysqli_query($conn, $sql_salida23);
-                                    $fila2 = mysqli_fetch_assoc($resultado_salida23);
 
-                                    $numero = mysqli_num_rows($resultado_salida23);
-
+                                    if (mysqli_num_rows($resultado_salida23) > 0) {
+                                      echo '<ul class="list-group list-group-flush">';
+                                      while ($fila = mysqli_fetch_assoc($resultado_salida23)) {
+                                        echo '<li class="list-group-item d-flex justify-content-between align-items-start">';
+                                        echo '  <div class="ms-2 me-auto">';
+                                        echo '    <div class="fw-bold">' . htmlspecialchars($fila['Descripcion']) . '</div>'; // Usa htmlspecialchars para evitar XSS
+                                        echo '    <small class="text-muted">' . htmlspecialchars($fila['FechaRegistro']) . '</small>';
+                                        echo '  </div>';
+                                        echo '  <span class="badge bg-primary rounded-pill">Número: ' . htmlspecialchars($fila['NumRegistro']) . '</span>';
+                                        echo '</li>';
+                                      }
+                                      echo '</ul>';
+                                    } else {
+                                      echo '<div class="alert alert-info text-center" role="alert">';
+                                      echo '  No hay registros de salida recientes.';
+                                      echo '</div>';
+                                    }
+                                    // No olvides cerrar la conexión a la base de datos al final de tu script o página
+                                    // mysqli_close($conn);
                                     ?>
-
-
-                                    <div class="form-check w-100">
-                                      <label class="form-check-label">
-                                        <input class="checkbox" type="checkbox"><?php echo $fila2['Descripcion'];  ?><i class="input-helper rounded"></i>
-                                      </label>
-                                      <div class="d-flex mt-2">
-                                        <div class="ps-4 text-small me-3"><?php echo $fila2['FechaRegistro'];  ?></div>
-                                        <div class="badge badge-opacity-warning me-3">Numero: <?php echo $fila2['NumRegistro'];  ?></div>
-                                        <i class="mdi mdi-flag ms-2 flag-color"></i>
-                                      </div>
-
-
-                                    </div>
-
-
                                   </div>
                                 </div>
                               </div>
@@ -540,6 +632,7 @@ $numero_instituciones = mysqli_num_rows($resultado_instituciones);
                           </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>

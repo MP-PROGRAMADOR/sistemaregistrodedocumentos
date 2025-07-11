@@ -1,26 +1,25 @@
-
-
 <?php
 
 require '../conexion/conexion.php';
 
-$sqlPacientes= " SELECT usuarios.*, departementos.Nombre AS NombreDepartamento
-FROM usuarios
-LEFT JOIN departementos ON usuarios.Dpto = departementos.Id
-";
+  $sqlInstituciones = "SELECT departementos.Id AS Codigo, departementos.Nombre AS Departamento, instituciones.Nombre_Corto AS Institucion 
+    FROM departementos INNER JOIN instituciones ON departementos.Institucion = instituciones.Id WHERE instituciones.Nombre_Corto != 'TGE';";
 
-$pacientes= $conn->query($sqlPacientes);
+  $instituciones = $conn->query($sqlInstituciones);
+
+  $sqlreferencias = "SELECT * FROM referencias";
+
+  $referencias = $conn->query($sqlreferencias);  
 
 
 ?>
 
-
 <?php require "../componentes/head.php"; ?>
 <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
-    <?php require "../componentes/topMenu.php"; ?>
+    <?php require "../componentes/topMenu.php"; ?> 
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper"> 
         <!-- partial:../../partials/_settings-panel.html -->
         <!-- <div class="theme-setting-wrapper">
             <div id="settings-trigger"><i class="ti-settings"></i></div>
@@ -139,7 +138,7 @@ $pacientes= $conn->query($sqlPacientes);
                     </div>
                     <ul class="chat-list">
                         <li class="list active">
-                            <div class="profile"><img src="../../images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                            <div class="profile"><img src="../images/faces/face1.jpg" alt="image"><span class="online"></span></div>
                             <div class="info">
                                 <p>Thomas Douglas</p>
                                 <p>Available</p>
@@ -147,7 +146,7 @@ $pacientes= $conn->query($sqlPacientes);
                             <small class="text-muted my-auto">19 min</small>
                         </li>
                         <li class="list">
-                            <div class="profile"><img src="../../images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+                            <div class="profile"><img src="../images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
                             <div class="info">
                                 <div class="wrapper d-flex">
                                     <p>Catherine</p>
@@ -158,7 +157,7 @@ $pacientes= $conn->query($sqlPacientes);
                             <small class="text-muted my-auto">23 min</small>
                         </li>
                         <li class="list">
-                            <div class="profile"><img src="../../images/faces/face3.jpg" alt="image"><span class="online"></span></div>
+                            <div class="profile"><img src="../images/faces/face3.jpg" alt="image"><span class="online"></span></div>
                             <div class="info">
                                 <p>Daniel Russell</p>
                                 <p>Available</p>
@@ -166,7 +165,7 @@ $pacientes= $conn->query($sqlPacientes);
                             <small class="text-muted my-auto">14 min</small>
                         </li>
                         <li class="list">
-                            <div class="profile"><img src="../../images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
+                            <div class="profile"><img src="../images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
                             <div class="info">
                                 <p>James Richardson</p>
                                 <p>Away</p>
@@ -174,7 +173,7 @@ $pacientes= $conn->query($sqlPacientes);
                             <small class="text-muted my-auto">2 min</small>
                         </li>
                         <li class="list">
-                            <div class="profile"><img src="../../images/faces/face5.jpg" alt="image"><span class="online"></span></div>
+                            <div class="profile"><img src="../images/faces/face5.jpg" alt="image"><span class="online"></span></div>
                             <div class="info">
                                 <p>Madeline Kennedy</p>
                                 <p>Available</p>
@@ -182,7 +181,7 @@ $pacientes= $conn->query($sqlPacientes);
                             <small class="text-muted my-auto">5 min</small>
                         </li>
                         <li class="list">
-                            <div class="profile"><img src="../../images/faces/face6.jpg" alt="image"><span class="online"></span></div>
+                            <div class="profile"><img src="../images/faces/face6.jpg" alt="image"><span class="online"></span></div>
                             <div class="info">
                                 <p>Sarah Graves</p>
                                 <p>Available</p>
@@ -196,12 +195,18 @@ $pacientes= $conn->query($sqlPacientes);
         </div>
         <!-- partial -->
         <!-- partial:../../partials/_sidebar.html -->
-         <?php require "../componentes/sidebarAdmin.php"; ?>        
+         <?php require "../componentes/sidebarAdmin.php"; ?>         
         <!-- partial sidebar final -->
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">                  
-                <?php require "../componentes/tabla_usuarios.php"; ?>  
+                <?php 
+                    $CodSalid = $_GET['id'];
+                    $qSalida = "SELECT * FROM salidas WHERE Id = '$CodSalid'";
+                    $Execute = mysqli_query($conn, $qSalida);
+                    $resultado = mysqli_fetch_array($Execute);
+                    require "../componentes/formularioSalidasEditar_admin.php"; 
+                ?> 
                 </div>
             </div>
             <!-- content-wrapper ends -->

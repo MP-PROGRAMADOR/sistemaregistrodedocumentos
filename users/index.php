@@ -312,24 +312,14 @@ $numero_decretos = mysqli_num_rows($resultado_decreto);
                                   <p class="text-muted small mb-0">Registro anual de entradas y salidas</p>
                                 </div>
                                 <div>
-                                  <div class="dropdown">
-                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButtonAnios"
-                                      data-bs-toggle="dropdown" aria-expanded="false">
-                                      <i class="bi bi-calendar3 me-1"></i> Año
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="dropdownMenuButtonAnios">
-                                      <?php for ($anio = 2023; $anio <= 2030; $anio++): ?>
-                                        <li><a class="dropdown-item seleccionar-anio" href="#" data-anio="<?= $anio ?>"><?= $anio ?></a></li>
-                                      <?php endfor; ?>
-                                    </ul>
-                                  </div>
+                                 
                                 </div>
                               </div>
 
                               <!-- Gráfico -->
                               <div class="mt-4">
                                 <div class="bg-white border rounded-3 p-3 shadow-sm">
-                                  <div id="columnchart_material" style="width: 100%; height: 320px;"></div>
+                                  <div id="chart_div" style="width: 100%; height: 100%;"></div>
                                 </div>
                               </div>
                             </div>

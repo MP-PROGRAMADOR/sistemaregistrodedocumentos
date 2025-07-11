@@ -1,13 +1,4 @@
-<?php
 
-require '../conexion/conexion.php';
-
-$sqlDepartamentos= " SELECT * FROM departementos";
-
-$departamentos1= $conn->query($sqlDepartamentos);
-
-
-?>
 
 
 
@@ -30,6 +21,7 @@ $departamentos1= $conn->query($sqlDepartamentos);
                     <option selected value="">Selecciona....</option>
                     <option selected value="ADMINISTRADOR">ADMINISTRADOR</option>
                     <option selected value="USUARIO">USUARIO</option>
+                     <option selected value="SUPERUSUARIO">SUPER-USUARIO</option>
                     </select>
                 </div>
                 <div class="form-group">

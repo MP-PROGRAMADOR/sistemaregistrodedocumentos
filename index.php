@@ -31,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($nombre_usuario) || empty($password)) {
         $msg = 'Por favor complete todos los campos.';
     } else {
-        // Usamos un bloque try-finally para asegurar el cierre de recursos
         try {
-            $stmt = $conn->prepare("SELECT Id, Nombre, Pass, Tipo_Usuario FROM usuarios WHERE Nombre = ?");
+            // AÑADIMOS 'Activo' A LA CONSULTA
+            $stmt = $conn->prepare("SELECT Id, Nombre, Pass, Tipo_Usuario, Activo FROM usuarios WHERE Nombre = ?");
             if ($stmt === false) {
                 throw new Exception("Error al preparar la consulta: " . $conn->error);
             }
@@ -44,13 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($resultado->num_rows === 1) {
                 $usuario = $resultado->fetch_assoc();
 
-                if (password_verify($password, $usuario['Pass'])) {
+                // COMPROBAR SI EL USUARIO ESTÁ ACTIVO
+                if ((int)$usuario['Activo'] !== 1) {
+                    $msg = "El usuario está inactivo.";
+                } elseif (password_verify($password, $usuario['Pass'])) {
                     $_SESSION['usuario'] = $usuario['Nombre'];
                     $_SESSION['codigo'] = $usuario['Id'];
                     $_SESSION['tipo'] = $usuario['Tipo_Usuario'];
 
-                    // Redireccionar inmediatamente después del éxito
-                    if ($usuario['Tipo_Usuario'] === "ADMINISTRADOR") {
+                    // Redireccionar según tipo
+                    if ($usuario['Tipo_Usuario'] === "ADMINISTRADOR" || $usuario['Tipo_Usuario'] === "SUPERUSUARIO") {
                         header("Location: admin/index.php");
                         exit;
                     } elseif ($usuario['Tipo_Usuario'] === "USUARIO") {
@@ -67,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } catch (Exception $e) {
             $msg = "Ocurrió un error en el servidor: " . $e->getMessage();
-            error_log($e->getMessage()); // Para depuración, registra el error en el log del servidor
+            error_log($e->getMessage());
         } finally {
             if (isset($stmt) && $stmt !== false) {
                 $stmt->close();
@@ -78,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
